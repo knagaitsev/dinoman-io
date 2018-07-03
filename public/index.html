@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>Phaser Game</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/main.css">
+
+    <link rel="stylesheet" href="css/vendor/avgrund.css">
+
+    <!-- Compiled and minified CSS -->
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">-->
+
+    <!-- Compiled and minified JavaScript -->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>-->
+
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+    <script src="src/vendor/jquery.avgrund.min.js"></script>
+    <script src="src/vendor/fitToParent.min.js"></script>
+
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.10.1/dist/phaser.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="src/mapmaker.js"></script>
+    <script src="src/compass.js"></script>
+    <script src="src/game.js"></script>
+    <script src="src/menu.js"></script>
+    <script src="src/boot.js"></script>
+</head>
+
+<body>
+    <div id="phaser-container">
+        <div id="phaser-overlay-container" width="1280" height="720">
+            <div id="phaser-overlay">
+                <div class="leaderboard">
+                    <h3>Leaderboard</h3>
+                    <ol>
+                        <li>Boss Tweedfjldkj</li>
+                        <li>Mister Bean</li>
+                        <li>Boss Tweedfjldkj</li>
+                        <li>Mister Bean</li>
+                    </ol>
+                </div>
+                <div class="score">
+                    <p>Score: 728</p>
+                </div>
+                <div class="notification-tray">
+                    <div><p>Use your tracker to hunt down enemies!</p></div>
+                    <div><p>Use your tracker to hunt down enemies!</p></div>
+                </div>
+            </div>
+        </div>
+        <div id="canvas-container">
+
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,177 @@
+html, body {
+    background-color: white;
+    height: 100%;
+  }
+
+html { 
+    background-image: url('../asset/loonride/logo-colored-small.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center 99.5%;
+    background-size: auto 3%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    color: #333;
+    font: caption;
+}
+
+#phaser-container {
+    z-index: 999;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#canvas-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+
+}
+
+canvas {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+#phaser-overlay-container {
+    z-index: 999;
+    position: relative;
+    display: none;
+}
+
+#phaser-overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#version {
+    position: absolute;
+    left: 5px;
+    top: 605px;
+}
+
+#logo {
+    z-index: 1;
+    position: relative;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.avgrund-popup {
+    font-family: Ubuntu;
+    text-align: center;
+}
+
+.avgrund-popup h3 {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.avgrund-popup input {
+    width: 90%;
+    padding: 5%;
+    border-radius: 3px;
+    display: block;
+    margin: 10px auto;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    border: none;
+    outline: none;
+    font-size: 18px;
+}
+
+.avgrund-popup input[type="text"] {
+    background-image: linear-gradient( 45deg, rgb(226, 226, 226) 10%, rgb(250, 250, 250) 100%);
+}
+
+.avgrund-popup input[type="submit"] {
+    background-image: linear-gradient( 135deg, #FEB692 10%, #EA5455 100%);
+    color: white;
+    font-weight: 500;
+}
+
+#phaser-overlay .leaderboard, #phaser-overlay .score {
+    position: absolute;
+    background-color: rgba(0, 0, 0, .1);
+    border-radius: 3px;
+    color: white;
+    text-align: center;
+    font-family: Ubuntu;
+    overflow: hidden;
+}
+
+#phaser-overlay .leaderboard {
+    top: 10px;
+    right: 10px;
+    width: 200px;
+}
+
+#phaser-overlay .score {
+    left: 10px;
+    bottom: 10px;
+}
+
+#phaser-overlay .score p {
+    margin: 3px 6px;
+}
+
+#phaser-overlay .leaderboard h3 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+#phaser-overlay .leaderboard ol {
+    text-align: left;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-left: 35px;
+}
+
+#phaser-overlay .leaderboard ol li {
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+#phaser-overlay .leaderboard ol li.me {
+    color: rgb(235, 67, 117);
+}
+
+#phaser-overlay .notification-tray {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    font-family: Ubuntu;
+    color: white;
+}
+
+#phaser-overlay .notification-tray div {
+    text-align: center;
+    background-color: rgba(0, 0, 0, .1);
+    border-radius: 3px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+#phaser-overlay .notification-tray div p {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 10px;
+}

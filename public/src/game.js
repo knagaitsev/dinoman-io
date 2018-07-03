@@ -1,0 +1,303 @@
+class Game extends Phaser.Scene {
+
+    constructor() {
+        super('Game');
+
+        this.overlay = $("#phaser-overlay");
+    }
+
+    init(config) {
+        this.cursors = null;
+        this.player = null;
+
+        this.uuid = config.uuid;
+
+        this.socket = config.socket;
+
+        this.mapMaker = new MapMaker(this);
+
+        this.flipX = false;
+
+        this.direc = -1;
+        this.direcLog = [];
+
+        this.initOverlay(config);
+    }
+
+    create(config) {
+
+        var self = this;
+
+        setTimeout(function() {
+            self.notification("Avoid ghosts to survive!");
+        }, 3000);
+
+        this.events.on('shutdown', function() {
+            self.scene.stop('Compass');
+            self.textures.remove('map');
+            $('#phaser-overlay-container').hide();
+        });
+
+        this.players = {};
+
+        this.socket.on('error', function(error) {
+            self.socket.close();
+            self.scene.start('Menu', {
+                type: "error",
+                title: "Error",
+                text: "An error occurred with the server"
+            });
+        });
+
+        this.socket.on('disconnect', function(reason) {
+            console.log("disconnected");
+            self.socket.close();
+            self.scene.start('Menu');
+        });
+
+        this.mapMaker.addTiles(config.maze, config.food);
+
+        this.socket.on('food', function(food) {
+            if (typeof food == "object" && food instanceof Array) {
+                for (var i = 0 ; i < food.length ; i++) {
+                    self.mapMaker.food[food[i].x][food[i].y] = food[i].type;
+                }
+            }
+            else if (typeof food == "object") {
+                self.mapMaker.food[food.x][food.y] = food.type;
+            }
+        });
+
+        this.cursors = this.input.keyboard.createCursorKeys();
+
+        this.anims.create({
+            key: 'eat',
+            frames: this.anims.generateFrameNumbers('man', { start: 0, end: 1 }),
+            frameRate: 5,
+            repeat: -1
+        });
+        
+        this.anims.create({
+            key: 'ghost-forward-normal',
+            frames: this.anims.generateFrameNumbers('man', { start: 0, end: 1 }),
+            frameRate: 5,
+            repeat: -1
+        });
+
+        Object.keys(config.players).forEach(function(key, index) {
+            self.addPlayer(config.players[key]);
+        });
+
+        this.player = this.getPlayerSprite(config);
+
+        this.scene.launch('Compass', {
+            socket: this.socket,
+            player: this.player
+        });
+
+        this.cameras.main.setSize(1280, 720);
+        this.cameras.main.startFollow(this.player);
+
+        this.socket.on('user connected', this.addPlayer.bind(this));
+
+        this.socket.on('user position', function(user) {
+            self.players[user.uuid].x = user.x;
+            self.players[user.uuid].y = user.y;
+            self.players[user.uuid].rotation = user.rotation;
+            self.players[user.uuid].flipX = user.flipX;
+        });
+
+        this.socket.on('user disconnected', function(uuid) {
+            self.players[uuid].sprite.destroy();
+            delete self.players[uuid];
+        });
+
+        this.socket.on('score', function(score) {
+            self.setScore(score);
+        });
+
+        this.socket.on('leaderboard', function(leaderboard) {
+            self.setLeaderboard(leaderboard);
+        });
+    }
+
+    update(timestep, dt) {
+
+        var self = this;
+        Object.keys(this.players).forEach(function(key, index) {
+            self.players[key].sprite.x = self.players[key].x;
+            self.players[key].sprite.y = self.players[key].y;
+            self.players[key].sprite.setRotation(self.players[key].rotation);
+            self.players[key].sprite.setFlipX(self.players[key].flipX);
+        });
+
+        this.mapMaker.updateFood(this.player.x, this.player.y);
+
+        this.children.bringToTop(this.player);
+    
+        //player.setVelocity(0);
+        var maxSpeed = 10;
+        var speed = (dt / 4);
+        speed = Math.min(speed, maxSpeed);
+    
+        var prevDirec = this.direc;
+        if (this.cursors.left.isDown)
+        {
+            this.direc = 1;
+        }
+        else if (this.cursors.right.isDown || this.direc == -1)
+        {
+            this.direc = 3;
+        }
+        else if (this.cursors.up.isDown)
+        {
+            this.direc = 0;
+        }
+        else if (this.cursors.down.isDown)
+        {
+            this.direc = 2;
+        }
+    
+        if (this.direc != -1 && this.mapMaker.initialized) {
+            for (var i = 0 ; i < this.direcLog.length ; i++) {
+                this.direcLog[i].time += dt;
+            }
+            this.direcLog.unshift({
+                direc: this.direc,
+                time: 0
+            });
+             while (this.direcLog[this.direcLog.length - 1].time > 300) {
+                this.direcLog.pop();
+            }
+            var success = false;
+            for (var i = 0 ; i < this.direcLog.length ; i++) {
+                if (this.direcLog[i].direc != prevDirec) {
+                    var regVec = this.getMotionVector(prevDirec, speed);
+                    var motionVec = this.getMotionVector(this.direcLog[i].direc, speed);
+                    var res = this.mapMaker.checkCollision(this.player.x, this.player.y, this.player.x + motionVec.x, this.player.y + motionVec.y, this.direcLog[i].direc, true, regVec);
+                    if (res.success) {
+                        this.direc = this.direcLog[i].direc;
+                        this.direcLog = [];
+                        this.player.x = res.x;
+                        this.player.y = res.y;
+                        success = true;
+                        break;
+                    }
+                }
+            }
+            if (!success) {
+                var motionVec = this.getMotionVector(prevDirec, speed);
+                var res = this.mapMaker.checkCollision(this.player.x, this.player.y, this.player.x + motionVec.x, this.player.y + motionVec.y, prevDirec, false, motionVec);
+                this.direc = prevDirec;
+                this.player.x = res.x;
+                this.player.y = res.y;
+            }
+        }
+    
+        if (this.direc == 1) {
+            this.player.setFlipX(true);
+            this.flipX = true;
+            this.player.setRotation(Phaser.Math.DegToRad(0));
+        }
+        else if (this.direc == 3) {
+            this.player.setFlipX(false);
+            this.flipX = false;
+            this.player.setRotation(Phaser.Math.DegToRad(0));
+        }
+        else if (this.direc == 0) {
+            this.player.setFlipX(false);
+            this.flipX = false;
+            this.player.setRotation(Phaser.Math.DegToRad(270));
+        }
+        else if (this.direc == 2) {
+            this.player.setFlipX(false);
+            this.flipX = false;
+            this.player.setRotation(Phaser.Math.DegToRad(90));
+        }
+    
+        if (this.socket) {
+            this.socket.emit("position", {x: this.player.x, y: this.player.y, rotation: this.player.rotation, flipX: this.flipX});
+        }
+    }
+
+    addPlayer(user) {
+        this.players[user.uuid] = user;
+        this.players[user.uuid].sprite = this.getPlayerSprite(user);
+        this.children.bringToTop(this.player);
+    }
+
+    getPlayerSprite(user) {
+        var sprite = this.physics.add.sprite(user.x, user.y, user.playerType).setScale(0.6);
+        if (user.playerType == "man")
+            sprite.anims.play("eat");
+        return sprite;
+    }
+
+    getMotionVector(direc, speed) {
+        var obj = {
+            x: 0,
+            y: 0
+        };
+        if (direc == 1) {
+            obj.x -= speed;
+        }
+        else if (direc == 3) {
+            obj.x += speed;
+        }
+        else if (direc == 0) {
+            obj.y -= speed;
+        }
+        else if (direc == 2) {
+            obj.y += speed;
+        }
+    
+        return obj;
+    }
+
+    initOverlay(config) {
+        $('#phaser-overlay-container').show();
+        var overlay = this.overlay;
+        overlay.find('.notification-tray').empty();
+        this.setScore(config.score);
+        this.setLeaderboard([]);
+    }
+
+    setScore(score) {
+        var overlay = this.overlay;
+        overlay.find(".score").find("p").text("Score: " + score);
+    }
+
+    setLeaderboard(data) {
+        var overlay = this.overlay;
+        var leaderboard = overlay.find(".leaderboard").find('ol');
+        leaderboard.empty();
+        for (var i = 0 ; i < data.length ; i++) {
+            var elem = $("<li></li>");
+            elem.text(data[i].name + " - " + data[i].score);
+            if (data[i].uuid == this.uuid) {
+                elem.addClass('me');
+            }
+            elem.appendTo(leaderboard);
+        }
+    }
+
+    notification(text) {
+        var overlay = this.overlay;
+        var target = overlay.find(".notification-tray");
+        var elem = $("<div></div>");
+        var p = $("<p></p>");
+        p.text(text);
+        p.appendTo(elem);
+        elem.prependTo(target);
+        elem.hide();
+        var fadeTime = 500;
+        var readTime = 7000;
+        elem.fadeIn(fadeTime, function() {
+            setTimeout(function() {
+                elem.fadeOut(fadeTime, function() {
+                    elem.remove();
+                });
+            }, readTime);
+        });
+    }
+}
