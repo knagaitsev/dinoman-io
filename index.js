@@ -54,6 +54,43 @@ function collides(player1, player2) {
     return false;
 }
 
+function distance2(p1, p2) {
+    var d1 = p1.x - p2.x;
+    var d2 = p1.y - p2.y;
+    return d1 * d1 + d2 * d2;
+}
+
+function findBestStartingPosition(playerType) {
+    var furthestDist = -1;
+    var bestStart = null;
+    var starts = maze.getTilePositions();
+    return {x: 1200, y: 1200};
+    for (var i = 0 ; i < starts.length ; i++) {
+        var start = starts[i];
+        var closestPlayerDist = -1;
+        Object.keys(players).forEach(function(uuid, index) {
+            var player = players[uuid];
+            if (playerType != player.playerType) {
+                var dist = distance2(player, start);
+                if (closestPlayerDist == -1 || dist < closestPlayerDist) {
+                    closestPlayerDist = dist;
+                }
+            }
+        });
+
+        if (closestPlayerDist > furthestDist) {
+            furthestDist = closestPlayerDist;
+            bestStart = start;
+        }
+    }
+
+    if (bestStart === null) {
+        bestStart = starts[maze.getRandomIntInclusive(0, starts.length - 1)];
+    }
+
+    return bestStart;
+}
+
 io.on('connection', function (socket) {
     
     var uuid = uuidv1();
@@ -64,31 +101,31 @@ io.on('connection', function (socket) {
             if (nickname == "") {
                 nickname = "Unnamed";
             }
-            var x = 1200;
-            var y = 1200;
             var score = 10;
             var playerType = getNewPlayerType();
+            var pos = findBestStartingPosition(playerType);
             socket.emit('config', {
                 players: players,
                 maze: mazeData,
                 food: maze.food,
                 uuid: uuid,
                 playerType: playerType,
-                x: x,
-                y: y,
+                x: pos.x,
+                y: pos.y,
                 score: score
             });
 
             players[uuid] = {
                 uuid: uuid,
-                x: x,
-                y: y,
+                x: pos.x,
+                y: pos.y,
                 rotation: 0,
                 flipX: false,
                 nickname: nickname,
                 score: score,
                 playerType: playerType,
-                timestamp: Date.now()
+                timestamp: Date.now(),
+                direc: 3
             };
 
             sockets[uuid] = socket;
@@ -104,13 +141,15 @@ io.on('connection', function (socket) {
         if (players[uuid]) {
             var time = Date.now();
             var dt = time - players[uuid].timestamp;
-            if (typeof data.x == "number" && typeof data.y == "number" && typeof data.rotation == "number" && typeof data.flipX == "boolean"
-                && maze.checkCollision(players[uuid].x, players[uuid].y, data.x, data.y, dt)) {
+            if (typeof data.x == "number" && typeof data.y == "number" && typeof data.rotation == "number"
+                && typeof data.flipX == "boolean" && typeof data.direc == "number" && data.direc >= 0 && data.direc < 4 && data.direc == Math.floor(data.direc)
+                && maze.checkCollision(players[uuid].x, players[uuid].y, data.x, data.y, dt, players[uuid].nickname)) {
                 players[uuid].timestamp = time;
                 players[uuid].x = data.x;
                 players[uuid].y = data.y;
                 players[uuid].rotation = data.rotation;
                 players[uuid].flipX = data.flipX;
+                players[uuid].direc = data.direc;
                 socket.broadcast.emit('user position', players[uuid]);
             }
             else if (socket.connected) {
@@ -126,25 +165,50 @@ io.on('connection', function (socket) {
     });
 });
 
+var powerupEnd = Date.now();
+
 setInterval(function() {
-    Object.keys(players).forEach(function(uuid1, index) {
-        var player1 = players[uuid1];
-        if (player1 && player1.playerType == "man") {
-            Object.keys(players).forEach(function(uuid2, index) {
-                var player2 = players[uuid2];
-                if (player2 && player2.playerType == "ghost" && collides(player1, player2)) {
-                    players[uuid2].score += 100;
-                    if (sockets[uuid2] && sockets[uuid2].connected) {
-                        sockets[uuid2].emit("score", players[uuid2].score);
+
+    if (powerupEnd <= Date.now()) {
+        Object.keys(players).forEach(function(uuid1, index) {
+            var player1 = players[uuid1];
+            if (player1 && player1.playerType == "man") {
+                Object.keys(players).forEach(function(uuid2, index) {
+                    var player2 = players[uuid2];
+                    if (player2 && player2.playerType == "ghost" && collides(player1, player2)) {
+                        players[uuid2].score += 100;
+                        if (sockets[uuid2] && sockets[uuid2].connected) {
+                            sockets[uuid2].emit("score", players[uuid2].score);
+                        }
+                        if (sockets[uuid1] && sockets[uuid1].connected) {
+                            sockets[uuid1].disconnect();
+                        }
+                        return false;
                     }
-                    if (sockets[uuid1] && sockets[uuid1].connected) {
-                        sockets[uuid1].disconnect();
+                });
+            }
+        });
+    }
+    else {
+        Object.keys(players).forEach(function(uuid1, index) {
+            var player1 = players[uuid1];
+            if (player1 && player1.playerType == "ghost") {
+                Object.keys(players).forEach(function(uuid2, index) {
+                    var player2 = players[uuid2];
+                    if (player2 && player2.playerType == "man" && collides(player1, player2)) {
+                        players[uuid2].score += 300;
+                        if (sockets[uuid2] && sockets[uuid2].connected) {
+                            sockets[uuid2].emit("score", players[uuid2].score);
+                        }
+                        if (sockets[uuid1] && sockets[uuid1].connected) {
+                            sockets[uuid1].disconnect();
+                        }
+                        return false;
                     }
-                    return false;
-                }
-            });
-        }
-    });
+                });
+            }
+        });
+    }
 
     Object.keys(players).forEach(function(uuid, index) {
         var player = players[uuid];
@@ -157,7 +221,8 @@ setInterval(function() {
                     sockets[uuid].emit("score", players[uuid].score);
                 }
                 else if (collisionData.type == 2) {
-
+                    var sec = 10;
+                    powerupEnd = Date.now() + sec * 1000;
                 }
                 var addedFood = maze.addFood();
                 newFood.push(addedFood);
@@ -190,9 +255,6 @@ setInterval(function() {
     });
 
     var leaderboard = arr.slice(0, 10);
-    Object.keys(sockets).forEach(function(uuid, index) {
-       if (sockets[uuid] && sockets[uuid].connected) {
-            sockets[uuid].emit('leaderboard', leaderboard);
-       } 
-    });
+    io.emit('leaderboard', leaderboard);
+    io.emit('powerup', powerupEnd - Date.now());
 }, 50);

@@ -4,9 +4,16 @@ class Game extends Phaser.Scene {
         super('Game');
 
         this.overlay = $("#phaser-overlay");
+
+        this.oldMapData = null;
+    }
+
+    preload() {
+        this.initOverlay(this.config);
     }
 
     init(config) {
+        this.config = config;
         this.cursors = null;
         this.player = null;
 
@@ -18,10 +25,12 @@ class Game extends Phaser.Scene {
 
         this.flipX = false;
 
-        this.direc = -1;
+        this.direc = 3;
         this.direcLog = [];
 
-        this.initOverlay(config);
+        this.powerupState = "default";
+
+        this.playerType = config.playerType;
     }
 
     create(config) {
@@ -33,8 +42,9 @@ class Game extends Phaser.Scene {
         }, 3000);
 
         this.events.on('shutdown', function() {
-            self.scene.stop('Compass');
-            self.textures.remove('map');
+            if (self.playerType == "ghost") {
+                self.scene.stop('Compass');
+            }
             $('#phaser-overlay-container').hide();
         });
 
@@ -54,8 +64,9 @@ class Game extends Phaser.Scene {
             self.socket.close();
             self.scene.start('Menu');
         });
-
-        this.mapMaker.addTiles(config.maze, config.food);
+        
+        this.mapMaker.addTiles(config.maze, config.food, this.oldMapData);
+        this.oldMapData = config.maze;
 
         this.socket.on('food', function(food) {
             if (typeof food == "object" && food instanceof Array) {
@@ -76,13 +87,31 @@ class Game extends Phaser.Scene {
             frameRate: 5,
             repeat: -1
         });
-        
-        this.anims.create({
-            key: 'ghost-forward-normal',
-            frames: this.anims.generateFrameNumbers('man', { start: 0, end: 1 }),
-            frameRate: 5,
-            repeat: -1
-        });
+
+        var directionStates = ["", "-up", "-down"];
+
+        for (var i = 0 ; i < directionStates.length ; i++) {
+            this.anims.create({
+                key: ("default" + directionStates[i]) + "",
+                frames: this.anims.generateFrameNumbers('ghost', {frames: [0 + i]}),
+                frameRate: 5,
+                repeat: 0
+            });
+    
+            this.anims.create({
+                key: ("powerup" + directionStates[i]) + "",
+                frames: this.anims.generateFrameNumbers('ghost', {frames: [3 + i]}),
+                frameRate: 5,
+                repeat: 0
+            });
+            
+            this.anims.create({
+                key: ("powerup-wearoff" + directionStates[i]) + "",
+                frames: this.anims.generateFrameNumbers('ghost', {frames: [3 + i, 6 + i]}),
+                frameRate: 5,
+                repeat: -1
+            });
+        }
 
         Object.keys(config.players).forEach(function(key, index) {
             self.addPlayer(config.players[key]);
@@ -90,10 +119,13 @@ class Game extends Phaser.Scene {
 
         this.player = this.getPlayerSprite(config);
 
-        this.scene.launch('Compass', {
-            socket: this.socket,
-            player: this.player
-        });
+        if (this.playerType == "ghost") {
+            this.scene.launch('Compass', {
+                socket: this.socket,
+                player: this.player,
+                players: this.players
+            });
+        }
 
         this.cameras.main.setSize(1280, 720);
         this.cameras.main.startFollow(this.player);
@@ -105,6 +137,7 @@ class Game extends Phaser.Scene {
             self.players[user.uuid].y = user.y;
             self.players[user.uuid].rotation = user.rotation;
             self.players[user.uuid].flipX = user.flipX;
+            self.players[user.uuid].direc = user.direc;
         });
 
         this.socket.on('user disconnected', function(uuid) {
@@ -119,6 +152,38 @@ class Game extends Phaser.Scene {
         this.socket.on('leaderboard', function(leaderboard) {
             self.setLeaderboard(leaderboard);
         });
+
+        this.socket.on('powerup', function(time) {
+            var anim = "";
+            if (time > 0) {
+                var wearoffSec = 3;
+                if (time > wearoffSec * 1000) {
+                    anim = "powerup";
+                }
+                else {
+                    anim = "powerup-wearoff";
+                }
+            }
+            else {
+                anim = "default";
+            }
+
+            self.powerupState = anim;
+        });
+
+        this.add.text(1200, 1200, "Hello world");
+    }
+
+    getGhostAnim(direc) {
+        var state = this.powerupState;
+        if (direc == 0) {
+            state += "-up";
+        }
+        else if (direc == 2) {
+            state += "-down";
+        }
+
+        return state;
     }
 
     update(timestep, dt) {
@@ -129,6 +194,13 @@ class Game extends Phaser.Scene {
             self.players[key].sprite.y = self.players[key].y;
             self.players[key].sprite.setRotation(self.players[key].rotation);
             self.players[key].sprite.setFlipX(self.players[key].flipX);
+        });
+
+        Object.keys(this.players).forEach(function(key, index) {
+            var ghostAnim = self.getGhostAnim(self.players[key].direc);
+            if (self.players[key].playerType == "ghost" && ghostAnim != self.players[key].sprite.anims.getCurrentKey()) {
+                self.players[key].sprite.anims.play(ghostAnim);
+            }
         });
 
         this.mapMaker.updateFood(this.player.x, this.player.y);
@@ -207,16 +279,23 @@ class Game extends Phaser.Scene {
         else if (this.direc == 0) {
             this.player.setFlipX(false);
             this.flipX = false;
-            this.player.setRotation(Phaser.Math.DegToRad(270));
+            if (this.playerType == "man")
+                this.player.setRotation(Phaser.Math.DegToRad(270));
         }
         else if (this.direc == 2) {
             this.player.setFlipX(false);
             this.flipX = false;
-            this.player.setRotation(Phaser.Math.DegToRad(90));
+            if (this.playerType == "man")
+                this.player.setRotation(Phaser.Math.DegToRad(90));
+        }
+
+        var ghostAnim = this.getGhostAnim(this.direc);
+        if (this.playerType == "ghost" && ghostAnim != this.player.anims.getCurrentKey()) {
+            self.player.anims.play(ghostAnim);
         }
     
         if (this.socket) {
-            this.socket.emit("position", {x: this.player.x, y: this.player.y, rotation: this.player.rotation, flipX: this.flipX});
+            this.socket.emit("position", {x: this.player.x, y: this.player.y, rotation: this.player.rotation, flipX: this.flipX, direc: this.direc});
         }
     }
 
@@ -228,9 +307,17 @@ class Game extends Phaser.Scene {
 
     getPlayerSprite(user) {
         var sprite = this.physics.add.sprite(user.x, user.y, user.playerType).setScale(0.6);
-        if (user.playerType == "man")
+        if (user.playerType == "man") {
             sprite.anims.play("eat");
+        }
+        else if (user.playerType == "ghost") {
+            sprite.anims.play(this.getGhostAnim(3));
+        }
         return sprite;
+    }
+
+    getPlayerText(user) {
+
     }
 
     getMotionVector(direc, speed) {
@@ -260,6 +347,10 @@ class Game extends Phaser.Scene {
         overlay.find('.notification-tray').empty();
         this.setScore(config.score);
         this.setLeaderboard([]);
+    }
+
+    toggleLoader() {
+
     }
 
     setScore(score) {

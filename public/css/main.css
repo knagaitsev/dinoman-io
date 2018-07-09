@@ -73,7 +73,7 @@ canvas {
 }
 
 .avgrund-popup {
-    font-family: Ubuntu;
+    font-family: Ubuntu, Arial;
     text-align: center;
 }
 
@@ -111,7 +111,7 @@ canvas {
     border-radius: 3px;
     color: white;
     text-align: center;
-    font-family: Ubuntu;
+    font-family: Ubuntu, Arial;
     overflow: hidden;
 }
 
@@ -158,7 +158,7 @@ canvas {
     left: 50%;
     transform: translateX(-50%);
     width: 50%;
-    font-family: Ubuntu;
+    font-family: Ubuntu, Arial;
     color: white;
 }
 

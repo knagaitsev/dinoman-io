@@ -19,8 +19,12 @@ class Menu extends Phaser.Scene {
             height = 130;
         }
         else {
+            var value = "";
+            if (this.nickname != "" && this.nickname !== undefined) {
+                value = "value='" + this.nickname + "'";
+            }
             template = `<h3>Multiplayer Pacman</h3>
-            <input type='text' placeholder='Nickname' maxlength='15'>
+            <input type='text' placeholder='Nickname' id='nickname' maxlength='15' ${value}>
             <input type='submit' value='Play'>
             `;
         }
@@ -45,6 +49,10 @@ class Menu extends Phaser.Scene {
             template: template
         });
 
+        setTimeout(function() {
+            $("#nickname").focus();
+        }, 500);
+
         var self = this;
         $(".avgrund-popup input[type='submit']").one("click", function() {
             var nickname = $(".avgrund-popup input[type='text']").val();
@@ -52,7 +60,7 @@ class Menu extends Phaser.Scene {
             self.closeAvgrund();
             var socket = io('http://localhost:3000');
 
-            console.log(nickname);
+            self.nickname = nickname;
             socket.emit('nickname', nickname);
 
             socket.on('config', function(data) {
@@ -79,3 +87,10 @@ class Menu extends Phaser.Scene {
         });
     }
 }
+
+/*
+loading circle
+text below players
+notifications
+better maze generation
+*/

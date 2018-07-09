@@ -11,7 +11,49 @@ MapMaker = function(game) {
 }
 
 MapMaker.prototype = {
-    addTiles: function(data, food) {
+    tileDataMatches: function(oldData, newData) {
+        if (oldData && newData && typeof oldData == "object" && typeof newData == "object"
+         && typeof oldData.tiles == "object" && oldData.tiles instanceof Array
+         && typeof newData.tiles == "object" && newData.tiles instanceof Array
+         && oldData.tiles.length == newData.tiles.length
+         && oldData.width == newData.width && oldData.height == newData.height) {
+
+        }
+        else {
+            return false;
+        }
+
+        var oldTiles = oldData.tiles;
+        var newTiles = newData.tiles;
+
+        for (var t = 0 ; t < oldTiles.length ; t++) {
+            if (oldTiles[t].x == newTiles[t].x && oldTiles[t].y == newTiles[t].y) {
+                var walls1 = oldTiles[t].walls;
+                var walls2 = newTiles[t].walls;
+                if (walls1.length == walls2.length) {
+
+                }
+                else {
+                    return false;
+                }
+                for (var i = 0 ; i < walls1.length ; i++) {
+                    if (walls1[i] == walls2[i]) {
+
+                    }
+                    else {
+                        return false;
+                    }
+                }
+            }
+            else {
+                return false;
+            }
+        }
+
+        return true;
+    },
+    addTiles: function(data, food, oldData) {
+
         this.width = data.width;
         this.height = data.height;
         this.food = food;
@@ -19,6 +61,14 @@ MapMaker.prototype = {
         var tiles = data.tiles;
         this.tiles = tiles;
         this.initialized = true;
+
+        if (this.tileDataMatches(oldData, data) && this.game.textures.exists('map')) {
+            this.game.add.image(-this.tileSize / 2, -this.tileSize / 2, 'map').setOrigin(0);
+            return;
+        }
+        else if (this.game.textures.exists('map')) {
+            this.game.textures.remove('map');
+        }
 
         var canvasTexture = this.game.textures.createCanvas('map', data.width * this.tileSize, data.height * this.tileSize);
         var context = canvasTexture.context;
@@ -52,6 +102,12 @@ MapMaker.prototype = {
                 }
                 else if (wallCount == 3) {
                     frame = 4;
+                    for (var w = 0 ; w < walls.length ; w++) {
+                        var wall = walls[w];
+                        if (!wall) {
+                            rotation = 180 - 90 * w;
+                        }
+                    }
                 }
                 else if (wallCount == 2) {
                     if (walls[0] == walls[2]) {
@@ -108,6 +164,33 @@ MapMaker.prototype = {
         canvasTexture.refresh();
         this.game.add.image(-this.tileSize / 2, -this.tileSize / 2, 'map').setOrigin(0);
 
+    },
+    getTile: function(x, y) {
+        for (var i = 0 ; i < this.tiles.length ; i++) {
+            if (this.tiles[i].x == x && this.tiles[i].y == y) {
+                return this.tiles[i];
+            }
+        }
+
+        return false;
+    },
+    getNeighbor: function(tile, direction) {
+        var x = tile.x;
+        var y = tile.y;
+        if (direction == 0) {
+            y -= 1;
+        }
+        else if (direction == 1) {
+            x -= 1;
+        }
+        else if (direction == 2) {
+            y += 1;
+        }
+        else {
+            x += 1;
+        }
+
+        return this.getTile(x, y);
     },
     updateFood: function(x, y) {
         var xRange = 800;
