@@ -59,32 +59,36 @@ class Menu extends Phaser.Scene {
             $(".avgrund-popup").remove();
             self.closeAvgrund();
             self.showLoadingCircle(function() {
-                var ip = process.env.IP || 'http://localhost:3000';
-                var socket = io(ip);
+                $.ajax({
+                    url: "/ip",
+                    success: function(ip) {
+                        var socket = io(ip);
 
-                self.nickname = nickname;
-                socket.emit('nickname', nickname);
+                        self.nickname = nickname;
+                        socket.emit('nickname', nickname);
 
-                socket.on('config', function(data) {
-                    data.socket = socket;
-                    self.scene.start('Game', data);
-                });
-                socket.on('connect_error', function(error) {
-                    socket.close();
-                    self.scene.start('Menu', {
-                        type: "error",
-                        title: "Connection Error",
-                        text: "Failed to connect to the server"
-                    });
-                });
+                        socket.on('config', function(data) {
+                            data.socket = socket;
+                            self.scene.start('Game', data);
+                        });
+                        socket.on('connect_error', function(error) {
+                            socket.close();
+                            self.scene.start('Menu', {
+                                type: "error",
+                                title: "Connection Error",
+                                text: "Failed to connect to the server"
+                            });
+                        });
 
-                socket.on('connect_timeout', (timeout) => {
-                    socket.close();
-                    self.scene.start('Menu', {
-                        type: "error",
-                        title: "Connection Timeout",
-                        text: "Failed to connect to the server"
-                    });
+                        socket.on('connect_timeout', (timeout) => {
+                            socket.close();
+                            self.scene.start('Menu', {
+                                type: "error",
+                                title: "Connection Timeout",
+                                text: "Failed to connect to the server"
+                            });
+                        });
+                    }
                 });
             });
         });
