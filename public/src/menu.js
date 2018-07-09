@@ -59,7 +59,8 @@ class Menu extends Phaser.Scene {
             $(".avgrund-popup").remove();
             self.closeAvgrund();
             self.showLoadingCircle(function() {
-                var socket = io('http://localhost:3000');
+                var ip = process.env.IP || 'http://localhost:3000';
+                var socket = io(ip);
 
                 self.nickname = nickname;
                 socket.emit('nickname', nickname);

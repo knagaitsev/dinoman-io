@@ -1,6 +1,5 @@
 const uuidv1 = require('uuid/v1');
 const express = require("express");
-const livereload = require('livereload');
 const app = express();
 
 var Maze = require("./MazeGenerator/maze.js");
@@ -12,12 +11,19 @@ var io = require('socket.io')(server);
 
 app.use(express.static('public'));
 
-const reloadServer = livereload.createServer({
-    exts: [ 'js', 'html', 'css', 'png', 'json' ],
-    debug: true
-});
+if (process.env.Heroku) {
+    //production
+}
+else {
+    const livereload = require('livereload');
 
-reloadServer.watch([__dirname + "/public"]);
+    const reloadServer = livereload.createServer({
+        exts: [ 'js', 'html', 'css', 'png', 'json' ],
+        debug: true
+    });
+
+    reloadServer.watch([__dirname + "/public"]);
+}
 
 server.listen(3000, function() {
     console.log("Listening on 3000!");

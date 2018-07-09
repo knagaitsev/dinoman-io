@@ -153,6 +153,7 @@ class Game extends Phaser.Scene {
 
         this.cameras.main.setSize(1280, 720);
         this.cameras.main.startFollow(this.player);
+        //this.cameras.main.setBackgroundColor("#ff0000");
 
         this.socket.on('user connected', this.addPlayer.bind(this));
 
