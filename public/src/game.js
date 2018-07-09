@@ -163,6 +163,20 @@ class Game extends Phaser.Scene {
             self.players[user.uuid].rotation = user.rotation;
             self.players[user.uuid].flipX = user.flipX;
             self.players[user.uuid].direc = user.direc;
+
+            var key = user.uuid;
+            self.players[key].sprite.x = self.players[key].x;
+            self.players[key].sprite.y = self.players[key].y;
+            self.players[key].sprite.setRotation(self.players[key].rotation);
+            self.players[key].sprite.setFlipX(self.players[key].flipX);
+
+            self.players[key].text.x = self.players[key].x;
+            self.players[key].text.y = self.players[key].y + self.textOffset;
+
+            var ghostAnim = self.getGhostAnim(self.players[key].direc);
+            if (self.players[key].playerType == "ghost" && ghostAnim != self.players[key].sprite.anims.getCurrentKey()) {
+                self.players[key].sprite.anims.play(ghostAnim);
+            }
         });
 
         this.socket.on('user disconnected', function(uuid) {
@@ -222,24 +236,28 @@ class Game extends Phaser.Scene {
     update(timestep, dt) {
 
         var self = this;
-        Object.keys(this.players).forEach(function(key, index) {
-            self.players[key].sprite.x = self.players[key].x;
-            self.players[key].sprite.y = self.players[key].y;
-            self.players[key].sprite.setRotation(self.players[key].rotation);
-            self.players[key].sprite.setFlipX(self.players[key].flipX);
+        // Object.keys(this.players).forEach(function(key, index) {
+        //     self.players[key].sprite.x = self.players[key].x;
+        //     self.players[key].sprite.y = self.players[key].y;
+        //     self.players[key].sprite.setRotation(self.players[key].rotation);
+        //     self.players[key].sprite.setFlipX(self.players[key].flipX);
 
-            self.players[key].text.x = self.players[key].x;
-            self.players[key].text.y = self.players[key].y + self.textOffset;
-        });
+        //     self.players[key].text.x = self.players[key].x;
+        //     self.players[key].text.y = self.players[key].y + self.textOffset;
+        // });
 
-        Object.keys(this.players).forEach(function(key, index) {
-            var ghostAnim = self.getGhostAnim(self.players[key].direc);
-            if (self.players[key].playerType == "ghost" && ghostAnim != self.players[key].sprite.anims.getCurrentKey()) {
-                self.players[key].sprite.anims.play(ghostAnim);
-            }
-        });
+        // Object.keys(this.players).forEach(function(key, index) {
+        //     var ghostAnim = self.getGhostAnim(self.players[key].direc);
+        //     if (self.players[key].playerType == "ghost" && ghostAnim != self.players[key].sprite.anims.getCurrentKey()) {
+        //         self.players[key].sprite.anims.play(ghostAnim);
+        //     }
+        // });
 
         this.mapMaker.updateFood(this.player.x, this.player.y);
+
+        Object.keys(this.players).forEach(function(key, index) {
+            self.children.bringToTop(self.players[key].sprite);
+        });
 
         this.children.bringToTop(this.player);
     
