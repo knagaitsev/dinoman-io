@@ -24,7 +24,7 @@ class Menu extends Phaser.Scene {
                 value = "value='" + this.nickname + "'";
             }
             template = `<h3>Multiplayer Pacman</h3>
-            <input type='text' placeholder='Nickname' id='nickname' maxlength='15' ${value}>
+            <input type='text' placeholder='Nickname' id='nickname' maxlength='13' spellcheck='false' ${value}>
             <input type='submit' value='Play'>
             `;
         }
@@ -58,39 +58,47 @@ class Menu extends Phaser.Scene {
             var nickname = $(".avgrund-popup input[type='text']").val();
             $(".avgrund-popup").remove();
             self.closeAvgrund();
-            var socket = io('http://localhost:3000');
+            self.showLoadingCircle(function() {
+                var socket = io('http://localhost:3000');
 
-            self.nickname = nickname;
-            socket.emit('nickname', nickname);
+                self.nickname = nickname;
+                socket.emit('nickname', nickname);
 
-            socket.on('config', function(data) {
-                data.socket = socket;
-                self.scene.start('Game', data);
-            });
-            socket.on('connect_error', function(error) {
-                socket.close();
-                self.scene.start('Menu', {
-                    type: "error",
-                    title: "Connection Error",
-                    text: "Failed to connect to the server"
+                socket.on('config', function(data) {
+                    data.socket = socket;
+                    self.scene.start('Game', data);
                 });
-            });
+                socket.on('connect_error', function(error) {
+                    socket.close();
+                    self.scene.start('Menu', {
+                        type: "error",
+                        title: "Connection Error",
+                        text: "Failed to connect to the server"
+                    });
+                });
 
-            socket.on('connect_timeout', (timeout) => {
-                socket.close();
-                self.scene.start('Menu', {
-                    type: "error",
-                    title: "Connection Timeout",
-                    text: "Failed to connect to the server"
+                socket.on('connect_timeout', (timeout) => {
+                    socket.close();
+                    self.scene.start('Menu', {
+                        type: "error",
+                        title: "Connection Timeout",
+                        text: "Failed to connect to the server"
+                    });
                 });
             });
         });
     }
+
+    showLoadingCircle(callback) {
+        $('#phaser-overlay-container').show();
+        $('#phaser-overlay-container #phaser-overlay').children().hide();
+        $('#phaser-overlay-container #phaser-overlay').find('.loader').fadeIn(200, callback);
+    }
 }
 
 /*
-loading circle
+x - loading circle
 text below players
 notifications
-better maze generation
+better maze generation?
 */

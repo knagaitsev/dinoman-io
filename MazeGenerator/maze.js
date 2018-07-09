@@ -65,9 +65,6 @@ module.exports.prototype = {
                 var offsetY = 0;
                 var pastOffsets = [];
                 var max = 6;
-                if (p < 80) {
-                    max = 0;
-                }
                 while (shapeCount < max) {
 
                     // if (pastOffsets.length > 0) {
@@ -368,7 +365,7 @@ module.exports.prototype = {
         } while(this.food[i][j] != 0);
 
         var powerupAllowed = !this.getFoodData().powerupPlaced;
-        if (powerupAllowed && Math.random() < 1) {
+        if (powerupAllowed && Math.random() < 0.02) {
             this.food[i][j] = 2;
         }
         else {

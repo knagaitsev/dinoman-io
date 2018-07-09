@@ -64,7 +64,6 @@ function findBestStartingPosition(playerType) {
     var furthestDist = -1;
     var bestStart = null;
     var starts = maze.getTilePositions();
-    return {x: 1200, y: 1200};
     for (var i = 0 ; i < starts.length ; i++) {
         var start = starts[i];
         var closestPlayerDist = -1;
@@ -96,8 +95,8 @@ io.on('connection', function (socket) {
     var uuid = uuidv1();
 
     socket.on('nickname', function(nickname) {
-        if (typeof nickname == "string" && nickname.length <= 15 && !players[uuid]) {
-            nickname = nickname.replace(/[^a-zA-Z0-9 ]/g, '');
+        if (typeof nickname == "string" && nickname.length <= 13 && !players[uuid]) {
+            nickname = nickname.replace(/[^a-zA-Z0-9. ]/g, '');
             if (nickname == "") {
                 nickname = "Unnamed";
             }
@@ -112,7 +111,8 @@ io.on('connection', function (socket) {
                 playerType: playerType,
                 x: pos.x,
                 y: pos.y,
-                score: score
+                score: score,
+                nickname: nickname
             });
 
             players[uuid] = {
@@ -138,10 +138,11 @@ io.on('connection', function (socket) {
     });
 
     socket.on('position', function (data) {
-        if (players[uuid]) {
+        if (players[uuid] && players[uuid].nickname !== undefined && typeof players[uuid].nickname == "string") {
             var time = Date.now();
             var dt = time - players[uuid].timestamp;
-            if (typeof data.x == "number" && typeof data.y == "number" && typeof data.rotation == "number"
+            if (data && typeof data == "object"
+                && typeof data.x == "number" && typeof data.y == "number" && typeof data.rotation == "number"
                 && typeof data.flipX == "boolean" && typeof data.direc == "number" && data.direc >= 0 && data.direc < 4 && data.direc == Math.floor(data.direc)
                 && maze.checkCollision(players[uuid].x, players[uuid].y, data.x, data.y, dt, players[uuid].nickname)) {
                 players[uuid].timestamp = time;

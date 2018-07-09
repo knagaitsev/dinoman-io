@@ -9,13 +9,13 @@ class Game extends Phaser.Scene {
     }
 
     preload() {
-        this.initOverlay(this.config);
     }
 
     init(config) {
         this.config = config;
         this.cursors = null;
         this.player = null;
+        this.text = null;
 
         this.uuid = config.uuid;
 
@@ -31,6 +31,10 @@ class Game extends Phaser.Scene {
         this.powerupState = "default";
 
         this.playerType = config.playerType;
+
+        this.textOffset = 42;
+
+        this.initOverlay(config);
     }
 
     create(config) {
@@ -38,14 +42,25 @@ class Game extends Phaser.Scene {
         var self = this;
 
         setTimeout(function() {
-            self.notification("Avoid ghosts to survive!");
+            if (config.playerType == "man") {
+                self.notification("Avoid ghosts to survive!");
+                setTimeout(function() {
+                    self.notification("Eat food to gain points.");
+                }, 10000);
+            }
+            else if (config.playerType == "ghost") {
+                self.notification("Kill dinos to gain points!");
+                setTimeout(function() {
+                    self.notification("Use your compass to track dinos.");
+                }, 10000);
+            }
         }, 3000);
 
         this.events.on('shutdown', function() {
             if (self.playerType == "ghost") {
                 self.scene.stop('Compass');
             }
-            $('#phaser-overlay-container').hide();
+            self.hideOverlay();
         });
 
         this.players = {};
@@ -60,7 +75,6 @@ class Game extends Phaser.Scene {
         });
 
         this.socket.on('disconnect', function(reason) {
-            console.log("disconnected");
             self.socket.close();
             self.scene.start('Menu');
         });
@@ -118,6 +132,16 @@ class Game extends Phaser.Scene {
         });
 
         this.player = this.getPlayerSprite(config);
+        this.text = this.getPlayerText(config);
+
+        var fadeTween = this.tweens.add({
+            targets: this.text,
+            alpha: 0,
+            duration: 500,
+            delay: 3000,
+            ease: 'Power1',
+            repeat: 0
+        });
 
         if (this.playerType == "ghost") {
             this.scene.launch('Compass', {
@@ -142,6 +166,7 @@ class Game extends Phaser.Scene {
 
         this.socket.on('user disconnected', function(uuid) {
             self.players[uuid].sprite.destroy();
+            self.players[uuid].text.destroy();
             delete self.players[uuid];
         });
 
@@ -168,10 +193,17 @@ class Game extends Phaser.Scene {
                 anim = "default";
             }
 
+            if (self.powerupState != anim && self.powerupState == "default" && (anim == "powerup" || anim == "powerup-wearoff")) {
+                if (config.playerType == "man") {
+                    self.notification("Powerup activated! You can kill ghosts.");
+                }
+                else if (config.playerType == "ghost") {
+                    self.notification("Dino Powerup activated! Dinos can now kill you.");
+                }
+            }
+
             self.powerupState = anim;
         });
-
-        this.add.text(1200, 1200, "Hello world");
     }
 
     getGhostAnim(direc) {
@@ -194,6 +226,9 @@ class Game extends Phaser.Scene {
             self.players[key].sprite.y = self.players[key].y;
             self.players[key].sprite.setRotation(self.players[key].rotation);
             self.players[key].sprite.setFlipX(self.players[key].flipX);
+
+            self.players[key].text.x = self.players[key].x;
+            self.players[key].text.y = self.players[key].y + self.textOffset;
         });
 
         Object.keys(this.players).forEach(function(key, index) {
@@ -265,6 +300,9 @@ class Game extends Phaser.Scene {
                 this.player.y = res.y;
             }
         }
+
+        this.text.x = this.player.x;
+        this.text.y = this.player.y + this.textOffset;
     
         if (this.direc == 1) {
             this.player.setFlipX(true);
@@ -302,6 +340,7 @@ class Game extends Phaser.Scene {
     addPlayer(user) {
         this.players[user.uuid] = user;
         this.players[user.uuid].sprite = this.getPlayerSprite(user);
+        this.players[user.uuid].text = this.getPlayerText(user);
         this.children.bringToTop(this.player);
     }
 
@@ -317,7 +356,9 @@ class Game extends Phaser.Scene {
     }
 
     getPlayerText(user) {
-
+        var text = this.add.text(user.x, user.y + this.textOffset, user.nickname, { fontFamily: 'Arial', fontSize: '18px', fill: 'rgba(255,255,255,0.8)' });
+        text.setOrigin(0.5);
+        return text;
     }
 
     getMotionVector(direc, speed) {
@@ -343,10 +384,17 @@ class Game extends Phaser.Scene {
 
     initOverlay(config) {
         $('#phaser-overlay-container').show();
+        $('#phaser-overlay-container #phaser-overlay').children().show();
+        $('#phaser-overlay-container #phaser-overlay').find('.loader').hide();
         var overlay = this.overlay;
         overlay.find('.notification-tray').empty();
         this.setScore(config.score);
         this.setLeaderboard([]);
+    }
+
+    hideOverlay() {
+        $('#phaser-overlay-container').hide();
+        $('#phaser-overlay-container #phaser-overlay').children().hide();
     }
 
     toggleLoader() {
