@@ -29,10 +29,12 @@ class Compass extends Phaser.Scene {
         var lowestDist = -1;
         var closestEnemy = null;
         Object.keys(this.players).forEach(function(key, index) {
-            var dist = self.distance2(self.player, self.players[key]);
-            if (lowestDist == -1 || dist < lowestDist) {
-                lowestDist = dist;
-                closestEnemy = self.players[key];
+            if (self.players[key].playerType == "man") {
+                var dist = self.distance2(self.player, self.players[key]);
+                if (lowestDist == -1 || dist < lowestDist) {
+                    lowestDist = dist;
+                    closestEnemy = self.players[key];
+                }
             }
         });
 
