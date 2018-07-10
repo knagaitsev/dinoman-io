@@ -12,7 +12,7 @@ var io = require('socket.io')(server);
 app.use(express.static('public'));
 
 app.get('/ip', function(req, res) {
-    var ip = process.env.IP || 'http://192.168.1.103:3000';
+    var ip = process.env.IP || 'http://localhost:3000';
     res.status(200).send(ip);
 });
 
