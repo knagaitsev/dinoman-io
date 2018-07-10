@@ -327,14 +327,14 @@ module.exports.prototype = {
     getFoodData: function() {
         var totalSpace = 0;
         var totalFood1 = 0;
-        var powerupPlaced = false;
+        var totalFood2 = 0;
         for (var i = 0 ; i < this.food.length ; i++) {
             for (var j = 0 ; j < this.food[i].length ; j++) {
                 if (this.food[i][j] == 1) {
                     totalFood1++;
                 }
                 else if (this.food[i][j] == 2) {
-                    powerupPlaced = true;
+                    totalFood2++;
                 }
 
                 totalSpace++;
@@ -343,7 +343,9 @@ module.exports.prototype = {
 
         return {
             percentage: totalFood1 / totalSpace,
-            powerupPlaced: powerupPlaced
+            totalFood1: totalFood1,
+            totalFood2: totalFood2,
+            totalSpace: totalSpace
         };
     },
     setFood: function() {
@@ -356,7 +358,7 @@ module.exports.prototype = {
             }
         }
     },
-    addFood: function() {
+    addFood: function(playerCount) {
         var i = 0;
         var j = 0;
         do {
@@ -364,8 +366,19 @@ module.exports.prototype = {
             j = this.getRandomIntInclusive(this.foodBorder, this.height - this.foodBorder - 1);
         } while(this.food[i][j] != 0);
 
-        var powerupAllowed = !this.getFoodData().powerupPlaced;
-        if (powerupAllowed && Math.random() < 0.02) {
+        var powerupAllowed = false;
+        var foodData = this.getFoodData();
+        if (playerCount <= 4) {
+            powerupAllowed = foodData.totalFood2 < Math.ceil(foodData.totalSpace / 360);
+        }
+        else if (playerCount <= 8) {
+            powerupAllowed = foodData.totalFood2 < Math.ceil(foodData.totalSpace / 900);
+        }
+        else {
+            powerupAllowed = foodData.totalFood2 == 0 && Math.random() < 0.02;
+        }
+
+        if (powerupAllowed) {
             this.food[i][j] = 2;
         }
         else {

@@ -12,7 +12,7 @@ var io = require('socket.io')(server);
 app.use(express.static('public'));
 
 app.get('/ip', function(req, res) {
-    var ip = process.env.IP || 'http://localhost:3000';
+    var ip = process.env.IP || 'http://192.168.1.103:3000';
     res.status(200).send(ip);
 });
 
@@ -238,7 +238,7 @@ setInterval(function() {
                     var sec = 10;
                     powerupEnd = Date.now() + sec * 1000;
                 }
-                var addedFood = maze.addFood();
+                var addedFood = maze.addFood(Object.keys(players).length);
                 newFood.push(addedFood);
 
                 maze.food[collisionData.x][collisionData.y] = 0;

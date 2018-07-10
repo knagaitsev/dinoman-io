@@ -172,11 +172,6 @@ class Game extends Phaser.Scene {
 
             self.players[key].text.x = self.players[key].x;
             self.players[key].text.y = self.players[key].y + self.textOffset;
-
-            var ghostAnim = self.getGhostAnim(self.players[key].direc);
-            if (self.players[key].playerType == "ghost" && ghostAnim != self.players[key].sprite.anims.getCurrentKey()) {
-                self.players[key].sprite.anims.play(ghostAnim);
-            }
         });
 
         this.socket.on('user disconnected', function(uuid) {
@@ -246,12 +241,12 @@ class Game extends Phaser.Scene {
         //     self.players[key].text.y = self.players[key].y + self.textOffset;
         // });
 
-        // Object.keys(this.players).forEach(function(key, index) {
-        //     var ghostAnim = self.getGhostAnim(self.players[key].direc);
-        //     if (self.players[key].playerType == "ghost" && ghostAnim != self.players[key].sprite.anims.getCurrentKey()) {
-        //         self.players[key].sprite.anims.play(ghostAnim);
-        //     }
-        // });
+        Object.keys(this.players).forEach(function(key, index) {
+            var ghostAnim = self.getGhostAnim(self.players[key].direc);
+            if (self.players[key].playerType == "ghost" && ghostAnim != self.players[key].sprite.anims.getCurrentKey()) {
+                self.players[key].sprite.anims.play(ghostAnim);
+            }
+        });
 
         this.mapMaker.updateFood(this.player.x, this.player.y);
 
@@ -263,7 +258,16 @@ class Game extends Phaser.Scene {
     
         //player.setVelocity(0);
         var maxSpeed = 10;
-        var speed = (dt / 4);
+        var speed = 0;
+        if (this.playerType == "man") {
+            speed = (dt / 4);
+        }
+        else if (this.playerType == "ghost" && this.powerupState == "default") {
+            speed = (dt / 3.6);
+        }
+        else if (this.playerType == "ghost" && this.powerupState != "default") {
+            speed = (dt / 4.5);
+        }
         speed = Math.min(speed, maxSpeed);
     
         var prevDirec = this.direc;
@@ -282,6 +286,31 @@ class Game extends Phaser.Scene {
         else if (this.cursors.down.isDown)
         {
             this.direc = 2;
+        }
+        else if (this.input.activePointer.isDown) {
+            var x = this.input.activePointer.x;
+            var y = this.input.activePointer.y;
+            var w = this.cameras.main.width;
+            var h = this.cameras.main.height;
+
+            var scaledX = (x - (w / 2)) * (h / w);
+            var scaledY = y - (h / 2);
+            if (Math.abs(scaledX) > Math.abs(scaledY)) {
+                if (scaledX < 0) {
+                    this.direc = 1;
+                }
+                else {
+                    this.direc = 3;
+                }
+            }
+            else {
+                if (scaledY < 0) {
+                    this.direc = 0;
+                }
+                else {
+                    this.direc = 2;
+                }
+            }
         }
     
         if (this.direc != -1 && this.mapMaker.initialized) {

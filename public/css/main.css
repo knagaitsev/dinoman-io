@@ -48,6 +48,7 @@ canvas {
     z-index: 999;
     position: relative;
     display: none;
+    pointer-events: none;
 }
 
 #phaser-overlay {

@@ -8,6 +8,8 @@ MapMaker = function(game) {
     this.height = 0;
     this.food = [];
     this.foodSprites = [];
+
+    this.canvases = [];
 }
 
 MapMaker.prototype = {
@@ -52,6 +54,9 @@ MapMaker.prototype = {
 
         return true;
     },
+    ceilPow2: function( aSize ){
+        return Math.pow( 2, Math.ceil( Math.log( aSize ) / Math.log( 2 ) ) ); 
+    },
     addTiles: function(data, food, oldData) {
 
         this.width = data.width;
@@ -62,107 +67,233 @@ MapMaker.prototype = {
         this.tiles = tiles;
         this.initialized = true;
 
-        if (this.tileDataMatches(oldData, data) && this.game.textures.exists('map')) {
-            this.game.add.image(-this.tileSize / 2, -this.tileSize / 2, 'map').setOrigin(0);
+        if (this.tileDataMatches(oldData, data) && this.canvases.length > 0) {
+            for (var i = 0 ; i < this.canvases.length ; i++) {
+                var c = this.canvases[i];
+                this.game.add.image(c.x, c.y, c.name).setOrigin(0);
+            }
+            //this.game.add.image(-this.tileSize / 2, -this.tileSize / 2, 'map').setOrigin(0);
             return;
         }
-        else if (this.game.textures.exists('map')) {
-            this.game.textures.remove('map');
-        }
-
-        var canvasTexture = this.game.textures.createCanvas('map', data.width * this.tileSize, data.height * this.tileSize);
-        var context = canvasTexture.context;
-        var texture = this.game.textures.get('tiles');
-
-        for (var i = 0 ; i < data.width ; i++) {
-            for (var j = 0 ; j < data.height ; j++) {
-                var walls;
-                for (var t = 0 ; t < tiles.length ; t++) {
-                    if (tiles[t].x == i && tiles[t].y == j) {
-                        walls = tiles[t].walls;
-                        break;
-                    }
-                }
-
-                var frame = -1;
-                var rotation = 0;
-
-                var wallCount = 0;
-                for (var w = 0 ; w < walls.length ; w++) {
-                    if (walls[w]) {
-                        wallCount++;
-                    }
-                }
-
-                if (wallCount == 0) {
-                    frame = 6;
-                }
-                else if (wallCount == 4) {
-                    frame = 9;
-                }
-                else if (wallCount == 3) {
-                    frame = 4;
-                    for (var w = 0 ; w < walls.length ; w++) {
-                        var wall = walls[w];
-                        if (!wall) {
-                            rotation = 180 - 90 * w;
-                        }
-                    }
-                }
-                else if (wallCount == 2) {
-                    if (walls[0] == walls[2]) {
-                        frame = 13;
-                        if (walls[0]) {
-                            rotation = 90;
-                        }
-                    }
-                    else {
-                        frame = 8;
-                        for (var w = 0 ; w < walls.length ; w++) {
-                            var wall1 = walls[w];
-                            var wall2;
-                            if (w == walls.length - 1) {
-                                wall2 = walls[0];
-                            }
-                            else {
-                                wall2 = walls[w+1]
-                            }
-    
-                            if (wall1 == wall2 && wall1) {
-                                rotation = -90 * w;
-                            }
-                        }
-                    }
-                }
-                else if (wallCount == 1) {
-                    frame = 12;
-                    for (var w = 0 ; w < walls.length ; w++) {
-                        var wall = walls[w];
-                        if (wall) {
-                            rotation = 90 - (w * 90);
-                            break;
-                        }
-                    }
-                }
-
-                if (frame != -1) {
-                    context.save();
-                    context.translate(i * this.tileSize + this.tileSize / 2, j * this.tileSize + this.tileSize / 2);
-                    context.rotate(Phaser.Math.DegToRad(rotation));
-
-                    var canvasData = texture.frames[frame].canvasData;
-                    context.drawImage(texture.getSourceImage(), canvasData.sx, canvasData.sy,
-                        canvasData.sWidth, canvasData.sHeight, -this.tileSize / 2, -this.tileSize / 2, this.tileSize, this.tileSize);
-                    //var sheet = this.game.physics.add.sprite(i * this.tileSize, j * this.tileSize, 'tiles').setScale(0.5);
-                    context.restore();
-                    //sheet.setFrame(frame);
-                    //sheet.setRotation(Phaser.Math.DegToRad(rotation));
-                }
+        else if (this.canvases.length > 0) {
+            for (var i = 0 ; i < this.canvases.length ; i++) {
+                this.game.textures.remove(this.canvases[i].name);
             }
         }
 
-        canvasTexture.refresh();
-        this.game.add.image(-this.tileSize / 2, -this.tileSize / 2, 'map').setOrigin(0);
+        this.canvases = [];
+
+        var interval = 16;
+
+        var count = 0;
+
+
+        for (var x = 0 ; x < data.width ; x += interval) {
+            for (var y = 0 ; y < data.height ; y += interval) {
+                var width = Math.min(interval, data.width - x);
+                var height = Math.min(interval, data.height - y);
+                var canvasName = 'map' + count;
+                var canvasTexture = this.game.textures.createCanvas(canvasName, width * this.tileSize, height * this.tileSize);
+                var context = canvasTexture.context;
+                var texture = this.game.textures.get('tiles');
+
+                for (var i = x ; i < x + width ; i++) {
+                    for (var j = y ; j < y + height ; j++) {
+                        var walls;
+                        for (var t = 0 ; t < tiles.length ; t++) {
+                            if (tiles[t].x == i && tiles[t].y == j) {
+                                walls = tiles[t].walls;
+                                break;
+                            }
+                        }
+        
+                        var frame = -1;
+                        var rotation = 0;
+        
+                        var wallCount = 0;
+                        for (var w = 0 ; w < walls.length ; w++) {
+                            if (walls[w]) {
+                                wallCount++;
+                            }
+                        }
+        
+                        if (wallCount == 0) {
+                            frame = 6;
+                        }
+                        else if (wallCount == 4) {
+                            frame = 9;
+                        }
+                        else if (wallCount == 3) {
+                            frame = 4;
+                            for (var w = 0 ; w < walls.length ; w++) {
+                                var wall = walls[w];
+                                if (!wall) {
+                                    rotation = 180 - 90 * w;
+                                }
+                            }
+                        }
+                        else if (wallCount == 2) {
+                            if (walls[0] == walls[2]) {
+                                frame = 13;
+                                if (walls[0]) {
+                                    rotation = 90;
+                                }
+                            }
+                            else {
+                                frame = 8;
+                                for (var w = 0 ; w < walls.length ; w++) {
+                                    var wall1 = walls[w];
+                                    var wall2;
+                                    if (w == walls.length - 1) {
+                                        wall2 = walls[0];
+                                    }
+                                    else {
+                                        wall2 = walls[w+1]
+                                    }
+            
+                                    if (wall1 == wall2 && wall1) {
+                                        rotation = -90 * w;
+                                    }
+                                }
+                            }
+                        }
+                        else if (wallCount == 1) {
+                            frame = 12;
+                            for (var w = 0 ; w < walls.length ; w++) {
+                                var wall = walls[w];
+                                if (wall) {
+                                    rotation = 90 - (w * 90);
+                                    break;
+                                }
+                            }
+                        }
+        
+                        if (frame != -1) {
+                            var contextX = i - x;
+                            var contextY = j - y;
+                            context.save();
+                            context.translate(contextX * this.tileSize + this.tileSize / 2, contextY * this.tileSize + this.tileSize / 2);
+                            context.rotate(Phaser.Math.DegToRad(rotation));
+        
+                            var canvasData = texture.frames[frame].canvasData;
+                            context.drawImage(texture.getSourceImage(), canvasData.sx, canvasData.sy,
+                                canvasData.sWidth, canvasData.sHeight, -this.tileSize / 2, -this.tileSize / 2, this.tileSize, this.tileSize);
+                            //var sheet = this.game.physics.add.sprite(i * this.tileSize, j * this.tileSize, 'tiles').setScale(0.5);
+                            context.restore();
+                            //sheet.setFrame(frame);
+                            //sheet.setRotation(Phaser.Math.DegToRad(rotation));
+                        }
+                    }
+                }
+        
+                canvasTexture.refresh();
+                var posX = -this.tileSize / 2 + x * this.tileSize;
+                var posY = -this.tileSize / 2 + y * this.tileSize;
+                this.game.add.image(posX, posY, canvasName).setOrigin(0);
+
+                this.canvases.push({
+                    x: posX,
+                    y: posY,
+                    name: canvasName
+                });
+
+                count++;
+            }
+        }
+
+        // var canvasTexture = this.game.textures.createCanvas('map', this.ceilPow2(data.width * this.tileSize), this.ceilPow2(data.height * this.tileSize));
+        // var context = canvasTexture.context;
+        // var texture = this.game.textures.get('tiles');
+
+        // for (var i = 0 ; i < data.width ; i++) {
+        //     for (var j = 0 ; j < data.height ; j++) {
+        //         var walls;
+        //         for (var t = 0 ; t < tiles.length ; t++) {
+        //             if (tiles[t].x == i && tiles[t].y == j) {
+        //                 walls = tiles[t].walls;
+        //                 break;
+        //             }
+        //         }
+
+        //         var frame = -1;
+        //         var rotation = 0;
+
+        //         var wallCount = 0;
+        //         for (var w = 0 ; w < walls.length ; w++) {
+        //             if (walls[w]) {
+        //                 wallCount++;
+        //             }
+        //         }
+
+        //         if (wallCount == 0) {
+        //             frame = 6;
+        //         }
+        //         else if (wallCount == 4) {
+        //             frame = 9;
+        //         }
+        //         else if (wallCount == 3) {
+        //             frame = 4;
+        //             for (var w = 0 ; w < walls.length ; w++) {
+        //                 var wall = walls[w];
+        //                 if (!wall) {
+        //                     rotation = 180 - 90 * w;
+        //                 }
+        //             }
+        //         }
+        //         else if (wallCount == 2) {
+        //             if (walls[0] == walls[2]) {
+        //                 frame = 13;
+        //                 if (walls[0]) {
+        //                     rotation = 90;
+        //                 }
+        //             }
+        //             else {
+        //                 frame = 8;
+        //                 for (var w = 0 ; w < walls.length ; w++) {
+        //                     var wall1 = walls[w];
+        //                     var wall2;
+        //                     if (w == walls.length - 1) {
+        //                         wall2 = walls[0];
+        //                     }
+        //                     else {
+        //                         wall2 = walls[w+1]
+        //                     }
+    
+        //                     if (wall1 == wall2 && wall1) {
+        //                         rotation = -90 * w;
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //         else if (wallCount == 1) {
+        //             frame = 12;
+        //             for (var w = 0 ; w < walls.length ; w++) {
+        //                 var wall = walls[w];
+        //                 if (wall) {
+        //                     rotation = 90 - (w * 90);
+        //                     break;
+        //                 }
+        //             }
+        //         }
+
+        //         if (frame != -1) {
+        //             context.save();
+        //             context.translate(i * this.tileSize + this.tileSize / 2, j * this.tileSize + this.tileSize / 2);
+        //             context.rotate(Phaser.Math.DegToRad(rotation));
+
+        //             var canvasData = texture.frames[frame].canvasData;
+        //             context.drawImage(texture.getSourceImage(), canvasData.sx, canvasData.sy,
+        //                 canvasData.sWidth, canvasData.sHeight, -this.tileSize / 2, -this.tileSize / 2, this.tileSize, this.tileSize);
+        //             //var sheet = this.game.physics.add.sprite(i * this.tileSize, j * this.tileSize, 'tiles').setScale(0.5);
+        //             context.restore();
+        //             //sheet.setFrame(frame);
+        //             //sheet.setRotation(Phaser.Math.DegToRad(rotation));
+        //         }
+        //     }
+        // }
+
+        // canvasTexture.refresh();
+        // this.game.add.image(-this.tileSize / 2, -this.tileSize / 2, 'map').setOrigin(0);
 
     },
     getTile: function(x, y) {
