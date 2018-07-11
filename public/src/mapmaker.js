@@ -359,7 +359,7 @@ MapMaker.prototype = {
             }
         }
     },
-    checkCollision: function(initialX, initialY, finalX, finalY, direction, newDirection, regVec) {
+    checkCollision: function(initialX, initialY, finalX, finalY, direction, newDirection, regVec, forceTurn) {
 
         // return {
         //     x: finalX,
@@ -453,6 +453,9 @@ MapMaker.prototype = {
                     worked = true;
                 }
                 else if (!wall && (direction == 1 || direction == 3) && tileY >= Math.min(initY, hypY) && tileY <= Math.max(initY, hypY)) {
+                    worked = true;
+                }
+                else if (forceTurn) {
                     worked = true;
                 }
                 else {

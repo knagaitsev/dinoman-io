@@ -279,8 +279,13 @@ class Game extends Phaser.Scene {
             var speed = self.getPlayerSpeed(p.playerType, dt);
             var motionVec = self.getMotionVector(p.direc, speed);
             var regVec;
+            var forceTurn = false;
             if (newDirection) {
                 regVec = self.getMotionVector(p.prevDirec, speed);
+
+                if (Math.abs(p.direc - p.prevDirec) != 2) {
+                    forceTurn = true;
+                }
 
                 // p.sprite.x = p.x;
                 // p.sprite.y = p.y;
@@ -300,18 +305,20 @@ class Game extends Phaser.Scene {
             if (Math.abs(res.x - p.x) > maxDifference || Math.abs(res.y - p.y) > maxDifference) {
                 var fixX = 0;
                 var fixY = 0;
-                if (!newDirection) {
-                    if (p.direc == 0) {
-                        fixY = -maxDifference;
-                    }
-                    else if (p.direc == 2) {
+                if (p.direc == 0 || p.direc == 2) {
+                    if (res.y - p.y > maxDifference) {
                         fixY = maxDifference;
                     }
-                    else if (p.direc == 1) {
-                        fixX = -maxDifference;
+                    else if (res.y - p.y < -maxDifference) {
+                        fixY = -maxDifference;
                     }
-                    else if (p.direc == 3) {
+                }
+                else if (p.direc == 1 || p.direc == 3) {
+                    if (res.x - p.x > maxDifference) {
                         fixX = maxDifference;
+                    }
+                    else if (res.x - p.x < -maxDifference) {
+                        fixX = -maxDifference;
                     }
                 }
 
