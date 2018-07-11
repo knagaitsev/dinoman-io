@@ -300,17 +300,19 @@ class Game extends Phaser.Scene {
             if (Math.abs(res.x - p.x) > maxDifference || Math.abs(res.y - p.y) > maxDifference) {
                 var fixX = 0;
                 var fixY = 0;
-                if (p.direc == 0) {
-                    fixY = -maxDifference;
-                }
-                else if (p.direc == 2) {
-                    fixY = maxDifference;
-                }
-                else if (p.direc == 1) {
-                    fixX = -maxDifference;
-                }
-                else if (p.direc == 3) {
-                    fixX = maxDifference;
+                if (!newDirection) {
+                    if (p.direc == 0) {
+                        fixY = -maxDifference;
+                    }
+                    else if (p.direc == 2) {
+                        fixY = maxDifference;
+                    }
+                    else if (p.direc == 1) {
+                        fixX = -maxDifference;
+                    }
+                    else if (p.direc == 3) {
+                        fixX = maxDifference;
+                    }
                 }
 
                 res.x = p.x + fixX;
