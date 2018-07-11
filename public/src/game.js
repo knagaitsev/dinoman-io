@@ -35,6 +35,8 @@ class Game extends Phaser.Scene {
         this.textOffset = 42;
 
         this.initOverlay(config);
+
+        this.time = 0;
     }
 
     create(config) {
@@ -215,6 +217,8 @@ class Game extends Phaser.Scene {
 
             self.powerupState = anim;
         });
+
+        this.time = Date.now();
     }
 
     getGhostAnim(direc) {
@@ -245,7 +249,11 @@ class Game extends Phaser.Scene {
         return speed;
     }
 
-    update(timestep, dt) {
+    update() {
+
+        var now = Date.now();
+        var dt = now - this.time;
+        this.time = now;
 
         var self = this;
         // Object.keys(this.players).forEach(function(key, index) {
@@ -282,7 +290,7 @@ class Game extends Phaser.Scene {
                 var y = p.sprite.y;
                 var res = self.mapMaker.checkCollision(x, y, x + motionVec.x, y + motionVec.y, p.direc, newDirection, regVec);
 
-                var maxDifference = 20;
+                var maxDifference = 10;
                 if (Math.abs(res.x - p.x) > maxDifference || Math.abs(res.y - p.y) > maxDifference) {
                     res.x = p.x;
                     res.y = p.y;
