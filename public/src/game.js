@@ -274,62 +274,64 @@ class Game extends Phaser.Scene {
         Object.keys(this.players).forEach(function(key, index) {
 
             var p = self.players[key];
-            var newDirection = (p.prevDirec !== undefined)  && p.prevDirec != p.direc;
+            if (Math.abs(self.player.x - p.x) <= 800 && Math.abs(self.player.y - p.y) <= 500) {
+                var newDirection = (p.prevDirec !== undefined)  && p.prevDirec != p.direc;
 
-            var speed = self.getPlayerSpeed(p.playerType, dt);
-            var motionVec = self.getMotionVector(p.direc, speed);
-            var regVec;
-            var forceTurn = false;
-            if (newDirection) {
-                regVec = self.getMotionVector(p.prevDirec, speed);
+                var speed = self.getPlayerSpeed(p.playerType, dt);
+                var motionVec = self.getMotionVector(p.direc, speed);
+                var regVec;
+                var forceTurn = false;
+                if (newDirection) {
+                    regVec = self.getMotionVector(p.prevDirec, speed);
 
-                if (Math.abs(p.direc - p.prevDirec) != 2) {
-                    forceTurn = true;
+                    if (Math.abs(p.direc - p.prevDirec) != 2) {
+                        forceTurn = true;
+                    }
+
+                    // p.sprite.x = p.x;
+                    // p.sprite.y = p.y;
+
+                    // p.text.x = p.x;
+                    // p.text.y = p.y + self.textOffset;
+                }
+                else {
+                    regVec = motionVec;
                 }
 
-                // p.sprite.x = p.x;
-                // p.sprite.y = p.y;
+                var x = p.sprite.x;
+                var y = p.sprite.y;
+                var res = self.mapMaker.checkCollision(x, y, x + motionVec.x, y + motionVec.y, p.direc, newDirection, regVec);
 
-                // p.text.x = p.x;
-                // p.text.y = p.y + self.textOffset;
-            }
-            else {
-                regVec = motionVec;
-            }
-
-            var x = p.sprite.x;
-            var y = p.sprite.y;
-            var res = self.mapMaker.checkCollision(x, y, x + motionVec.x, y + motionVec.y, p.direc, newDirection, regVec);
-
-            var maxDifference = 10;
-            if (Math.abs(res.x - p.x) > maxDifference || Math.abs(res.y - p.y) > maxDifference) {
-                var fixX = 0;
-                var fixY = 0;
-                if (p.direc == 0 || p.direc == 2) {
-                    if (res.y - p.y > maxDifference) {
-                        fixY = maxDifference;
+                var maxDifference = 10;
+                if (Math.abs(res.x - p.x) > maxDifference || Math.abs(res.y - p.y) > maxDifference) {
+                    var fixX = 0;
+                    var fixY = 0;
+                    if (p.direc == 0 || p.direc == 2) {
+                        if (res.y - p.y > maxDifference) {
+                            fixY = maxDifference;
+                        }
+                        else if (res.y - p.y < -maxDifference) {
+                            fixY = -maxDifference;
+                        }
                     }
-                    else if (res.y - p.y < -maxDifference) {
-                        fixY = -maxDifference;
+                    else if (p.direc == 1 || p.direc == 3) {
+                        if (res.x - p.x > maxDifference) {
+                            fixX = maxDifference;
+                        }
+                        else if (res.x - p.x < -maxDifference) {
+                            fixX = -maxDifference;
+                        }
                     }
+
+                    res.x = p.x + fixX;
+                    res.y = p.y + fixY;
                 }
-                else if (p.direc == 1 || p.direc == 3) {
-                    if (res.x - p.x > maxDifference) {
-                        fixX = maxDifference;
-                    }
-                    else if (res.x - p.x < -maxDifference) {
-                        fixX = -maxDifference;
-                    }
-                }
+                p.sprite.x = res.x;
+                p.sprite.y = res.y;
 
-                res.x = p.x + fixX;
-                res.y = p.y + fixY;
+                p.text.x = res.x;
+                p.text.y = res.y + self.textOffset;
             }
-            p.sprite.x = res.x;
-            p.sprite.y = res.y;
-
-            p.text.x = res.x;
-            p.text.y = res.y + self.textOffset;
 
             var ghostAnim = self.getGhostAnim(self.players[key].direc);
             if (self.players[key].playerType == "ghost" && ghostAnim != self.players[key].sprite.anims.getCurrentKey()) {
