@@ -268,24 +268,31 @@ class Game extends Phaser.Scene {
             var regVec;
             if (newDirection) {
                 regVec = self.getMotionVector(p.prevDirec, speed);
+
+                p.sprite.x = p.x;
+                p.sprite.y = p.y;
+
+                p.text.x = p.x;
+                p.text.y = p.y + self.textOffset;
             }
             else {
                 regVec = motionVec;
-            }
-            var x = p.sprite.x;
-            var y = p.sprite.y;
-            var res = self.mapMaker.checkCollision(x, y, x + motionVec.x, y + motionVec.y, p.direc, newDirection, regVec);
 
-            var maxDifference = 15;
-            if (Math.abs(res.x - p.x) > maxDifference || Math.abs(res.y - p.y) > maxDifference) {
-                res.x = p.x;
-                res.y = p.y;
-            }
-            p.sprite.x = res.x;
-            p.sprite.y = res.y;
+                var x = p.sprite.x;
+                var y = p.sprite.y;
+                var res = self.mapMaker.checkCollision(x, y, x + motionVec.x, y + motionVec.y, p.direc, newDirection, regVec);
 
-            p.text.x = res.x;
-            p.text.y = res.y + self.textOffset;
+                var maxDifference = 20;
+                if (Math.abs(res.x - p.x) > maxDifference || Math.abs(res.y - p.y) > maxDifference) {
+                    res.x = p.x;
+                    res.y = p.y;
+                }
+                p.sprite.x = res.x;
+                p.sprite.y = res.y;
+
+                p.text.x = res.x;
+                p.text.y = res.y + self.textOffset;
+            }
 
             var ghostAnim = self.getGhostAnim(self.players[key].direc);
             if (self.players[key].playerType == "ghost" && ghostAnim != self.players[key].sprite.anims.getCurrentKey()) {
