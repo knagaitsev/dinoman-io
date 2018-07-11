@@ -27,7 +27,7 @@ class Menu extends Phaser.Scene {
             if (this.nickname != "" && this.nickname !== undefined && this.nickname !== null) {
                 value = "value='" + this.nickname + "'";
             }
-            template = `<h3>Multiplayer Pacman</h3>
+            template = `<h3>dinoman.io</h3>
             <input type='text' placeholder='Nickname' id='nickname' maxlength='13' spellcheck='false' ${value}>
             <input type='submit' value='Play'>
             `;

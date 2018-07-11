@@ -14184,9 +14184,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.24764409"
-     inkscape:cx="2542.7848"
-     inkscape:cy="-3767.9657"
+     inkscape:zoom="0.087555406"
+     inkscape:cx="1669.1021"
+     inkscape:cy="-3448.4396"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -19599,21 +19599,24 @@
        y="4313.7285"
        rx="747.52374"
        ry="747.52374"
-       inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman-cordova\dinoman.io\res\icon\android\2\xxxhdpi.png"
-       inkscape:export-xdpi="11.558163"
-       inkscape:export-ydpi="11.558163" />
+       inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman-cordova\dinoman.io\res\icon\android\3\ldpi.png"
+       inkscape:export-xdpi="2.1671555"
+       inkscape:export-ydpi="2.1671555" />
     <path
        style="fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:0.27450982"
        d="m 2842.4858,5418.1691 64.245,-531.0922 670.2899,-182.7415 532.8768,532.8769 -699.9139,748.4546 -567.4978,-567.4978"
        id="path6453"
        inkscape:connector-curvature="0"
-       clip-path="url(#clipPath6457)" />
+       clip-path="url(#clipPath6457)"
+       inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman-cordova\dinoman.io\res\icon\android\3\ldpi.png"
+       inkscape:export-xdpi="2.1671555"
+       inkscape:export-ydpi="2.1671555" />
     <g
        id="g6648-9-0-1-5"
        transform="matrix(1.4888613,0,0,1.4888613,4755.0382,3025.5952)"
-       inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman-cordova\dinoman.io\res\icon\android\2\xxxhdpi.png"
-       inkscape:export-xdpi="11.558163"
-       inkscape:export-ydpi="11.558163">
+       inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman-cordova\dinoman.io\res\icon\android\3\ldpi.png"
+       inkscape:export-xdpi="2.1671555"
+       inkscape:export-ydpi="2.1671555">
       <path
          inkscape:transform-center-x="-10.761804"
          transform="matrix(-0.16389655,0.01724297,-0.06201813,-0.21388861,-1217.0419,1111.7288)"
@@ -19869,14 +19872,20 @@
        x="2488.4246"
        y="5532.3818"
        rx="125.63474"
-       ry="125.63474" />
+       ry="125.63474"
+       inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman-cordova\dinoman.io\res\icon\android\3\ldpi.png"
+       inkscape:export-xdpi="2.1671555"
+       inkscape:export-ydpi="2.1671555" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:149.83750916px;line-height:125%;font-family:'Nexa Bold';-inkscape-font-specification:'Nexa Bold, Bold';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="2555.2661"
        y="5710.46"
        id="text6042-5-1"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman-cordova\dinoman.io\res\icon\android\3\ldpi.png"
+       inkscape:export-xdpi="2.1671555"
+       inkscape:export-ydpi="2.1671555"><tspan
          sodipodi:role="line"
          id="tspan6044-6-6"
          x="2555.2661"
