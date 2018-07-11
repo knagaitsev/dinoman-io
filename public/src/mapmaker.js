@@ -332,10 +332,9 @@ MapMaker.prototype = {
             var c = this.canvases[i];
             var centerX = c.x + canvasWidth / 2 + this.tileSize / 2;
             var centerY = c.y + canvasWidth / 2 + this.tileSize / 2;
-            if (Math.abs(x - centerX) <= 700 + canvasWidth / 2 && Math.abs(y - centerY) <= 400 + canvasWidth / 2) {
+            if (Math.abs(x - centerX) <= this.game.sizeData.width / 2 / this.game.sizeData.scale + 50 + canvasWidth / 2 && Math.abs(y - centerY) <= this.game.sizeData.height / 2 / this.game.sizeData.scale + 50 + canvasWidth / 2) {
                 if (!c.image) {
-                    c.image = true;
-                    //c.image = this.game.add.image(c.x, c.y, c.name).setOrigin(0);
+                    c.image = this.game.add.image(c.x, c.y, c.name).setOrigin(0).setScale(this.game.sizeData.scale);
                     this.game.children.sendToBack(c.image);
                 }
             }
@@ -346,8 +345,8 @@ MapMaker.prototype = {
         }
     },
     updateFood: function(x, y) {
-        var xRange = 800;
-        var yRange = 600;
+        var xRange = this.game.sizeData.width / 2 / this.game.sizeData.scale + 50;
+        var yRange = this.game.sizeData.height / 2 / this.game.sizeData.scale + 50;
 
         for (var f = this.foodSprites.length - 1 ; f >= 0 ; f--) {
             var foodSprite = this.foodSprites[f];
@@ -373,7 +372,7 @@ MapMaker.prototype = {
                         }
                     }
                     if (!spriteExists) {
-                        var foodSprite = this.game.physics.add.sprite(i * this.tileSize, j * this.tileSize, 'food' + this.food[i][j]);
+                        var foodSprite = this.game.physics.add.sprite(i * this.tileSize, j * this.tileSize, 'food' + this.food[i][j]).setScale(this.game.sizeData.scale);
                         foodSprite.foodType = this.food[i][j];
                         this.foodSprites.push(foodSprite);
                     }

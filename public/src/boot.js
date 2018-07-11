@@ -14,24 +14,32 @@ class Boot extends Phaser.Scene {
         this.load.image('compass', 'asset/compass.png');
         this.load.image('compass-needle', 'asset/compass-needle.png');
 
-        this.load.spritesheet('ghost', 'asset/ghost2.png', {frameWidth: 100, frameHeight: 100});
-        this.load.spritesheet('man', 'asset/man2.png', {frameWidth: 100, frameHeight: 100});
+        this.load.spritesheet('ghost', 'asset/ghost2.png', {frameWidth: 60, frameHeight: 60});
+        this.load.spritesheet('man', 'asset/man2.png', {frameWidth: 60, frameHeight: 60});
 
-        this.load.spritesheet('tiles', 'asset/tile2.png', {frameWidth: 200, frameHeight: 200});
+        this.load.spritesheet('tiles', 'asset/tile2.png', {frameWidth: 100, frameHeight: 100});
     }
 
-    create() {
-        this.scene.start('Menu');
+    create(config) {
+        this.scene.start('Menu', {sizeData: config});
     }
 }
 
 (function() {
+    var normalWidth = 1280;
+    var normalHeight = 720;
+    var scale = 1;
+
+    if (window.innerWidth <= 720) {
+        scale = 0.5;
+    }
+
     var config = {
         type: Phaser.AUTO,
         parent: 'canvas-container',
         backgroundColor: '#2c9b7e',
-        width: 1280,
-        height: 720,
+        width: normalWidth * scale,
+        height: normalHeight * scale,
         physics: {
             default: 'arcade',
             arcade: {
@@ -42,6 +50,12 @@ class Boot extends Phaser.Scene {
     };
     
     var game = new Phaser.Game(config);
+    var sizeData = {
+        width: normalWidth * scale,
+        height: normalHeight * scale,
+        scale: scale
+    };
+    game.scene.start("Boot", sizeData);
 })();
 
 $(document).ready(function() {

@@ -15,6 +15,9 @@ class Game extends Phaser.Scene {
 
     init(config) {
         this.config = config;
+
+        this.sizeData = config.sizeData;
+
         this.cursors = null;
         this.player = null;
         this.text = null;
@@ -149,11 +152,12 @@ class Game extends Phaser.Scene {
             this.scene.launch('Compass', {
                 socket: this.socket,
                 player: this.player,
-                players: this.players
+                players: this.players,
+                sizeData: this.sizeData
             });
         }
 
-        this.cameras.main.setSize(1280, 720);
+        this.cameras.main.setSize(this.sizeData.width, this.sizeData.height);
         this.cameras.main.startFollow(this.player);
         //this.cameras.main.setBackgroundColor("#ff0000");
 
@@ -224,6 +228,16 @@ class Game extends Phaser.Scene {
         });
 
         this.time = Date.now();
+
+        this.scaleChildren(this.sizeData.scale);
+    }
+
+    scaleChildren(scale) {
+        var children = this.children.list;
+        for (var i = 0 ; i < children.length ; i++) {
+            children[i].x *= scale;
+            children[i].y *= scale;
+        }
     }
 
     getGhostAnim(direc) {
@@ -256,6 +270,8 @@ class Game extends Phaser.Scene {
 
     update() {
 
+        this.scaleChildren(1 / this.sizeData.scale);
+
         var now = Date.now();
         var dt = now - this.time;
         this.time = now;
@@ -274,7 +290,7 @@ class Game extends Phaser.Scene {
         Object.keys(this.players).forEach(function(key, index) {
 
             var p = self.players[key];
-            if (Math.abs(self.player.x - p.x) <= 800 && Math.abs(self.player.y - p.y) <= 500) {
+            if (Math.abs(self.player.x - p.x) <= self.sizeData.width / 2 / self.sizeData.scale + 50 && Math.abs(self.player.y - p.y) <= self.sizeData.height / 2 / self.sizeData.scale + 50) {
                 var newDirection = (p.prevDirec !== undefined)  && p.prevDirec != p.direc;
 
                 var speed = self.getPlayerSpeed(p.playerType, dt);
@@ -465,6 +481,8 @@ class Game extends Phaser.Scene {
         if (this.socket) {
             this.socket.emit("position", {x: this.player.x, y: this.player.y, rotation: this.player.rotation, flipX: this.flipX, direc: this.direc});
         }
+
+        this.scaleChildren(this.sizeData.scale);
     }
 
     addPlayer(user) {
@@ -476,7 +494,7 @@ class Game extends Phaser.Scene {
     }
 
     getPlayerSprite(user) {
-        var sprite = this.physics.add.sprite(user.x, user.y, user.playerType).setScale(0.6);
+        var sprite = this.physics.add.sprite(user.x, user.y, user.playerType).setScale(this.sizeData.scale);
         if (user.playerType == "man") {
             sprite.anims.play("eat");
         }
@@ -488,6 +506,7 @@ class Game extends Phaser.Scene {
 
     getPlayerText(user) {
         var text = this.add.text(user.x, user.y + this.textOffset, user.nickname, { fontFamily: 'Arial', fontSize: '18px', fill: 'rgba(255,255,255,0.8)' });
+        text.setScale(this.sizeData.scale);
         text.setOrigin(0.5);
         return text;
     }

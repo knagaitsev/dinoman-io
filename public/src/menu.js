@@ -2,6 +2,8 @@ class Menu extends Phaser.Scene {
 
     constructor() {
         super('Menu');
+
+        this.sizeData = null;
     }
 
     closeAvgrund(){
@@ -11,6 +13,9 @@ class Menu extends Phaser.Scene {
 
     init(config) {
         this.nickname = localStorage.getItem("nickname");
+        if (config.sizeData) {
+            this.sizeData = config.sizeData;
+        }
     }
 
     create(config) {
@@ -82,7 +87,7 @@ class Menu extends Phaser.Scene {
         self.closeAvgrund();
         self.showLoadingCircle(function() {
             $.get("ip.json", function(data) {
-                var socket = io("http://192.168.1.103:3000");
+                var socket = io(data.ip);
 
                 self.nickname = nickname;
                 socket.emit('nickname', nickname);
@@ -90,6 +95,7 @@ class Menu extends Phaser.Scene {
                 socket.on('config', function(data) {
                     localStorage.setItem("nickname", data.nickname);
                     data.socket = socket;
+                    data.sizeData = self.sizeData;
                     self.scene.start('Game', data);
                 });
                 socket.on('connect_error', function(error) {

@@ -14259,9 +14259,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.12382204"
-     inkscape:cx="8559.9502"
-     inkscape:cy="-1945.0374"
+     inkscape:zoom="0.70044325"
+     inkscape:cx="-5069.185"
+     inkscape:cy="-906.22616"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -14313,8 +14313,8 @@
        x="-5535.4146"
        y="1744.8319"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\ghost2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54" />
     <rect
        y="2167.9333"
        x="-3766.8374"
@@ -14323,8 +14323,8 @@
        id="rect13165"
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:0;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:15;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\man2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54" />
     <rect
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:15;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        id="rect12924"
@@ -17520,8 +17520,8 @@
        id="g6648-5"
        transform="matrix(0.1439389,0,0,0.1439389,-3567.4066,2021.1319)"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\man2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90">
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54">
       <path
          inkscape:transform-center-x="-10.761804"
          transform="matrix(-0.16389655,0.01724297,-0.06201813,-0.21388861,-1217.0419,1111.7288)"
@@ -17777,8 +17777,8 @@
        x="-3866.8374"
        y="2167.9333"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\man2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54" />
     <path
        sodipodi:type="star"
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#2c9b7e;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:20;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -17798,8 +17798,8 @@
        transform="matrix(-0.02359109,0.00248193,-0.00892682,-0.03078689,-3842.5863,2181.1529)"
        inkscape:transform-center-x="-10.761804"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\man2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54" />
     <path
        sodipodi:type="star"
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#2c9b7e;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:20;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -17819,8 +17819,8 @@
        transform="matrix(-0.021644,0.00970756,-0.01807339,-0.02647401,-3848.7426,2187.9847)"
        inkscape:transform-center-x="-1.3988174"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\man2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54" />
     <path
        sodipodi:type="star"
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#2c9b7e;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:20;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -17840,8 +17840,8 @@
        transform="matrix(-0.0180731,0.01536433,-0.02474599,-0.0203754,-3850.8041,2196.4635)"
        inkscape:transform-center-x="7.3708844"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\man2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54" />
     <path
        sodipodi:type="star"
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:20;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -17860,8 +17860,8 @@
        inkscape:transform-center-y="-19.260836"
        transform="matrix(0.02351522,-0.00844034,-0.00630088,-0.03149977,-3830.2994,2238.0942)"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\man2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54" />
     <path
        sodipodi:type="star"
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:20;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -17880,8 +17880,8 @@
        inkscape:transform-center-y="-19.260836"
        transform="matrix(0.02351522,-0.00844034,-0.00630088,-0.03149977,-3821.3735,2237.281)"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\man2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54" />
     <path
        sodipodi:type="star"
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:20;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -17900,8 +17900,8 @@
        inkscape:transform-center-y="-19.260836"
        transform="matrix(0.02351522,-0.00844034,-0.00630088,-0.03149977,-3810.3892,2236.2038)"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\man2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54" />
     <path
        sodipodi:type="star"
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:20;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -17920,8 +17920,8 @@
        inkscape:transform-center-y="-19.260836"
        transform="matrix(0.02351522,-0.00844034,-0.00630088,-0.03149977,-3797.4424,2234.1211)"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\man2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54" />
     <path
        sodipodi:type="star"
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:20;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -17940,8 +17940,8 @@
        inkscape:transform-center-y="-19.260836"
        transform="matrix(0.02351522,-0.00844034,-0.00630088,-0.03149977,-3782.2486,2231.4539)"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\man2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54" />
     <path
        sodipodi:type="star"
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:20;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -17960,8 +17960,8 @@
        inkscape:transform-center-y="19.260837"
        transform="matrix(0.02351522,0.00844034,-0.00630088,0.03149977,-3826.2088,2211.7456)"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\man2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54" />
     <path
        sodipodi:type="star"
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:20;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -17980,8 +17980,8 @@
        inkscape:transform-center-y="19.260837"
        transform="matrix(0.02351522,0.00844034,-0.00630088,0.03149977,-3805.2409,2210.3599)"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\man2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54" />
     <path
        sodipodi:type="star"
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:20;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -18000,8 +18000,8 @@
        inkscape:transform-center-y="19.260837"
        transform="matrix(0.02351522,0.00844034,-0.00630088,0.03149977,-3790.924,2209.4903)"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\man2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54" />
     <path
        sodipodi:type="star"
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:20;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -18020,8 +18020,8 @@
        inkscape:transform-center-y="19.260837"
        transform="matrix(0.02351522,0.00844034,-0.00630088,0.03149977,-3775.5017,2208.7939)"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\man2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54" />
     <path
        sodipodi:type="star"
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:20;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -18040,8 +18040,8 @@
        inkscape:transform-center-y="19.260837"
        transform="matrix(0.02351522,0.00844034,-0.00630088,0.03149977,-3817.0984,2210.9384)"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\man2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54" />
     <path
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:url(#radialGradient4168-6-9-0);fill-opacity:1;fill-rule:nonzero;stroke:#2c9b7e;stroke-width:3.45092249;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        d="m -3816.4101,2170.4164 c -24.6145,-0.01 -47.8959,21.4436 -47.8959,47.8957 -10e-5,26.4521 25.018,47.8977 47.8959,47.8958 22.8778,0 39.3122,-14.6214 45.469,-38.4807 -11.0054,-0.4302 -18.0626,-0.8391 -32.623,-0.7819 -15.5216,0.061 -40.0736,1.2898 -40.0736,-0.2366 0,-1.5257 18.6944,-8.4225 34.8995,-11.4512 8.4567,-1.5806 24.568,-4.1139 38.9518,-4.2298 -5.4546,-24.767 -22.0093,-40.6012 -46.6237,-40.6113 z"
@@ -18049,8 +18049,8 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cszcssscc"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\man2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54" />
     <circle
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:7;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        id="path4137-0-0-9"
@@ -18058,8 +18058,8 @@
        cy="2195.8379"
        r="14.921363"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\man2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54" />
     <circle
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:7;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        id="path4137-3-2-5-3"
@@ -18067,13 +18067,13 @@
        cy="2195.5554"
        r="7.0389276"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\man2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54" />
     <g
        id="g5684"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\ghost2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90">
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54">
       <path
          sodipodi:nodetypes="ccscccccccc"
          inkscape:connector-curvature="0"
@@ -18235,8 +18235,8 @@
        x="-5435.4146"
        y="1744.8319"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\ghost2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54" />
     <path
        style="fill:url(#radialGradient4639-5);fill-opacity:1;fill-rule:evenodd;stroke:#c72042;stroke-width:3.16422534;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m -5423.3857,1841.0124 0,-56.6276 c 0,0 0,-37.9708 37.9707,-37.9708 37.9707,0 37.9707,37.9708 37.9707,37.9708 l 0,56.6276 -12.6569,-12.6569 -12.6569,12.6569 -12.6569,-12.6569 -12.6569,12.6569 -12.6569,-12.6569 z"
@@ -18244,13 +18244,13 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccscccccccc"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\ghost2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54" />
     <g
        id="g5887"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\ghost2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90">
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54">
       <g
          id="g4505-1-7"
          transform="matrix(0,-0.11865844,0.11865844,0,-5439.7697,1696.3253)">
@@ -18290,8 +18290,8 @@
        id="g5484-0"
        transform="matrix(0.15821126,0,0,0.15821126,-4652.7025,1820.3512)"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\ghost2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90">
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54">
       <path
          sodipodi:nodetypes="ccscccccccc"
          inkscape:connector-curvature="0"
@@ -18308,8 +18308,8 @@
        id="g5581-6"
        transform="matrix(0.15821126,0,0,0.15821126,-4552.439,1709.2822)"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\ghost2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90">
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54">
       <path
          sodipodi:nodetypes="ccscccccccc"
          inkscape:connector-curvature="0"
@@ -18326,8 +18326,8 @@
        transform="translate(-0.45189549,199.99997)"
        id="g5887-3"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\ghost2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90">
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54">
       <g
          id="g4505-1-7-6"
          transform="matrix(0,-0.11865844,0.11865844,0,-5439.7697,1696.3253)">
@@ -18367,8 +18367,8 @@
        transform="translate(-0.45198859,99.999926)"
        id="g5887-7"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\ghost2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90">
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54">
       <g
          id="g4505-1-7-1"
          transform="matrix(0,-0.11865844,0.11865844,0,-5439.7697,1696.3253)">
@@ -18412,8 +18412,8 @@
        x="-5335.4146"
        y="1744.8319"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\ghost2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54" />
     <path
        style="fill:url(#radialGradient4639-5-6);fill-opacity:1;fill-rule:evenodd;stroke:#c72042;stroke-width:3.16422534;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m -5323.3858,1841.0124 0,-56.6276 c 0,0 0,-37.9708 37.9707,-37.9708 37.9707,0 37.9707,37.9708 37.9707,37.9708 l 0,56.6276 -12.6569,-12.6569 -12.6569,12.6569 -12.6569,-12.6569 -12.6569,12.6569 -12.6569,-12.6569 z"
@@ -18421,14 +18421,14 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccscccccccc"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\ghost2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54" />
     <g
        transform="matrix(1,0,0,-1,99.999976,3564.8748)"
        id="g5887-76"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\ghost2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90">
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54">
       <g
          id="g4505-1-7-3"
          transform="matrix(0,-0.11865844,0.11865844,0,-5439.7697,1696.3253)">
@@ -18468,8 +18468,8 @@
        id="g5484-0-2"
        transform="matrix(0.15821126,0,0,0.15821126,-4552.7026,1820.3512)"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\ghost2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90">
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54">
       <path
          sodipodi:nodetypes="ccscccccccc"
          inkscape:connector-curvature="0"
@@ -18486,8 +18486,8 @@
        id="g5581-6-8"
        transform="matrix(0.15821126,0,0,0.15821126,-4452.4391,1709.2822)"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\ghost2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90">
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54">
       <path
          sodipodi:nodetypes="ccscccccccc"
          inkscape:connector-curvature="0"
@@ -18504,8 +18504,8 @@
        transform="matrix(1,0,0,-1,99.548076,3764.8748)"
        id="g5887-3-4"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\ghost2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90">
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54">
       <g
          id="g4505-1-7-6-1"
          transform="matrix(0,-0.11865844,0.11865844,0,-5439.7697,1696.3253)">
@@ -18545,8 +18545,8 @@
        transform="matrix(1,0,0,-1,99.547976,3664.8747)"
        id="g5887-7-9"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\ghost2.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90">
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54">
       <g
          id="g4505-1-7-1-1"
          transform="matrix(0,-0.11865844,0.11865844,0,-5439.7697,1696.3253)">
