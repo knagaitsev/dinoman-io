@@ -9,6 +9,10 @@ class Menu extends Phaser.Scene {
         $('body').removeClass("avgrund-overlay");
     }
 
+    init(config) {
+        this.nickname = localStorage.getItem("nickname");
+    }
+
     create(config) {
 
         var template = "";
@@ -20,7 +24,7 @@ class Menu extends Phaser.Scene {
         }
         else {
             var value = "";
-            if (this.nickname != "" && this.nickname !== undefined) {
+            if (this.nickname != "" && this.nickname !== undefined && this.nickname !== null) {
                 value = "value='" + this.nickname + "'";
             }
             template = `<h3>Multiplayer Pacman</h3>
@@ -54,50 +58,51 @@ class Menu extends Phaser.Scene {
         }, 500);
 
         var self = this;
-        $(".avgrund-popup input[type='submit']").one("click", function() {
-            var nickname = $(".avgrund-popup input[type='text']").val();
-            $(".avgrund-popup").remove();
-            self.closeAvgrund();
-            self.showLoadingCircle(function() {
-                $.ajax({
-                    url: "/ip",
-                    success: function(ip) {
-                        var socket = io(ip);
-
-                        self.nickname = nickname;
-                        socket.emit('nickname', nickname);
-
-                        socket.on('config', function(data) {
-                            data.socket = socket;
-                            self.scene.start('Game', data);
-                        });
-                        socket.on('connect_error', function(error) {
-                            socket.close();
-                            self.scene.start('Menu', {
-                                type: "error",
-                                title: "Connection Error",
-                                text: "Failed to connect to the server"
-                            });
-                        });
-
-                        socket.on('connect_timeout', (timeout) => {
-                            socket.close();
-                            self.scene.start('Menu', {
-                                type: "error",
-                                title: "Connection Timeout",
-                                text: "Failed to connect to the server"
-                            });
-                        });
-                    }
-                });
-            });
-        });
+        $(".avgrund-popup input[type='submit']").one("click", this.startGame.bind(this));
     }
 
     showLoadingCircle(callback) {
         $('#phaser-overlay-container').show();
         $('#phaser-overlay-container #phaser-overlay').children().hide();
         $('#phaser-overlay-container #phaser-overlay').find('.loader').fadeIn(200, callback);
+    }
+
+    startGame() {
+        var self = this;
+        var nickname = $(".avgrund-popup input[type='text']").val();
+        $(".avgrund-popup").remove();
+        self.closeAvgrund();
+        self.showLoadingCircle(function() {
+            $.get("ip.json", function(data) {
+                var socket = io(data.ip);
+
+                self.nickname = nickname;
+                socket.emit('nickname', nickname);
+
+                socket.on('config', function(data) {
+                    localStorage.setItem("nickname", data.nickname);
+                    data.socket = socket;
+                    self.scene.start('Game', data);
+                });
+                socket.on('connect_error', function(error) {
+                    socket.close();
+                    self.scene.start('Menu', {
+                        type: "error",
+                        title: "Connection Error",
+                        text: "Failed to connect to the server"
+                    });
+                });
+
+                socket.on('connect_timeout', (timeout) => {
+                    socket.close();
+                    self.scene.start('Menu', {
+                        type: "error",
+                        title: "Connection Timeout",
+                        text: "Failed to connect to the server"
+                    });
+                });
+            }, "json");
+        });
     }
 }
 

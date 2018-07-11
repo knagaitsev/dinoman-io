@@ -6,6 +6,8 @@ class Game extends Phaser.Scene {
         this.overlay = $("#phaser-overlay");
 
         this.oldMapData = null;
+
+        this.mapMaker = new MapMaker(this);
     }
 
     preload() {
@@ -20,8 +22,6 @@ class Game extends Phaser.Scene {
         this.uuid = config.uuid;
 
         this.socket = config.socket;
-
-        this.mapMaker = new MapMaker(this);
 
         this.flipX = false;
 
@@ -162,16 +162,17 @@ class Game extends Phaser.Scene {
             self.players[user.uuid].y = user.y;
             self.players[user.uuid].rotation = user.rotation;
             self.players[user.uuid].flipX = user.flipX;
+            self.players[user.uuid].prevDirec = self.players[user.uuid].direc;
             self.players[user.uuid].direc = user.direc;
 
             var key = user.uuid;
-            self.players[key].sprite.x = self.players[key].x;
-            self.players[key].sprite.y = self.players[key].y;
             self.players[key].sprite.setRotation(self.players[key].rotation);
             self.players[key].sprite.setFlipX(self.players[key].flipX);
+            //self.players[key].sprite.x = self.players[key].x;
+            //self.players[key].sprite.y = self.players[key].y;
 
-            self.players[key].text.x = self.players[key].x;
-            self.players[key].text.y = self.players[key].y + self.textOffset;
+            //self.players[key].text.x = self.players[key].x;
+            //self.players[key].text.y = self.players[key].y + self.textOffset;
         });
 
         this.socket.on('user disconnected', function(uuid) {
@@ -228,6 +229,22 @@ class Game extends Phaser.Scene {
         return state;
     }
 
+    getPlayerSpeed(playerType, dt) {
+        var maxSpeed = 10;
+        var speed = 0;
+        if (playerType == "man") {
+            speed = (dt / 4);
+        }
+        else if (playerType == "ghost" && this.powerupState == "default") {
+            speed = (dt / 3.6);
+        }
+        else if (playerType == "ghost" && this.powerupState != "default") {
+            speed = (dt / 4.5);
+        }
+        speed = Math.min(speed, maxSpeed);
+        return speed;
+    }
+
     update(timestep, dt) {
 
         var self = this;
@@ -242,6 +259,34 @@ class Game extends Phaser.Scene {
         // });
 
         Object.keys(this.players).forEach(function(key, index) {
+
+            var p = self.players[key];
+            var newDirection = (p.prevDirec !== undefined)  && p.prevDirec != p.direc;
+
+            var speed = self.getPlayerSpeed(p.playerType, dt);
+            var motionVec = self.getMotionVector(p.direc, speed);
+            var regVec;
+            if (newDirection) {
+                regVec = self.getMotionVector(p.prevDirec, speed);
+            }
+            else {
+                regVec = motionVec;
+            }
+            var x = p.sprite.x;
+            var y = p.sprite.y;
+            var res = self.mapMaker.checkCollision(x, y, x + motionVec.x, y + motionVec.y, p.direc, newDirection, regVec);
+
+            var maxDifference = 10;
+            if (Math.abs(res.x - p.x) > maxDifference || Math.abs(res.y - p.y) > maxDifference) {
+                res.x = p.x;
+                res.y = p.y;
+            }
+            p.sprite.x = res.x;
+            p.sprite.y = res.y;
+
+            p.text.x = res.x;
+            p.text.y = res.y + self.textOffset;
+
             var ghostAnim = self.getGhostAnim(self.players[key].direc);
             if (self.players[key].playerType == "ghost" && ghostAnim != self.players[key].sprite.anims.getCurrentKey()) {
                 self.players[key].sprite.anims.play(ghostAnim);
@@ -257,18 +302,7 @@ class Game extends Phaser.Scene {
         this.children.bringToTop(this.player);
     
         //player.setVelocity(0);
-        var maxSpeed = 10;
-        var speed = 0;
-        if (this.playerType == "man") {
-            speed = (dt / 4);
-        }
-        else if (this.playerType == "ghost" && this.powerupState == "default") {
-            speed = (dt / 3.6);
-        }
-        else if (this.playerType == "ghost" && this.powerupState != "default") {
-            speed = (dt / 4.5);
-        }
-        speed = Math.min(speed, maxSpeed);
+        var speed = this.getPlayerSpeed(this.playerType, dt);
     
         var prevDirec = this.direc;
         if (this.cursors.left.isDown)

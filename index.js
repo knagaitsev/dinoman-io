@@ -9,12 +9,15 @@ var mazeData = maze.generate();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
-app.use(express.static('public'));
-
-app.get('/ip', function(req, res) {
+app.get('/ip.json', function(req, res) {
     var ip = process.env.IP || 'http://localhost:3000';
-    res.status(200).send(ip);
+    var obj = {
+        ip: ip
+    };
+    res.status(200).send(JSON.stringify(obj));
 });
+
+app.use(express.static('public'));
 
 if (process.env.Heroku) {
     //production
