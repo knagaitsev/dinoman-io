@@ -339,6 +339,8 @@ class Game extends Phaser.Scene {
             }
         });
 
+        this.mapMaker.updateTiles(this.player.x, this.player.y);
+
         this.mapMaker.updateFood(this.player.x, this.player.y);
 
         Object.keys(this.players).forEach(function(key, index) {

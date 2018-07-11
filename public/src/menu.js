@@ -82,7 +82,7 @@ class Menu extends Phaser.Scene {
         self.closeAvgrund();
         self.showLoadingCircle(function() {
             $.get("ip.json", function(data) {
-                var socket = io(data.ip);
+                var socket = io("http://192.168.1.103:3000");
 
                 self.nickname = nickname;
                 socket.emit('nickname', nickname);

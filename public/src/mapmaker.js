@@ -10,6 +10,8 @@ MapMaker = function(game) {
     this.foodSprites = [];
 
     this.canvases = [];
+
+    this.canvasTileSize = 16;
 }
 
 MapMaker.prototype = {
@@ -68,10 +70,10 @@ MapMaker.prototype = {
         this.initialized = true;
 
         if (this.tileDataMatches(oldData, data) && this.canvases.length > 0) {
-            for (var i = 0 ; i < this.canvases.length ; i++) {
-                var c = this.canvases[i];
-                this.game.add.image(c.x, c.y, c.name).setOrigin(0);
-            }
+            // for (var i = 0 ; i < this.canvases.length ; i++) {
+            //     var c = this.canvases[i];
+            //     this.game.add.image(c.x, c.y, c.name).setOrigin(0);
+            // }
             //this.game.add.image(-this.tileSize / 2, -this.tileSize / 2, 'map').setOrigin(0);
             return;
         }
@@ -83,7 +85,7 @@ MapMaker.prototype = {
 
         this.canvases = [];
 
-        var interval = 16;
+        var interval = this.canvasTileSize;
 
         var count = 0;
 
@@ -189,12 +191,13 @@ MapMaker.prototype = {
                 canvasTexture.refresh();
                 var posX = -this.tileSize / 2 + x * this.tileSize;
                 var posY = -this.tileSize / 2 + y * this.tileSize;
-                this.game.add.image(posX, posY, canvasName).setOrigin(0);
+                //this.game.add.image(posX, posY, canvasName).setOrigin(0);
 
                 this.canvases.push({
                     x: posX,
                     y: posY,
-                    name: canvasName
+                    name: canvasName,
+                    image: null
                 });
 
                 count++;
@@ -322,6 +325,25 @@ MapMaker.prototype = {
         }
 
         return this.getTile(x, y);
+    },
+    updateTiles: function(x, y) {
+        var canvasWidth = this.canvasTileSize * this.tileSize;
+        for (var i = 0 ; i < this.canvases.length ; i++) {
+            var c = this.canvases[i];
+            var centerX = c.x + canvasWidth / 2 + this.tileSize / 2;
+            var centerY = c.y + canvasWidth / 2 + this.tileSize / 2;
+            if (Math.abs(x - centerX) <= 700 + canvasWidth / 2 && Math.abs(y - centerY) <= 400 + canvasWidth / 2) {
+                if (!c.image) {
+                    c.image = true;
+                    //c.image = this.game.add.image(c.x, c.y, c.name).setOrigin(0);
+                    this.game.children.sendToBack(c.image);
+                }
+            }
+            else if (c.image) {
+                c.image.destroy();
+                c.image = null;
+            }
+        }
     },
     updateFood: function(x, y) {
         var xRange = 800;
