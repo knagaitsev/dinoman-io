@@ -11,7 +11,7 @@ MapMaker = function(game) {
 
     this.canvases = [];
 
-    this.canvasTileSize = 16;
+    this.canvasTileSize = 4;
 }
 
 MapMaker.prototype = {

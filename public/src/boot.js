@@ -30,7 +30,7 @@ class Boot extends Phaser.Scene {
     var normalHeight = 720;
     var scale = 1;
 
-    if (window.innerWidth <= 720) {
+    if (screen.width <= 720) {
         scale = 0.5;
     }
 

@@ -170,6 +170,7 @@ io.on('connection', function (socket) {
                 socket.broadcast.emit('user position', players[uuid]);
             }
             else if (socket.connected) {
+                console.log(players[uuid].nickname + " kicked");
                 socket.disconnect();
             }
         }
