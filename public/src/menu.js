@@ -58,7 +58,13 @@ class Menu extends Phaser.Scene {
         }, 500);
 
         var self = this;
-        $(".avgrund-popup input[type='submit']").one("click", this.startGame.bind(this));
+        $(".avgrund-popup input[type='submit']").on("click", this.startGame.bind(this));
+
+        $(document).on("keypress", function(event) {
+            if (event.which == 13) {
+                self.startGame();
+            }
+        });
     }
 
     showLoadingCircle(callback) {
@@ -68,6 +74,8 @@ class Menu extends Phaser.Scene {
     }
 
     startGame() {
+        $(".avgrund-popup input[type='submit']").off("click");
+        $(document).off("keypress");
         var self = this;
         var nickname = $(".avgrund-popup input[type='text']").val();
         $(".avgrund-popup").remove();

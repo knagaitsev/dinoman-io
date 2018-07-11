@@ -276,7 +276,7 @@ class Game extends Phaser.Scene {
             var y = p.sprite.y;
             var res = self.mapMaker.checkCollision(x, y, x + motionVec.x, y + motionVec.y, p.direc, newDirection, regVec);
 
-            var maxDifference = 10;
+            var maxDifference = 15;
             if (Math.abs(res.x - p.x) > maxDifference || Math.abs(res.y - p.y) > maxDifference) {
                 res.x = p.x;
                 res.y = p.y;
