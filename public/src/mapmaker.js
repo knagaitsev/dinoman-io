@@ -11,7 +11,7 @@ MapMaker = function(game) {
 
     this.canvases = [];
 
-    this.canvasTileSize = 4;
+    this.canvasTileSize = 16;
 }
 
 MapMaker.prototype = {
@@ -59,11 +59,10 @@ MapMaker.prototype = {
     ceilPow2: function( aSize ){
         return Math.pow( 2, Math.ceil( Math.log( aSize ) / Math.log( 2 ) ) ); 
     },
-    addTiles: function(data, food, oldData) {
+    addTiles: function(data, oldData) {
 
         this.width = data.width;
         this.height = data.height;
-        this.food = food;
 
         var tiles = data.tiles;
         this.tiles = tiles;
@@ -92,6 +91,7 @@ MapMaker.prototype = {
 
         for (var x = 0 ; x < data.width ; x += interval) {
             for (var y = 0 ; y < data.height ; y += interval) {
+
                 var width = Math.min(interval, data.width - x);
                 var height = Math.min(interval, data.height - y);
                 var canvasName = 'map' + count;

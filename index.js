@@ -33,12 +33,6 @@ else {
     reloadServer.watch([__dirname + "/public"]);
 }
 
-var port = process.env.PORT || 3000;
-
-server.listen(port, function() {
-    console.log("Listening on " + port);
-});
-
 var players = {};
 var sockets = {};
 
@@ -110,6 +104,8 @@ io.on('connection', function (socket) {
     
     var uuid = uuidv1();
 
+    socket.emit('maze', mazeData);
+
     socket.on('nickname', function(nickname) {
         if (typeof nickname == "string" && nickname.length <= 13 && !players[uuid]) {
             nickname = nickname.replace(/[^a-zA-Z0-9. ]/g, '');
@@ -121,7 +117,6 @@ io.on('connection', function (socket) {
             var pos = findBestStartingPosition(playerType);
             socket.emit('config', {
                 players: players,
-                maze: mazeData,
                 food: maze.food,
                 uuid: uuid,
                 playerType: playerType,
@@ -170,16 +165,19 @@ io.on('connection', function (socket) {
                 socket.broadcast.emit('user position', players[uuid]);
             }
             else if (socket.connected) {
-                console.log(players[uuid].nickname + " kicked");
                 socket.disconnect();
             }
         }
     });
 
     socket.on('disconnect', function () {
-        socket.broadcast.emit('user disconnected', uuid);
-        delete players[uuid];
-        delete sockets[uuid];
+        if (players[uuid]) {
+            socket.broadcast.emit('user disconnected', uuid);
+            delete players[uuid];
+        }
+        if (sockets[uuid]) {
+            delete sockets[uuid];
+        }
     });
 });
 
@@ -276,3 +274,9 @@ setInterval(function() {
     io.emit('leaderboard', leaderboard);
     io.emit('powerup', powerupEnd - Date.now());
 }, 50);
+
+var port = process.env.PORT || 3000;
+
+server.listen(port, function() {
+    console.log("Listening on " + port);
+});

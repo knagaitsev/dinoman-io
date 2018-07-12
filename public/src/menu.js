@@ -87,17 +87,23 @@ class Menu extends Phaser.Scene {
         self.closeAvgrund();
         self.showLoadingCircle(function() {
             $.get("ip.json", function(data) {
-                var socket = io(data.ip);
+                var ip = data.ip;
+
+                var socket = io(ip);
+
+                socket.on('maze', function(mazeData) {
+                    var data = {
+                        maze: mazeData,
+                        ip: ip,
+                        nickname: nickname,
+                        sizeData: self.sizeData
+                    };
+                    socket.close();
+                    self.scene.start('GameLoader', data);
+                });
 
                 self.nickname = nickname;
-                socket.emit('nickname', nickname);
 
-                socket.on('config', function(data) {
-                    localStorage.setItem("nickname", data.nickname);
-                    data.socket = socket;
-                    data.sizeData = self.sizeData;
-                    self.scene.start('Game', data);
-                });
                 socket.on('connect_error', function(error) {
                     socket.close();
                     self.scene.start('Menu', {

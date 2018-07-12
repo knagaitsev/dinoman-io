@@ -46,7 +46,7 @@ class Boot extends Phaser.Scene {
                 debug: false
             }
         },
-        scene: [Boot, Menu, Game, Compass]
+        scene: [Boot, Menu, GameLoader, Game, Compass]
     };
     
     var game = new Phaser.Game(config);

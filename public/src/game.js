@@ -4,16 +4,16 @@ class Game extends Phaser.Scene {
         super('Game');
 
         this.overlay = $("#phaser-overlay");
-
-        this.oldMapData = null;
-
-        this.mapMaker = new MapMaker(this);
     }
 
     preload() {
     }
 
     init(config) {
+        this.mapMaker = config.mapMaker;
+        this.mapMaker.game = this;
+        this.mapMaker.food = config.food;
+
         this.config = config;
 
         this.sizeData = config.sizeData;
@@ -80,12 +80,10 @@ class Game extends Phaser.Scene {
         });
 
         this.socket.on('disconnect', function(reason) {
+            console.log(reason);
             self.socket.close();
             self.scene.start('Menu');
         });
-        
-        this.mapMaker.addTiles(config.maze, config.food, this.oldMapData);
-        this.oldMapData = config.maze;
 
         this.socket.on('food', function(food) {
             if (typeof food == "object" && food instanceof Array) {
