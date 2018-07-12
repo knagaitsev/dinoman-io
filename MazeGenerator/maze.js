@@ -409,7 +409,7 @@ module.exports.prototype = {
     },
     checkCollision: function(initialX, initialY, finalX, finalY, dt, nickname) {
 
-        var maxSpeed = 10;
+        var maxSpeed = 11;
 
         var difX = finalX - initialX;
         var difY = finalY - initialY;
