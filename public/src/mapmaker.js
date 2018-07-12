@@ -350,9 +350,9 @@ MapMaker.prototype = {
 
         for (var f = this.foodSprites.length - 1 ; f >= 0 ; f--) {
             var foodSprite = this.foodSprites[f];
-            var i = foodSprite.x / this.tileSize;
-            var j = foodSprite.y / this.tileSize;
-            if (Math.abs(foodSprite.x - x) > xRange || Math.abs(foodSprite.y - y) > yRange || this.food[i][j] == 0 || (this.food[i][j] != foodSprite.foodType)) {
+            var i = Math.round(foodSprite.x / this.tileSize);
+            var j = Math.round(foodSprite.y / this.tileSize);
+            if (Math.abs(foodSprite.x - x) > xRange || Math.abs(foodSprite.y - y) > yRange || (i < this.food.length && j < this.food[i].length && (this.food[i][j] == 0 || (this.food[i][j] != foodSprite.foodType)))) {
                 foodSprite.destroy();
                 this.foodSprites.splice(f, 1);
             }

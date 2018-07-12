@@ -62,6 +62,8 @@ class Game extends Phaser.Scene {
         }, 3000);
 
         this.events.on('shutdown', function() {
+            this.mapMaker.food = [];
+            this.mapMaker.foodSprites = [];
             if (self.playerType == "ghost") {
                 self.scene.stop('Compass');
             }
@@ -80,7 +82,6 @@ class Game extends Phaser.Scene {
         });
 
         this.socket.on('disconnect', function(reason) {
-            console.log(reason);
             self.socket.close();
             self.scene.start('Menu');
         });
