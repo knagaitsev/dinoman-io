@@ -62,8 +62,8 @@ class Game extends Phaser.Scene {
         }, 3000);
 
         this.events.on('shutdown', function() {
-            this.mapMaker.food = [];
-            this.mapMaker.foodSprites = [];
+            self.mapMaker.food = [];
+            self.mapMaker.foodSprites = [];
             if (self.playerType == "ghost") {
                 self.scene.stop('Compass');
             }
