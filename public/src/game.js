@@ -346,6 +346,13 @@ class Game extends Phaser.Scene {
 
                 p.text.x = res.x;
                 p.text.y = res.y + self.textOffset;
+
+                p.sprite.setAlpha(1);
+                p.text.setAlpha(1);
+            }
+            else {
+                p.sprite.setAlpha(0);
+                p.text.setAlpha(0);
             }
 
             var ghostAnim = self.getGhostAnim(self.players[key].direc);
