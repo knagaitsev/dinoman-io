@@ -33,13 +33,14 @@ class Boot extends Phaser.Scene {
     if (screen.width <= 720) {
         scale = 0.5;
     }
+    var zoom = 1;
 
     var config = {
         type: Phaser.AUTO,
         parent: 'canvas-container',
         backgroundColor: '#2c9b7e',
-        width: normalWidth * scale,
-        height: normalHeight * scale,
+        width: normalWidth * zoom * scale,
+        height: normalHeight * zoom * scale,
         physics: {
             default: 'arcade',
             arcade: {
@@ -53,7 +54,8 @@ class Boot extends Phaser.Scene {
     var sizeData = {
         width: normalWidth * scale,
         height: normalHeight * scale,
-        scale: scale
+        scale: scale,
+        zoom: zoom
     };
     game.scene.start("Boot", sizeData);
 })();

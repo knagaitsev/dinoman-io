@@ -64,7 +64,7 @@ module.exports.prototype = {
                 var offsetX = 0;
                 var offsetY = 0;
                 var pastOffsets = [];
-                var max = 6;
+                var max = this.getRandomIntInclusive(4,8);
                 while (shapeCount < max) {
 
                     // if (pastOffsets.length > 0) {
@@ -104,7 +104,7 @@ module.exports.prototype = {
                             changeX = 0;
                             changeY = 0;
                             direc++;
-                            if (direc = 4) {
+                            if (direc == 4) {
                                 direc = 0;
                             }
                             direcCount++;

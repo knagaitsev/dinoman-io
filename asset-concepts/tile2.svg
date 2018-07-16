@@ -5352,10 +5352,10 @@
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1366"
-     inkscape:window-height="706"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:window-width="1348"
+     inkscape:window-height="688"
+     inkscape:window-x="1"
+     inkscape:window-y="1"
      inkscape:window-maximized="1"
      inkscape:snap-object-midpoints="true"
      inkscape:snap-nodes="false"
@@ -5382,8 +5382,8 @@
     <g
        id="g11345"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5">
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002">
       <circle
          inkscape:export-ydpi="22.5"
          inkscape:export-xdpi="22.5"
@@ -5430,8 +5430,8 @@
     <g
        id="g11459"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5">
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002">
       <circle
          inkscape:export-ydpi="22.5"
          inkscape:export-xdpi="22.5"
@@ -5501,8 +5501,8 @@
     <g
        id="g11467"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5">
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002">
       <circle
          inkscape:export-ydpi="22.5"
          inkscape:export-xdpi="22.5"
@@ -5595,8 +5595,8 @@
     <g
        id="g11569"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5">
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002">
       <circle
          inkscape:export-ydpi="22.5"
          inkscape:export-xdpi="22.5"
@@ -5706,16 +5706,16 @@
        x="-2008.5703"
        y="-684.77844"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5" />
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002" />
     <path
        id="rect4980-1-1-0"
        d="m -1116.1594,115.222 0,0 a 92.411421,92.411421 0 0 1 -92.4102,92.4102 l 0,615.1758 a 92.412003,92.412003 0 0 1 92.4121,92.4121 l 613.21096,0 c -0.0616,-10.527 1.64388,-21.0571 5.32422,-31.0352 12.26069,-37.2261 49.86309,-63.7565 88.98242,-63.375 l 0,0 c 0.0235,-2e-4 0.0468,2e-4 0.0703,0 l 0,-613.1758 a 92.412003,92.412003 0 0 1 -92.41211,-92.4101 l -615.17769,0 z"
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:30;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        inkscape:connector-curvature="0"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5" />
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002" />
     <circle
        transform="matrix(0.97902038,0,0,0.97902038,-2335.4936,2717.0945)"
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#333333;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:15;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -5725,8 +5725,8 @@
        r="76.949982"
        clip-path="url(#clipPath7099-8-7-63)"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5" />
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002" />
     <circle
        transform="matrix(-0.97902038,0,0,0.97902038,718.35298,2717.0915)"
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#333333;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:15;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -5736,8 +5736,8 @@
        r="76.949982"
        clip-path="url(#clipPath7099-8-7-6-2)"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5" />
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002" />
     <circle
        transform="matrix(-0.97902038,0,0,-0.97902038,718.35298,-1686.6483)"
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#333333;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:15;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -5747,8 +5747,8 @@
        r="76.949982"
        clip-path="url(#clipPath7099-8-7-6-0-2)"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5" />
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002" />
     <circle
        transform="matrix(0.97902038,0,0,-0.97902038,-2335.4934,-1686.6482)"
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#333333;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:15;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -5758,13 +5758,13 @@
        r="76.949982"
        clip-path="url(#clipPath7099-8-7-6-3-6)"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5" />
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002" />
     <g
        id="g11450"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5">
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002">
       <circle
          inkscape:export-ydpi="22.5"
          inkscape:export-xdpi="22.5"
@@ -5845,8 +5845,8 @@
     <g
        id="g11403"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5">
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002">
       <circle
          inkscape:export-ydpi="22.5"
          inkscape:export-xdpi="22.5"
@@ -5915,8 +5915,8 @@
     <g
        id="g11351"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5">
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002">
       <circle
          inkscape:export-ydpi="22.5"
          inkscape:export-xdpi="22.5"
@@ -5977,8 +5977,8 @@
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:30;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        inkscape:connector-curvature="0"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5" />
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002" />
     <circle
        clip-path="url(#clipPath7099-8-7-67-5)"
        r="76.949982"
@@ -5988,16 +5988,16 @@
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#333333;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:15;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        transform="matrix(0.97902038,0,0,0.97902038,-3135.494,2717.0915)"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5" />
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002" />
     <path
        inkscape:connector-curvature="0"
        id="rect4980-1-9-8-8-9"
        d="m -1916.1589,915.2192 a 92.412003,92.412003 0 0 1 -92.4121,92.4102 l 0,707.5879 800,0 0,-707.586 a 92.412003,92.412003 0 0 1 -92.4121,-92.4121 l -615.1758,0 z"
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:30;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5" />
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002" />
     <circle
        clip-path="url(#clipPath7099-8-7-2-1)"
        r="76.949982"
@@ -6007,8 +6007,8 @@
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#333333;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:15;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        transform="matrix(0.97902038,0,0,0.97902038,-3135.4946,3517.0897)"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5" />
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002" />
     <circle
        clip-path="url(#clipPath7099-8-7-61-1)"
        r="76.949982"
@@ -6018,16 +6018,16 @@
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#333333;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:15;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        transform="matrix(-0.97902038,0,0,0.97902038,-81.6474,3517.0897)"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5" />
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002" />
     <path
        inkscape:connector-curvature="0"
        id="rect4980-1-9-8-84-0"
        d="m -1116.1589,-684.7771 a 92.412003,92.412003 0 0 1 -92.4121,92.4102 l 0,707.5879 707.5879,0 a 92.412003,92.412003 0 0 1 92.4121,-92.4121 l 0,-707.586 -707.5879,0 z"
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:30;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5" />
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002" />
     <circle
        clip-path="url(#clipPath7099-8-7-3-7)"
        r="76.949982"
@@ -6037,8 +6037,8 @@
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#333333;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:15;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        transform="matrix(0.97902038,0,0,0.97902038,-2335.4946,1917.0935)"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5" />
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002" />
     <circle
        clip-path="url(#clipPath7099-8-7-5-9)"
        r="76.949982"
@@ -6048,16 +6048,16 @@
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#333333;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:15;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        transform="matrix(-0.97902038,0,0,-0.97902038,718.3526,-2486.6495)"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5" />
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002" />
     <path
        id="rect4980-1-9-8-84-8-1"
        d="m -1116.1589,915.2193 a 92.412003,92.412003 0 0 1 -92.4121,92.4102 l 0,707.5878 707.5879,0 a 92.412003,92.412003 0 0 1 92.4121,-92.4121 l 0,-615.1738 a 92.412003,92.412003 0 0 1 -92.4121,-92.4121 l -615.1758,0 z"
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:30;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        inkscape:connector-curvature="0"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5" />
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002" />
     <circle
        clip-path="url(#clipPath7099-8-7-4-3)"
        r="76.949982"
@@ -6067,8 +6067,8 @@
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#333333;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:15;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        transform="matrix(0.97902038,0,0,0.97902038,-2335.4946,3517.0898)"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5" />
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002" />
     <circle
        clip-path="url(#clipPath7099-8-7-08-7)"
        r="76.949982"
@@ -6078,8 +6078,8 @@
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#333333;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:15;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        transform="matrix(-0.97902038,0,0,0.97902038,718.3526,3517.0898)"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5" />
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002" />
     <circle
        clip-path="url(#clipPath7099-8-7-7-2)"
        r="76.949982"
@@ -6089,13 +6089,13 @@
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#333333;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:15;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        transform="matrix(-0.97902038,0,0,-0.97902038,718.3526,-886.6532)"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5" />
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002" />
     <g
        id="g11560"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5">
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002">
       <circle
          inkscape:export-ydpi="22.5"
          inkscape:export-xdpi="22.5"
@@ -6189,8 +6189,8 @@
        inkscape:randomized="0"
        d="m -562.86601,-142.92021 c -7.09289,12.28525 -231.51919,141.8578321 -245.70498,141.8578321 -14.18578,-1e-7 -238.61211,-129.5725821 -245.70501,-141.8578321 -7.0929,-12.28525 -7.0929,-271.43042 0,-283.71567 7.0929,-12.28525 231.51923,-141.85783 245.70502,-141.85783 14.18578,0 238.61208,129.57258 245.70497,141.85783 7.09289,12.28525 7.09289,271.43042 0,283.71567 z"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5" />
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002" />
     <path
        d="m -646.68744,-191.31454 c -4.67317,8.09418 -152.53719,93.463512 -161.88354,93.463512 -9.34636,0 -157.21037,-85.369332 -161.88355,-93.463512 -4.67318,-8.09418 -4.67317,-178.83284 0,-186.92701 4.67318,-8.09418 152.5372,-93.46351 161.88355,-93.46351 9.34635,0 157.21037,85.36933 161.88354,93.46351 4.67318,8.09417 4.67318,178.83284 0,186.92701 z"
        inkscape:randomized="0"
@@ -6207,8 +6207,8 @@
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:30;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter10603);color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        sodipodi:type="star"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5" />
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002" />
     <path
        sodipodi:type="star"
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#4d4d4d;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:30;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -6225,8 +6225,8 @@
        inkscape:randomized="0"
        d="m -1362.8656,-142.92085 c -7.0929,12.28525 -231.5192,141.8578313 -245.705,141.8578312 -14.1857,-1e-7 -238.612,-129.5725812 -245.7049,-141.8578312 -7.0929,-12.28525 -7.0929,-271.43042 0,-283.71567 7.0929,-12.28525 231.5192,-141.85783 245.7049,-141.85783 14.1858,0 238.6121,129.57258 245.705,141.85783 7.0929,12.28525 7.0929,271.43042 0,283.71567 z"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5" />
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002" />
     <path
        d="m -1446.687,-191.31518 c -4.6732,8.09418 -152.5372,93.463511 -161.8836,93.463511 -9.3463,0 -157.2103,-85.369331 -161.8835,-93.463511 -4.6732,-8.09418 -4.6732,-178.83284 0,-186.92702 4.6732,-8.09417 152.5372,-93.4635 161.8835,-93.4635 9.3464,0 157.2104,85.36933 161.8836,93.46351 4.6732,8.09417 4.6732,178.83284 0,186.92701 z"
        inkscape:randomized="0"
@@ -6243,14 +6243,14 @@
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:30;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter10603-6);color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        sodipodi:type="star"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5" />
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002" />
     <g
        id="g11341"
        transform="translate(-29.032841,7.5265474e-4)"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5">
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002">
       <path
          inkscape:export-ydpi="22.5"
          inkscape:export-xdpi="22.5"
@@ -6304,8 +6304,8 @@
        inkscape:randomized="0"
        d="m -1362.8656,657.07799 c -7.0929,12.28525 -231.5192,141.85783 -245.705,141.85783 -14.1857,0 -238.612,-129.57258 -245.7049,-141.85783 -7.0929,-12.28525 -7.0929,-271.43042 0,-283.71567 7.0929,-12.28525 231.5192,-141.85783 245.7049,-141.85783 14.1858,0 238.6121,129.57258 245.705,141.85783 7.0929,12.28525 7.0929,271.43042 0,283.71567 z"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5" />
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002" />
     <path
        d="m -1446.687,608.68366 c -4.6732,8.09418 -152.5372,93.46351 -161.8836,93.46351 -9.3463,0 -157.2103,-85.36933 -161.8835,-93.46351 -4.6732,-8.09418 -4.6732,-178.83284 0,-186.92702 4.6732,-8.09417 152.5372,-93.4635 161.8835,-93.4635 9.3464,0 157.2104,85.36933 161.8836,93.46351 4.6732,8.09417 4.6732,178.83284 0,186.92701 z"
        inkscape:randomized="0"
@@ -6322,8 +6322,8 @@
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:30;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter10603-20);color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        sodipodi:type="star"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5" />
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002" />
     <path
        sodipodi:type="star"
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#4d4d4d;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:30;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -6340,8 +6340,8 @@
        inkscape:randomized="0"
        d="m -562.86462,657.07888 c -7.0929,12.28525 -231.5192,141.85784 -245.70498,141.85784 -14.18578,0 -238.6121,-129.57259 -245.705,-141.85784 -7.0929,-12.28525 -7.0929,-271.43042 0,-283.71566 7.0929,-12.28525 231.51922,-141.85784 245.705,-141.85784 14.18578,0 238.61208,129.57259 245.70498,141.85784 7.09289,12.28525 7.09289,271.43042 0,283.71566 z"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5" />
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002" />
     <path
        d="m -646.68605,608.68456 c -4.67318,8.09418 -152.5372,93.46351 -161.88355,93.46351 -9.34635,0 -157.21037,-85.36933 -161.88355,-93.46351 -4.67317,-8.09418 -4.67317,-178.83284 0,-186.92702 4.67318,-8.09418 152.5372,-93.46351 161.88355,-93.46351 9.34635,0 157.21037,85.36933 161.88355,93.46351 4.67317,8.09418 4.67317,178.83284 0,186.92702 z"
        inkscape:randomized="0"
@@ -6358,8 +6358,8 @@
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:30;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter10603-20-6);color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        sodipodi:type="star"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5" />
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002" />
     <path
        sodipodi:type="star"
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#4d4d4d;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:30;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -6376,8 +6376,8 @@
        inkscape:randomized="0"
        d="m -1362.866,1457.0761 c -7.0929,12.2852 -231.5192,141.8578 -245.705,141.8578 -14.1858,0 -238.6121,-129.5726 -245.705,-141.8578 -7.0929,-12.2853 -7.0929,-271.4304 0,-283.7157 7.0929,-12.2852 231.5192,-141.8578 245.705,-141.8578 14.1858,0 238.6121,129.5726 245.705,141.8578 7.0929,12.2853 7.0929,271.4304 0,283.7157 z"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5" />
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002" />
     <path
        d="m -1446.6875,1408.6818 c -4.6731,8.0941 -152.5371,93.4635 -161.8835,93.4635 -9.3464,0 -157.2104,-85.3694 -161.8835,-93.4635 -4.6732,-8.0942 -4.6732,-178.8329 0,-186.927 4.6731,-8.0942 152.5371,-93.4636 161.8835,-93.4636 9.3464,0 157.2104,85.3694 161.8835,93.4636 4.6732,8.0941 4.6732,178.8328 0,186.927 z"
        inkscape:randomized="0"
@@ -6394,8 +6394,8 @@
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:30;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter10603-20-1);color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        sodipodi:type="star"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5" />
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002" />
     <path
        sodipodi:type="star"
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#4d4d4d;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:30;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -6412,8 +6412,8 @@
        inkscape:randomized="0"
        d="m -562.86601,1457.0761 c -7.09289,12.2852 -231.51919,141.8578 -245.70498,141.8578 -14.18578,0 -238.61211,-129.5726 -245.70501,-141.8578 -7.0929,-12.2853 -7.0929,-271.4304 0,-283.7157 7.0929,-12.2852 231.51923,-141.8578 245.70502,-141.8578 14.18578,0 238.61208,129.5726 245.70497,141.8578 7.09289,12.2853 7.09289,271.4304 0,283.7157 z"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5" />
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002" />
     <path
        d="m -646.68744,1408.6818 c -4.67317,8.0941 -152.53719,93.4635 -161.88354,93.4635 -9.34636,0 -157.21037,-85.3694 -161.88355,-93.4635 -4.67318,-8.0942 -4.67317,-178.8329 0,-186.927 4.67318,-8.0942 152.5372,-93.4636 161.88355,-93.4636 9.34635,0 157.21037,85.3694 161.88354,93.4636 4.67318,8.0941 4.67318,178.8328 0,186.927 z"
        inkscape:randomized="0"
@@ -6430,14 +6430,14 @@
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:30;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter10603-20-3);color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        sodipodi:type="star"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5" />
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002" />
     <g
        transform="translate(-29.032841,799.99396)"
        id="g11397"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5">
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002">
       <path
          sodipodi:type="star"
          style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#4d4d4d;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:30;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -6479,8 +6479,8 @@
        transform="translate(-29.033606,1599.9959)"
        id="g11397-4"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5">
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002">
       <path
          sodipodi:type="star"
          style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#4d4d4d;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:30;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -6522,8 +6522,8 @@
        id="g11341-6"
        transform="translate(770.9663,2.1118164e-4)"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5">
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002">
       <path
          inkscape:export-ydpi="22.5"
          inkscape:export-xdpi="22.5"
@@ -6565,8 +6565,8 @@
        id="g11341-0"
        transform="translate(770.96634,799.99971)"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5">
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002">
       <path
          inkscape:export-ydpi="22.5"
          inkscape:export-xdpi="22.5"
@@ -6608,8 +6608,8 @@
        id="g11341-2"
        transform="translate(1570.9658,1.6606613e-4)"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5">
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002">
       <path
          inkscape:export-ydpi="22.5"
          inkscape:export-xdpi="22.5"
@@ -6651,8 +6651,8 @@
        id="g11341-09"
        transform="translate(770.96549,1599.9945)"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5">
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002">
       <path
          inkscape:export-ydpi="22.5"
          inkscape:export-xdpi="22.5"
@@ -6694,8 +6694,8 @@
        id="g11341-29"
        transform="translate(1570.9659,799.99977)"
        inkscape:export-filename="C:\Users\student\Documents\Programming\phaser3\pacman\public\asset\tile2.png"
-       inkscape:export-xdpi="22.5"
-       inkscape:export-ydpi="22.5">
+       inkscape:export-xdpi="11.250002"
+       inkscape:export-ydpi="11.250002">
       <path
          inkscape:export-ydpi="22.5"
          inkscape:export-xdpi="22.5"

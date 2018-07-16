@@ -38,6 +38,7 @@ class Game extends Phaser.Scene {
         this.textOffset = 42;
 
         this.initOverlay(config);
+        //$('#phaser-overlay-container #phaser-overlay').find('.loader').hide();
 
         this.time = 0;
     }
@@ -62,8 +63,7 @@ class Game extends Phaser.Scene {
         }, 3000);
 
         this.events.on('shutdown', function() {
-            self.mapMaker.food = [];
-            self.mapMaker.foodSprites = [];
+            self.mapMaker.shutdown();
             if (self.playerType == "ghost") {
                 self.scene.stop('Compass');
             }
@@ -156,7 +156,7 @@ class Game extends Phaser.Scene {
             });
         }
 
-        this.cameras.main.setSize(this.sizeData.width, this.sizeData.height);
+        this.cameras.main.setSize(this.sizeData.width * this.sizeData.zoom, this.sizeData.height * this.sizeData.zoom);
         this.cameras.main.startFollow(this.player);
         //this.cameras.main.setBackgroundColor("#ff0000");
 
@@ -289,7 +289,7 @@ class Game extends Phaser.Scene {
         Object.keys(this.players).forEach(function(key, index) {
 
             var p = self.players[key];
-            if (Math.abs(self.player.x - p.x) <= self.sizeData.width / 2 / self.sizeData.scale + 50 && Math.abs(self.player.y - p.y) <= self.sizeData.height / 2 / self.sizeData.scale + 50) {
+            if (Math.abs(self.player.x - p.x) <= self.sizeData.width / 2 / self.sizeData.scale + 100 && Math.abs(self.player.y - p.y) <= self.sizeData.height / 2 / self.sizeData.scale + 100) {
                 var newDirection = (p.prevDirec !== undefined)  && p.prevDirec != p.direc;
 
                 var speed = self.getPlayerSpeed(p.playerType, dt);
@@ -418,7 +418,7 @@ class Game extends Phaser.Scene {
                 direc: this.direc,
                 time: 0
             });
-             while (this.direcLog[this.direcLog.length - 1].time > 300) {
+            while (this.direcLog[this.direcLog.length - 1].time > 300) {
                 this.direcLog.pop();
             }
             var success = false;

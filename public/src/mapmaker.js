@@ -339,6 +339,7 @@ MapMaker.prototype = {
                 }
             }
             else if (c.image) {
+                console.log(c.image);
                 c.image.destroy();
                 c.image = null;
             }
@@ -518,5 +519,14 @@ MapMaker.prototype = {
             y: initialY,
             success: false
         };
+    },
+    shutdown: function() {
+        this.food = [];
+        this.foodSprites = [];
+        for (var i = 0 ; i < this.canvases.length ; i++) {
+            if (this.canvases[i].image) {
+                this.canvases[i].image = null;
+            }
+        }
     }
 };
