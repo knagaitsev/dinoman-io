@@ -21,7 +21,7 @@ class Menu extends Phaser.Scene {
     create(config) {
 
         var template = "";
-        var height = 210;
+        var height = 230;
         if (config && config.type == "error") {
             template = `<h3>${config.title}</h3>
             <p>${config.text}</p>`;
@@ -35,6 +35,7 @@ class Menu extends Phaser.Scene {
             template = `<h3>dinoman.io</h3>
             <input type='text' placeholder='Nickname' id='nickname' maxlength='13' spellcheck='false' ${value}>
             <input type='submit' value='Play'>
+            <p><a href='https://youtu.be/9JRRUqSuKHk' target='_blank'>Watch the Video</a> <a href='http://iogames.space' target='_blank'>More .io Games</a></p>
             `;
         }
 

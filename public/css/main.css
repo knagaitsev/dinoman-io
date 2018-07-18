@@ -78,6 +78,20 @@ canvas {
     text-align: center;
 }
 
+.avgrund-popup p {
+    font-size: 14px;
+    font-family: Arial;
+    font-weight: 500;
+}
+
+.avgrund-popup p a {
+    text-decoration: none;
+    border-radius: 3px;
+    padding: 3px 5px;
+    color: white;
+    background-color: #F6416C;
+}
+
 .avgrund-popup h3 {
     font-size: 20px;
     font-weight: 400;
