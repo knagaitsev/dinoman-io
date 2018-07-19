@@ -212,7 +212,7 @@ setInterval(function() {
                 Object.keys(players).forEach(function(uuid2, index) {
                     var player2 = players[uuid2];
                     if (player2 && player2.playerType == "man" && collides(player1, player2)) {
-                        players[uuid2].score += 300;
+                        players[uuid2].score += 50;
                         if (sockets[uuid2] && sockets[uuid2].connected) {
                             sockets[uuid2].emit("score", players[uuid2].score);
                         }
@@ -233,7 +233,7 @@ setInterval(function() {
             if (sockets[uuid] && sockets[uuid].connected && collisionData) {
                 var newFood = [];
                 if (collisionData.type == 1) {
-                    players[uuid].score += 5;
+                    players[uuid].score += 1;
                     sockets[uuid].emit("score", players[uuid].score);
                 }
                 else if (collisionData.type == 2) {

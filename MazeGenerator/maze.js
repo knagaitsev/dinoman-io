@@ -368,10 +368,10 @@ module.exports.prototype = {
 
         var powerupAllowed = false;
         var foodData = this.getFoodData();
-        if (playerCount <= 4) {
+        if (playerCount <= 2) {
             powerupAllowed = foodData.totalFood2 < Math.ceil(foodData.totalSpace / 360);
         }
-        else if (playerCount <= 8) {
+        else if (playerCount <= 4) {
             powerupAllowed = foodData.totalFood2 < Math.ceil(foodData.totalSpace / 900);
         }
         else {
