@@ -17,7 +17,9 @@ app.get('/ip.json', function(req, res) {
     res.status(200).send(JSON.stringify(obj));
 });
 
-app.use(express.static('public'));
+app.use(express.static('public', {
+    extensions: ['html']
+}));
 
 if (process.env.Heroku) {
     //production
