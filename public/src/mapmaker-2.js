@@ -173,22 +173,24 @@ MapMaker.prototype = {
                         if (frame != -1) {
                             var contextX = i - x;
                             var contextY = j - y;
+                            
                             context.save();
                             context.translate(contextX * this.tileSize + this.tileSize / 2, contextY * this.tileSize + this.tileSize / 2);
                             context.rotate(Phaser.Math.DegToRad(rotation));
         
                             var canvasData = texture.frames[frame].canvasData;
-                            context.drawImage(texture.getSourceImage(), canvasData.sx, canvasData.sy,
-                                canvasData.sWidth, canvasData.sHeight, -this.tileSize / 2, -this.tileSize / 2, this.tileSize, this.tileSize);
-                            //var sheet = this.game.physics.add.sprite(i * this.tileSize, j * this.tileSize, 'tiles').setScale(0.5);
+                            context.drawImage(texture.getSourceImage(), canvasData.x, canvasData.y,
+                                canvasData.width, canvasData.height, -this.tileSize / 2, -this.tileSize / 2, this.tileSize, this.tileSize);
                             context.restore();
+
                             //sheet.setFrame(frame);
                             //sheet.setRotation(Phaser.Math.DegToRad(rotation));
                         }
                     }
                 }
-        
+
                 canvasTexture.refresh();
+        
                 var posX = -this.tileSize / 2 + x * this.tileSize;
                 var posY = -this.tileSize / 2 + y * this.tileSize;
                 //this.game.add.image(posX, posY, canvasName).setOrigin(0);
@@ -335,11 +337,11 @@ MapMaker.prototype = {
             if (Math.abs(x - centerX) <= this.game.sizeData.width / 2 / this.game.sizeData.scale + 50 + canvasWidth / 2 && Math.abs(y - centerY) <= this.game.sizeData.height / 2 / this.game.sizeData.scale + 50 + canvasWidth / 2) {
                 if (!c.image) {
                     c.image = this.game.add.image(c.x, c.y, c.name).setOrigin(0).setScale(this.game.sizeData.scale);
+                    //console.log(c.image);
                     this.game.children.sendToBack(c.image);
                 }
             }
             else if (c.image) {
-                console.log(c.image);
                 c.image.destroy();
                 c.image = null;
             }

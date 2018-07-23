@@ -23,7 +23,7 @@
     <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500" rel="stylesheet">
 
     <link rel="stylesheet" href="css/spinkit.css">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/main-2.css">
 
     <link rel="stylesheet" href="css/vendor/avgrund.css">
 
@@ -40,13 +40,13 @@
 
     <!--<script src="src/vendor/granim.min.js"></script>-->
 
-    <script src="src/vendor/phaser.min.js"></script>
+    <script src="src/vendor/phaser-3.11.0.min.js"></script>
     <script src="src/vendor/socket.io.js"></script>
-    <script src="src/mapmaker.js"></script>
+    <script src="src/mapmaker-2.js"></script>
     <script src="src/compass.js"></script>
-    <script src="src/game.js"></script>
+    <script src="src/game-2.js"></script>
     <script src="src/gameLoader.js"></script>
-    <script src="src/menu.js"></script>
+    <script src="src/menu-2.js"></script>
     <script src="src/boot.js"></script>
 </head>
 
@@ -54,6 +54,27 @@
     <div id="phaser-container">
         <div id="phaser-overlay-container" width="1280" height="720">
             <div id="phaser-overlay">
+                <div class="main login avgrund-popup">
+                    <h3>dinoman.io</h3>
+                    <input type='text' placeholder='Nickname' id='nickname' maxlength='13' spellcheck='false' ${value}>
+                    <input type='submit' value='Play'>
+                    <p><a href='https://youtu.be/9JRRUqSuKHk' target='_blank'>Watch the Video</a> <a href='http://iogames.space' target='_blank'>More .io Games</a></p>
+                    <div class="ad-container">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <!-- dinoman 2 -->
+                        <ins class="adsbygoogle"
+                                style="display:inline-block;width:336px;height:280px"
+                                data-ad-client="ca-pub-1695965098238836"
+                                data-ad-slot="7134267061"></ins>
+                        <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+                </div>
+                <div class="login-error login avgrund-popup">
+                    <h3></h3>
+                    <p></p>
+                </div>
                 <div class="loader">
                         <div class="sk-folding-cube">
                             <div class="sk-cube1 sk-cube"></div>

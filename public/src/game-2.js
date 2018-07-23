@@ -10,6 +10,7 @@ class Game extends Phaser.Scene {
     }
 
     init(config) {
+
         this.mapMaker = config.mapMaker;
         this.mapMaker.game = this;
         this.mapMaker.food = config.food;
@@ -41,9 +42,13 @@ class Game extends Phaser.Scene {
         //$('#phaser-overlay-container #phaser-overlay').find('.loader').hide();
 
         this.time = 0;
+
+        this.timeCheck = Date.now();
     }
 
     create(config) {
+
+        
 
         var self = this;
 
@@ -97,7 +102,52 @@ class Game extends Phaser.Scene {
             }
         });
 
-        this.cursors = this.input.keyboard.createCursorKeys();
+        this.cursors = {
+            up: null,
+            left: null,
+            down: null,
+            right: null
+        };
+        Object.keys(this.cursors).forEach(function(key, index) {
+            self.cursors[key] = {
+                isDown: false
+            };
+        });
+        this.input.keyboard.on('keydown', function(e) {
+            if (e.key == "ArrowUp") {
+                this.cursors.up.isDown = true;
+            }
+            
+            if (e.key == "ArrowLeft") {
+                this.cursors.left.isDown = true;
+            }
+            
+            if (e.key == "ArrowDown") {
+                this.cursors.down.isDown = true;
+            }
+            
+            if (e.key == "ArrowRight") {
+                this.cursors.right.isDown = true;
+            }
+        }, this);
+
+        this.input.keyboard.on('keyup', function(e) {
+            if (e.key == "ArrowUp") {
+                this.cursors.up.isDown = false;
+            }
+            
+            if (e.key == "ArrowLeft") {
+                this.cursors.left.isDown = false;
+            }
+            
+            if (e.key == "ArrowDown") {
+                this.cursors.down.isDown = false;
+            }
+            
+            if (e.key == "ArrowRight") {
+                this.cursors.right.isDown = false;
+            }
+        }, this);
 
         this.anims.create({
             key: 'eat',
@@ -252,7 +302,7 @@ class Game extends Phaser.Scene {
     }
 
     getPlayerSpeed(playerType, dt) {
-        var maxSpeed = 10;
+        var maxSpeed = 50;
         var speed = 0;
         if (playerType == "man") {
             speed = (dt / 4);
@@ -267,228 +317,232 @@ class Game extends Phaser.Scene {
         return speed;
     }
 
-    update() {
+    update(timestep, dt) {
+        if (/*Date.now() - this.timeCheck > 100*/true) {
+            //dt = Date.now() - this.timeCheck;
+            //this.timeCheck = Date.now();
 
-        this.scaleChildren(1 / this.sizeData.scale);
+            this.scaleChildren(1 / this.sizeData.scale);
 
-        var now = Date.now();
-        var dt = now - this.time;
-        this.time = now;
+            // var now = Date.now();
+            // var dt = now - this.time;
+            // this.time = now;
 
-        var self = this;
-        // Object.keys(this.players).forEach(function(key, index) {
-        //     self.players[key].sprite.x = self.players[key].x;
-        //     self.players[key].sprite.y = self.players[key].y;
-        //     self.players[key].sprite.setRotation(self.players[key].rotation);
-        //     self.players[key].sprite.setFlipX(self.players[key].flipX);
+            var self = this;
+            // Object.keys(this.players).forEach(function(key, index) {
+            //     self.players[key].sprite.x = self.players[key].x;
+            //     self.players[key].sprite.y = self.players[key].y;
+            //     self.players[key].sprite.setRotation(self.players[key].rotation);
+            //     self.players[key].sprite.setFlipX(self.players[key].flipX);
 
-        //     self.players[key].text.x = self.players[key].x;
-        //     self.players[key].text.y = self.players[key].y + self.textOffset;
-        // });
+            //     self.players[key].text.x = self.players[key].x;
+            //     self.players[key].text.y = self.players[key].y + self.textOffset;
+            // });
 
-        Object.keys(this.players).forEach(function(key, index) {
+            Object.keys(this.players).forEach(function(key, index) {
 
-            var p = self.players[key];
-            if (Math.abs(self.player.x - p.x) <= self.sizeData.width / 2 / self.sizeData.scale + 100 && Math.abs(self.player.y - p.y) <= self.sizeData.height / 2 / self.sizeData.scale + 100) {
-                var newDirection = (p.prevDirec !== undefined)  && p.prevDirec != p.direc;
+                var p = self.players[key];
+                if (Math.abs(self.player.x - p.x) <= self.sizeData.width / 2 / self.sizeData.scale + 100 && Math.abs(self.player.y - p.y) <= self.sizeData.height / 2 / self.sizeData.scale + 100) {
+                    var newDirection = (p.prevDirec !== undefined)  && p.prevDirec != p.direc;
 
-                var speed = self.getPlayerSpeed(p.playerType, dt);
-                var motionVec = self.getMotionVector(p.direc, speed);
-                var regVec;
-                var forceTurn = false;
-                if (newDirection) {
-                    regVec = self.getMotionVector(p.prevDirec, speed);
+                    var speed = self.getPlayerSpeed(p.playerType, dt);
+                    var motionVec = self.getMotionVector(p.direc, speed);
+                    var regVec;
+                    var forceTurn = false;
+                    if (newDirection) {
+                        regVec = self.getMotionVector(p.prevDirec, speed);
 
-                    if (Math.abs(p.direc - p.prevDirec) != 2) {
-                        forceTurn = true;
+                        if (Math.abs(p.direc - p.prevDirec) != 2) {
+                            forceTurn = true;
+                        }
+
+                        // p.sprite.x = p.x;
+                        // p.sprite.y = p.y;
+
+                        // p.text.x = p.x;
+                        // p.text.y = p.y + self.textOffset;
+                    }
+                    else {
+                        regVec = motionVec;
                     }
 
-                    // p.sprite.x = p.x;
-                    // p.sprite.y = p.y;
+                    var x = p.sprite.x;
+                    var y = p.sprite.y;
+                    var res = self.mapMaker.checkCollision(x, y, x + motionVec.x, y + motionVec.y, p.direc, newDirection, regVec);
 
-                    // p.text.x = p.x;
-                    // p.text.y = p.y + self.textOffset;
-                }
-                else {
-                    regVec = motionVec;
-                }
-
-                var x = p.sprite.x;
-                var y = p.sprite.y;
-                var res = self.mapMaker.checkCollision(x, y, x + motionVec.x, y + motionVec.y, p.direc, newDirection, regVec);
-
-                var maxDifference = 10;
-                if (Math.abs(res.x - p.x) > maxDifference || Math.abs(res.y - p.y) > maxDifference) {
-                    var fixX = 0;
-                    var fixY = 0;
-                    if (p.direc == 0 || p.direc == 2) {
-                        if (res.y - p.y > maxDifference) {
-                            fixY = maxDifference;
+                    var maxDifference = 10;
+                    if (Math.abs(res.x - p.x) > maxDifference || Math.abs(res.y - p.y) > maxDifference) {
+                        var fixX = 0;
+                        var fixY = 0;
+                        if (p.direc == 0 || p.direc == 2) {
+                            if (res.y - p.y > maxDifference) {
+                                fixY = maxDifference;
+                            }
+                            else if (res.y - p.y < -maxDifference) {
+                                fixY = -maxDifference;
+                            }
                         }
-                        else if (res.y - p.y < -maxDifference) {
-                            fixY = -maxDifference;
+                        else if (p.direc == 1 || p.direc == 3) {
+                            if (res.x - p.x > maxDifference) {
+                                fixX = maxDifference;
+                            }
+                            else if (res.x - p.x < -maxDifference) {
+                                fixX = -maxDifference;
+                            }
                         }
+
+                        res.x = p.x + fixX;
+                        res.y = p.y + fixY;
                     }
-                    else if (p.direc == 1 || p.direc == 3) {
-                        if (res.x - p.x > maxDifference) {
-                            fixX = maxDifference;
-                        }
-                        else if (res.x - p.x < -maxDifference) {
-                            fixX = -maxDifference;
-                        }
-                    }
+                    p.sprite.x = res.x;
+                    p.sprite.y = res.y;
 
-                    res.x = p.x + fixX;
-                    res.y = p.y + fixY;
-                }
-                p.sprite.x = res.x;
-                p.sprite.y = res.y;
+                    p.text.x = res.x;
+                    p.text.y = res.y + self.textOffset;
 
-                p.text.x = res.x;
-                p.text.y = res.y + self.textOffset;
-
-                p.sprite.setAlpha(1);
-                p.text.setAlpha(1);
-            }
-            else {
-                p.sprite.setAlpha(0);
-                p.text.setAlpha(0);
-            }
-
-            var ghostAnim = self.getGhostAnim(self.players[key].direc);
-            if (self.players[key].playerType == "ghost" && ghostAnim != self.players[key].sprite.anims.getCurrentKey()) {
-                self.players[key].sprite.anims.play(ghostAnim);
-            }
-        });
-
-        this.mapMaker.updateTiles(this.player.x, this.player.y);
-
-        this.mapMaker.updateFood(this.player.x, this.player.y);
-
-        Object.keys(this.players).forEach(function(key, index) {
-            self.children.bringToTop(self.players[key].sprite);
-        });
-
-        this.children.bringToTop(this.player);
-    
-        //player.setVelocity(0);
-        var speed = this.getPlayerSpeed(this.playerType, dt);
-    
-        var prevDirec = this.direc;
-        if (this.cursors.left.isDown)
-        {
-            this.direc = 1;
-        }
-        else if (this.cursors.right.isDown || this.direc == -1)
-        {
-            this.direc = 3;
-        }
-        else if (this.cursors.up.isDown)
-        {
-            this.direc = 0;
-        }
-        else if (this.cursors.down.isDown)
-        {
-            this.direc = 2;
-        }
-        else if (this.input.activePointer.isDown) {
-            var x = this.input.activePointer.x;
-            var y = this.input.activePointer.y;
-            var w = this.cameras.main.width;
-            var h = this.cameras.main.height;
-
-            var scaledX = (x - (w / 2)) * (h / w);
-            var scaledY = y - (h / 2);
-            if (Math.abs(scaledX) > Math.abs(scaledY)) {
-                if (scaledX < 0) {
-                    this.direc = 1;
+                    p.sprite.setAlpha(1);
+                    p.text.setAlpha(1);
                 }
                 else {
-                    this.direc = 3;
+                    p.sprite.setAlpha(0);
+                    p.text.setAlpha(0);
                 }
-            }
-            else {
-                if (scaledY < 0) {
-                    this.direc = 0;
+
+                var ghostAnim = self.getGhostAnim(self.players[key].direc);
+                if (self.players[key].playerType == "ghost" && ghostAnim != self.players[key].sprite.anims.getCurrentKey()) {
+                    self.players[key].sprite.anims.play(ghostAnim);
                 }
-                else {
-                    this.direc = 2;
-                }
-            }
-        }
-    
-        if (this.direc != -1 && this.mapMaker.initialized) {
-            for (var i = 0 ; i < this.direcLog.length ; i++) {
-                this.direcLog[i].time += dt;
-            }
-            this.direcLog.unshift({
-                direc: this.direc,
-                time: 0
             });
-            while (this.direcLog[this.direcLog.length - 1].time > 300) {
-                this.direcLog.pop();
+
+            this.mapMaker.updateTiles(this.player.x, this.player.y);
+
+            this.mapMaker.updateFood(this.player.x, this.player.y);
+
+            Object.keys(this.players).forEach(function(key, index) {
+                self.children.bringToTop(self.players[key].sprite);
+            });
+
+            this.children.bringToTop(this.player);
+        
+            //player.setVelocity(0);
+            var speed = this.getPlayerSpeed(this.playerType, dt);
+        
+            var prevDirec = this.direc;
+            if (this.cursors.left.isDown)
+            {
+                this.direc = 1;
             }
-            var success = false;
-            for (var i = 0 ; i < this.direcLog.length ; i++) {
-                if (this.direcLog[i].direc != prevDirec) {
-                    var regVec = this.getMotionVector(prevDirec, speed);
-                    var motionVec = this.getMotionVector(this.direcLog[i].direc, speed);
-                    var res = this.mapMaker.checkCollision(this.player.x, this.player.y, this.player.x + motionVec.x, this.player.y + motionVec.y, this.direcLog[i].direc, true, regVec);
-                    if (res.success) {
-                        this.direc = this.direcLog[i].direc;
-                        this.direcLog = [];
-                        this.player.x = res.x;
-                        this.player.y = res.y;
-                        success = true;
-                        break;
+            else if (this.cursors.right.isDown || this.direc == -1)
+            {
+                this.direc = 3;
+            }
+            else if (this.cursors.up.isDown)
+            {
+                this.direc = 0;
+            }
+            else if (this.cursors.down.isDown)
+            {
+                this.direc = 2;
+            }
+            else if (this.input.activePointer.isDown) {
+                var x = this.input.activePointer.x;
+                var y = this.input.activePointer.y;
+                var w = this.cameras.main.width;
+                var h = this.cameras.main.height;
+
+                var scaledX = (x - (w / 2)) * (h / w);
+                var scaledY = y - (h / 2);
+                if (Math.abs(scaledX) > Math.abs(scaledY)) {
+                    if (scaledX < 0) {
+                        this.direc = 1;
+                    }
+                    else {
+                        this.direc = 3;
+                    }
+                }
+                else {
+                    if (scaledY < 0) {
+                        this.direc = 0;
+                    }
+                    else {
+                        this.direc = 2;
                     }
                 }
             }
-            if (!success) {
-                var motionVec = this.getMotionVector(prevDirec, speed);
-                var res = this.mapMaker.checkCollision(this.player.x, this.player.y, this.player.x + motionVec.x, this.player.y + motionVec.y, prevDirec, false, motionVec);
-                this.direc = prevDirec;
-                this.player.x = res.x;
-                this.player.y = res.y;
+        
+            if (this.direc != -1 && this.mapMaker.initialized) {
+                for (var i = 0 ; i < this.direcLog.length ; i++) {
+                    this.direcLog[i].time += dt;
+                }
+                this.direcLog.unshift({
+                    direc: this.direc,
+                    time: 0
+                });
+                while (this.direcLog[this.direcLog.length - 1].time > 300) {
+                    this.direcLog.pop();
+                }
+                var success = false;
+                for (var i = 0 ; i < this.direcLog.length ; i++) {
+                    if (this.direcLog[i].direc != prevDirec) {
+                        var regVec = this.getMotionVector(prevDirec, speed);
+                        var motionVec = this.getMotionVector(this.direcLog[i].direc, speed);
+                        var res = this.mapMaker.checkCollision(this.player.x, this.player.y, this.player.x + motionVec.x, this.player.y + motionVec.y, this.direcLog[i].direc, true, regVec);
+                        if (res.success) {
+                            this.direc = this.direcLog[i].direc;
+                            this.direcLog = [];
+                            this.player.x = res.x;
+                            this.player.y = res.y;
+                            success = true;
+                            break;
+                        }
+                    }
+                }
+                if (!success) {
+                    var motionVec = this.getMotionVector(prevDirec, speed);
+                    var res = this.mapMaker.checkCollision(this.player.x, this.player.y, this.player.x + motionVec.x, this.player.y + motionVec.y, prevDirec, false, motionVec);
+                    this.direc = prevDirec;
+                    this.player.x = res.x;
+                    this.player.y = res.y;
+                }
             }
-        }
 
-        this.text.x = this.player.x;
-        this.text.y = this.player.y + this.textOffset;
-    
-        if (this.direc == 1) {
-            this.player.setFlipX(true);
-            this.flipX = true;
-            this.player.setRotation(Phaser.Math.DegToRad(0));
-        }
-        else if (this.direc == 3) {
-            this.player.setFlipX(false);
-            this.flipX = false;
-            this.player.setRotation(Phaser.Math.DegToRad(0));
-        }
-        else if (this.direc == 0) {
-            this.player.setFlipX(false);
-            this.flipX = false;
-            if (this.playerType == "man")
-                this.player.setRotation(Phaser.Math.DegToRad(270));
-        }
-        else if (this.direc == 2) {
-            this.player.setFlipX(false);
-            this.flipX = false;
-            if (this.playerType == "man")
-                this.player.setRotation(Phaser.Math.DegToRad(90));
-        }
+            this.text.x = this.player.x;
+            this.text.y = this.player.y + this.textOffset;
+        
+            if (this.direc == 1) {
+                this.player.setFlipX(true);
+                this.flipX = true;
+                this.player.setRotation(Phaser.Math.DegToRad(0));
+            }
+            else if (this.direc == 3) {
+                this.player.setFlipX(false);
+                this.flipX = false;
+                this.player.setRotation(Phaser.Math.DegToRad(0));
+            }
+            else if (this.direc == 0) {
+                this.player.setFlipX(false);
+                this.flipX = false;
+                if (this.playerType == "man")
+                    this.player.setRotation(Phaser.Math.DegToRad(270));
+            }
+            else if (this.direc == 2) {
+                this.player.setFlipX(false);
+                this.flipX = false;
+                if (this.playerType == "man")
+                    this.player.setRotation(Phaser.Math.DegToRad(90));
+            }
 
-        var ghostAnim = this.getGhostAnim(this.direc);
-        if (this.playerType == "ghost" && ghostAnim != this.player.anims.getCurrentKey()) {
-            self.player.anims.play(ghostAnim);
-        }
-    
-        if (this.socket) {
-            this.socket.emit("position", {x: this.player.x, y: this.player.y, rotation: this.player.rotation, flipX: this.flipX, direc: this.direc});
-        }
+            var ghostAnim = this.getGhostAnim(this.direc);
+            if (this.playerType == "ghost" && ghostAnim != this.player.anims.getCurrentKey()) {
+                self.player.anims.play(ghostAnim);
+            }
+        
+            if (this.socket) {
+                this.socket.emit("position", {x: this.player.x, y: this.player.y, rotation: this.player.rotation, flipX: this.flipX, direc: this.direc});
+            }
 
-        this.scaleChildren(this.sizeData.scale);
+            this.scaleChildren(this.sizeData.scale);
+        }
     }
 
     addPlayer(user) {
@@ -542,6 +596,7 @@ class Game extends Phaser.Scene {
         $('#phaser-overlay-container').show();
         $('#phaser-overlay-container #phaser-overlay').children().show();
         $('#phaser-overlay-container #phaser-overlay').find('.loader').hide();
+        $(".login").hide();
         var overlay = this.overlay;
         overlay.find('.notification-tray').empty();
         this.setScore(config.score);

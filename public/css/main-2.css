@@ -198,3 +198,32 @@ canvas {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+#phaser-overlay .login {
+    width: 380px;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border-radius: 3px;
+    box-shadow: 0px 0px 20px rgba( 0, 0, 0, 0.6 );
+}
+
+#phaser-overlay .login-error {
+}
+
+.ad-container {
+    width: 336px;
+    height: 280px;
+    margin: auto;
+    margin-bottom: 10px;
+    display: block;
+}
+
+@media (max-height: 550px) {
+    .ad-container {
+        display: none;
+    }
+}

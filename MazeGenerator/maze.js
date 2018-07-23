@@ -409,16 +409,6 @@ module.exports.prototype = {
     },
     checkCollision: function(initialX, initialY, finalX, finalY, dt, nickname) {
 
-        var maxSpeed = 11;
-
-        var difX = finalX - initialX;
-        var difY = finalY - initialY;
-
-        if (Math.abs(difX) > maxSpeed || Math.abs(difY) > maxSpeed) {
-            console.log(nickname + " kicked for moving too fast");
-            return false;
-        }
-
         // if (Math.abs(difX) > Math.abs(difY)) {
         //     if (difX > 0) {
         //         direction = 3;

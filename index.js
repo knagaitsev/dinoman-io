@@ -102,6 +102,44 @@ function findBestStartingPosition(playerType) {
     return bestStart;
 }
 
+function checkSpeed(initialX, initialY, finalX, finalY, uuid) {
+    var maxSpeed = 11;
+
+    var difX = finalX - initialX;
+    var difY = finalY - initialY;
+
+    var change = Math.max(Math.abs(difX), Math.abs(difY));
+    if (change > 60) {
+        return false;
+    }
+    players[uuid].speedData.distance += change;
+
+    var now = Date.now();
+    var dt = now - players[uuid].speedData.timestamp;
+
+    if (dt > maze.getRandomIntInclusive(2000, 3000)) {
+        var playerType = players[uuid].playerType;
+        var expectedSpeed;
+        if (playerType == "man") {
+            expectedSpeed = (dt / 4);
+        }
+        else if (playerType == "ghost") {
+            expectedSpeed = (dt / 3.5);
+        }
+
+        var threshold = 25;
+
+        if (players[uuid].speedData.distance > expectedSpeed + threshold) {
+            return false;
+        }
+
+        players[uuid].speedData.distance = 0;
+        players[uuid].speedData.timestamp = now;
+    }
+
+    return true;
+}
+
 io.on('connection', function (socket) {
     
     var uuid = uuidv1();
@@ -138,6 +176,11 @@ io.on('connection', function (socket) {
                 score: score,
                 playerType: playerType,
                 timestamp: Date.now(),
+                speedData: {
+                    timestamp: Date.now(),
+                    distance: 0,
+                    count: 0
+                },
                 direc: 3
             };
 
@@ -157,7 +200,8 @@ io.on('connection', function (socket) {
             if (data && typeof data == "object"
                 && typeof data.x == "number" && typeof data.y == "number" && typeof data.rotation == "number"
                 && typeof data.flipX == "boolean" && typeof data.direc == "number" && data.direc >= 0 && data.direc < 4 && data.direc == Math.floor(data.direc)
-                && maze.checkCollision(players[uuid].x, players[uuid].y, data.x, data.y, dt, players[uuid].nickname)) {
+                && checkSpeed(players[uuid].x, players[uuid].y, data.x, data.y, uuid)
+                && (Math.random() < .9 || maze.checkCollision(players[uuid].x, players[uuid].y, data.x, data.y, dt, players[uuid].nickname))) {
                 players[uuid].timestamp = time;
                 players[uuid].x = data.x;
                 players[uuid].y = data.y;
@@ -253,7 +297,9 @@ setInterval(function() {
             }
         }
     });
+}, 25);
 
+setInterval(function() {
     var arr = [];
     Object.keys(players).forEach(function(uuid, index) {
         var player = players[uuid];
@@ -275,7 +321,7 @@ setInterval(function() {
     var leaderboard = arr.slice(0, 10);
     io.emit('leaderboard', leaderboard);
     io.emit('powerup', powerupEnd - Date.now());
-}, 50);
+}, 100);
 
 var port = process.env.PORT || 3000;
 
