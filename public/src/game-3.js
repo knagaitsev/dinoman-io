@@ -597,6 +597,7 @@ class Game extends Phaser.Scene {
         $('#phaser-overlay-container #phaser-overlay').children().show();
         $('#phaser-overlay-container #phaser-overlay').find('.loader').hide();
         $(".login").hide();
+        $(".main").hide();
         var overlay = this.overlay;
         overlay.find('.notification-tray').empty();
         this.setScore(config.score);

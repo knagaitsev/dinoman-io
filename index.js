@@ -117,7 +117,7 @@ function checkSpeed(initialX, initialY, finalX, finalY, uuid) {
     var now = Date.now();
     var dt = now - players[uuid].speedData.timestamp;
 
-    if (dt > maze.getRandomIntInclusive(2000, 3000)) {
+    if (dt > maze.getRandomIntInclusive(5000, 6000)) {
         var playerType = players[uuid].playerType;
         var expectedSpeed;
         if (playerType == "man") {
@@ -128,13 +128,18 @@ function checkSpeed(initialX, initialY, finalX, finalY, uuid) {
         }
 
         var threshold = 50;
+        if (players[uuid].speedData.count == 0) {
+            threshold = 100;
+        }
 
+        //console.log(players[uuid].speedData.distance - expectedSpeed);
         if (players[uuid].speedData.distance > expectedSpeed + threshold) {
             return false;
         }
 
         players[uuid].speedData.distance = 0;
         players[uuid].speedData.timestamp = now;
+        players[uuid].speedData.count++;
     }
 
     return true;

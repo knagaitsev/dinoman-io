@@ -35,10 +35,11 @@ class Menu extends Phaser.Scene {
             loginError.find("p").text(config.text);
         }
         else {
+            $("#phaser-container").css("background-color", "#2c9b7e");
             $('#phaser-overlay-container').show();
             $('#phaser-overlay-container').css("pointer-events", "auto");
             $('#phaser-overlay-container #phaser-overlay').children().hide();
-            $(".avgrund-popup.login.main").show();
+            $(".main").show();
             var value = "";
             if (this.nickname != "" && this.nickname !== undefined && this.nickname !== null) {
                 //value = "value='" + this.nickname + "'";
@@ -65,7 +66,10 @@ class Menu extends Phaser.Scene {
         $('#phaser-overlay-container').css("pointer-events", "none");
         $('#phaser-overlay-container').show();
         $('#phaser-overlay-container #phaser-overlay').children().hide();
+        $(".main").hide();
+        $("#phaser-container").css("background-color", "white");
         $('#phaser-overlay-container #phaser-overlay').find('.loader').fadeIn(200, callback);
+
     }
 
     startGame() {

@@ -21,9 +21,10 @@
     <link rel="shortcut icon" href="/icon.ico">
 
     <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
 
     <link rel="stylesheet" href="css/spinkit.css">
-    <link rel="stylesheet" href="css/main-2.css">
+    <link rel="stylesheet" href="css/main-3.css">
 
     <link rel="stylesheet" href="css/vendor/avgrund.css">
 
@@ -44,18 +45,31 @@
     <script src="src/vendor/socket.io.js"></script>
     <script src="src/mapmaker-2.js"></script>
     <script src="src/compass.js"></script>
-    <script src="src/game-2.js"></script>
+    <script src="src/game-3.js"></script>
     <script src="src/gameLoader.js"></script>
-    <script src="src/menu-2.js"></script>
+    <script src="src/menu-3.js"></script>
     <script src="src/boot.js"></script>
 </head>
 
 <body>
     <div id="phaser-container">
+        <div class="main">
+            <div class="gutter left-gutter youtube">
+                <script src="https://apis.google.com/js/platform.js"></script>
+
+                <div class="g-ytsubscribe" data-channelid="UCOMoPihYOcUZn9cs9OMFhEw" data-layout="full" data-count="default"></div>
+                <iframe width="280" height="157" src="https://www.youtube.com/embed/9JRRUqSuKHk?rel=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                <h5>Coding IO Pac-Man in One Week</h5>
+
+            </div>
+            <div class="gutter right-gutter discord">
+                    <iframe src="https://discordapp.com/widget?id=389261848370872323&theme=dark" width="300" height="400" allowtransparency="true" frameborder="0"></iframe>
+            </div>
+        </div>
         <div id="phaser-overlay-container" width="1280" height="720">
             <div id="phaser-overlay">
                 <div class="main login avgrund-popup">
-                    <h3>dinoman.io</h3>
+                    <h3>DINOMAN.IO</h3>
                     <input type='text' placeholder='Nickname' id='nickname' maxlength='13' spellcheck='false' ${value}>
                     <input type='submit' value='Play'>
                     <p><a href='https://youtu.be/9JRRUqSuKHk' target='_blank'>Watch the Video</a> <a href='http://iogames.space' target='_blank'>More .io Games</a></p>

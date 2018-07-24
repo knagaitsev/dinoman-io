@@ -1,7 +1,7 @@
 html, body {
-    background-color: white;
+    background-color: #2c9b7e;
     height: 100%;
-  }
+}
 
 html { 
     background-image: url('../asset/loonride/logo-colored-small.png');
@@ -14,10 +14,17 @@ html {
 body {
     margin: 0;
     padding: 0;
-    background-color: white;
+    background-color: #2c9b7e;
     color: #333;
     font: caption;
 }
+
+@font-face {
+    font-family: "Nexa Bold";
+    src: url("/fonts/nexa.otf");
+}
+    
+    
 
 #phaser-container {
     z-index: 999;
@@ -45,7 +52,7 @@ canvas {
 }
 
 #phaser-overlay-container {
-    z-index: 999;
+    z-index: 998;
     position: relative;
     display: none;
     pointer-events: none;
@@ -74,7 +81,7 @@ canvas {
 }
 
 .avgrund-popup {
-    font-family: Ubuntu, Arial;
+    font-family: "Nexa Bold", Arial;
     text-align: center;
 }
 
@@ -93,8 +100,11 @@ canvas {
 }
 
 .avgrund-popup h3 {
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 400;
+    color: #111;
+    margin-top: 18px;
+    margin-bottom: 18px;
 }
 
 .avgrund-popup input {
@@ -116,6 +126,7 @@ canvas {
 
 .avgrund-popup input[type="submit"] {
     background-image: linear-gradient( 135deg, #FEB692 10%, #EA5455 100%);
+    cursor: pointer;
     color: white;
     font-weight: 500;
 }
@@ -226,4 +237,83 @@ canvas {
     .ad-container {
         display: none;
     }
+}
+
+.youtube {
+    position: absolute;
+
+}
+
+.gutter {
+    position: absolute;
+    width: 300px;
+    top: 68px;
+    z-index: 999;
+}
+
+.youtube {
+    background-color: white;
+    border-radius: 3px;
+    box-shadow: 0px 0px 12px rgba( 0, 0, 0, 0.6 );
+}
+
+.left-gutter {
+    left: 50%;
+    transform: translateX(-510px);
+}
+
+.right-gutter {
+    right: 50%;
+    transform: translateX(510px);
+}
+
+.discord iframe {
+    margin-top: 0px !important;
+    box-shadow: 0px 0px 12px rgba( 0, 0, 0, 0.6 );
+}
+
+@media (max-width: 1050px) {
+    .gutter {
+        display: none;
+    }
+}
+
+@media (max-height: 550px) {
+    .gutter {
+        top: 50%;
+    }
+
+    .left-gutter {
+        transform: translate(-510px, -50%);
+    }
+
+    .right-gutter {
+        transform: translate(510px, -50%);
+    }
+}
+
+@media (max-height: 400px) {
+    .gutter {
+        display: none;
+    }
+}
+
+.gutter iframe {
+    margin: auto;
+    margin-top: 10px;
+    display: block;
+    margin-bottom: 10px;    
+}
+
+.gutter h5 {
+    text-align: center;
+    color: #222;
+    font-family: "Open Sans";
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+#___ytsubscribe_0 {
+    margin-left: 10px !important;
+    margin-top: 10px !important;
 }
