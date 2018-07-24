@@ -247,8 +247,17 @@ canvas {
 .gutter {
     position: absolute;
     width: 300px;
-    top: 68px;
+    top: 30%;
     z-index: 999;
+}
+
+@media (max-height: 800px) {
+    .gutter {
+        position: absolute;
+        width: 300px;
+        top: 15%;
+        z-index: 999;
+    }
 }
 
 .youtube {
@@ -282,11 +291,11 @@ canvas {
     .gutter {
         top: 50%;
     }
-
+    
     .left-gutter {
         transform: translate(-510px, -50%);
     }
-
+    
     .right-gutter {
         transform: translate(510px, -50%);
     }
