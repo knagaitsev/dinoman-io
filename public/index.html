@@ -24,7 +24,7 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
 
     <link rel="stylesheet" href="css/spinkit.css">
-    <link rel="stylesheet" href="css/main-4.css">
+    <link rel="stylesheet" href="css/main-5.css">
 
     <link rel="stylesheet" href="css/vendor/avgrund.css">
 
@@ -45,14 +45,15 @@
     <script src="src/vendor/socket.io.js"></script>
     <script src="src/mapmaker-2.js"></script>
     <script src="src/compass.js"></script>
-    <script src="src/game-3.js"></script>
-    <script src="src/gameLoader.js"></script>
-    <script src="src/menu-3.js"></script>
-    <script src="src/boot.js"></script>
+    <script src="src/game-4.js"></script>
+    <script src="src/gameLoader-2.js"></script>
+    <script src="src/menu-4.js"></script>
+    <script src="src/boot-2.js"></script>
 </head>
 
 <body>
     <div id="phaser-container">
+        <!--<Deject>-->
         <div class="main">
             <div class="gutter left-gutter youtube">
                 <script src="https://apis.google.com/js/platform.js"></script>
@@ -60,19 +61,28 @@
                 <div class="g-ytsubscribe" data-channelid="UCOMoPihYOcUZn9cs9OMFhEw" data-layout="full" data-count="default"></div>
                 <iframe width="280" height="157" src="https://www.youtube.com/embed/9JRRUqSuKHk?rel=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                 <h5>Coding IO Pac-Man in One Week</h5>
-
+                <a href="https://play.google.com/store/apps/details?id=com.loonride.dinomanio" target="_blank"><img src="/asset/google-play-btn.png"></a>
             </div>
             <div class="gutter right-gutter discord">
                     <iframe src="https://discordapp.com/widget?id=389261848370872323&theme=dark" width="300" height="400" allowtransparency="true" frameborder="0"></iframe>
             </div>
         </div>
+        <!--</Deject>-->
         <div id="phaser-overlay-container" width="1280" height="720">
             <div id="phaser-overlay">
                 <div class="main login avgrund-popup">
                     <h3>DINOMAN.IO</h3>
-                    <input type='text' placeholder='Nickname' id='nickname' maxlength='13' spellcheck='false' ${value}>
-                    <input type='submit' value='Play'>
-                    <p><a href='https://youtu.be/9JRRUqSuKHk' target='_blank'>Watch the Video</a> <a href='http://iogames.space' target='_blank'>More .io Games</a></p>
+                    <input class="main-inputs" type='text' placeholder='Nickname' id='nickname' maxlength='13' spellcheck='false'>
+                    <input class="main-inputs" type='submit' value='Play'>
+                    <p id="links"><a href='https://youtu.be/9JRRUqSuKHk' target='_blank'>Watch the Video</a> <a href='http://iogames.space' target='_blank'>More .io Games</a></p>
+                    
+                    <form id="radio">
+                            <input id="toggle-on" class="toggle toggle-left" name="toggle" value="false" type="radio" checked>
+                            <label for="toggle-on" class="btn">Swipe</label>
+                            <input id="toggle-off" class="toggle toggle-right" name="toggle" value="true" type="radio">
+                            <label for="toggle-off" class="btn">Quadrants</label>
+                    </form>
+                    <!--<Deject>-->
                     <div class="ad-container">
                         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                         <!-- dinoman 2 -->
@@ -84,6 +94,7 @@
                         (adsbygoogle = window.adsbygoogle || []).push({});
                         </script>
                     </div>
+                    <!--</Deject>-->
                 </div>
                 <div class="login-error login avgrund-popup">
                     <h3></h3>

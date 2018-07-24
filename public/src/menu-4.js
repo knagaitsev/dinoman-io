@@ -40,6 +40,20 @@ class Menu extends Phaser.Scene {
             $('#phaser-overlay-container').css("pointer-events", "auto");
             $('#phaser-overlay-container #phaser-overlay').children().hide();
             $(".main").show();
+
+            var os = this.sys.game.device.os;
+            if (os.android || os.cordova || os.iOS || os.iPad || os.iPhone || os.windowsPhone) {
+                $("#phaser-overlay-container #links").hide();
+            }
+            else {
+                $("#phaser-overlay-container #radio").hide();
+                $("#radio .toggle-right").prop( "checked", true );
+            }
+
+            if (localStorage.getItem("input-mode") == "quadrants") {
+                $("#radio .toggle-right").prop( "checked", true );
+            }
+
             var value = "";
             if (this.nickname != "" && this.nickname !== undefined && this.nickname !== null) {
                 //value = "value='" + this.nickname + "'";
@@ -73,6 +87,15 @@ class Menu extends Phaser.Scene {
     }
 
     startGame() {
+        var quadrantMode = true;
+        if ($("#radio .toggle-right").prop( "checked")) {
+            localStorage.setItem("input-mode", "quadrants");
+        }
+        else {
+            localStorage.setItem("input-mode", "swipe");
+            quadrantMode = false;
+        }
+
         $(".avgrund-popup input[type='submit']").off("click");
         $(document).off("keypress");
         var self = this;
@@ -101,7 +124,8 @@ class Menu extends Phaser.Scene {
                             maze: mazeData,
                             ip: ip,
                             nickname: nickname,
-                            sizeData: self.sizeData
+                            sizeData: self.sizeData,
+                            quadrantMode: quadrantMode
                         };
                         socket.close();
                         self.scene.start('GameLoader', data);

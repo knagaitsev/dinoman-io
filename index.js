@@ -127,7 +127,7 @@ function checkSpeed(initialX, initialY, finalX, finalY, uuid) {
             expectedSpeed = (dt / 3.5);
         }
 
-        var threshold = 50;
+        var threshold = 75;
         if (players[uuid].speedData.count == 0) {
             threshold = 100;
         }

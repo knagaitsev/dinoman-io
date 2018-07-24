@@ -20,6 +20,7 @@ class GameLoader extends Phaser.Scene {
             data.socket = socket;
             data.sizeData = config.sizeData;
             data.mapMaker = self.mapMaker;
+            data.quadrantMode = config.quadrantMode;
             self.scene.start('Game', data);
         });
 

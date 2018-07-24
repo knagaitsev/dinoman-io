@@ -21,7 +21,8 @@ body {
 
 @font-face {
     font-family: "Nexa Bold";
-    src: url("/fonts/nexa.otf");
+    src: url("../fonts/nexa.otf");
+    src: url('../fonts/nexa.ttf') format('truetype');
 }
     
     
@@ -82,6 +83,7 @@ canvas {
 
 .avgrund-popup {
     font-family: "Nexa Bold", Arial;
+    font-weight: 700;
     text-align: center;
 }
 
@@ -107,7 +109,7 @@ canvas {
     margin-bottom: 18px;
 }
 
-.avgrund-popup input {
+.avgrund-popup > input {
     width: 90%;
     padding: 5%;
     border-radius: 3px;
@@ -118,17 +120,19 @@ canvas {
     border: none;
     outline: none;
     font-size: 18px;
+    font-family: "Open Sans";
+    font-weight: 600;
 }
 
-.avgrund-popup input[type="text"] {
+.avgrund-popup > input[type="text"] {
     background-image: linear-gradient( 45deg, rgb(226, 226, 226) 10%, rgb(250, 250, 250) 100%);
 }
 
-.avgrund-popup input[type="submit"] {
+.avgrund-popup > input[type="submit"] {
     background-image: linear-gradient( 135deg, #FEB692 10%, #EA5455 100%);
     cursor: pointer;
     color: white;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 #phaser-overlay .leaderboard, #phaser-overlay .score {
@@ -244,6 +248,10 @@ canvas {
 
 }
 
+.main {
+    display: none;
+}
+
 .gutter {
     position: absolute;
     width: 300px;
@@ -325,4 +333,70 @@ canvas {
 #___ytsubscribe_0 {
     margin-left: 10px !important;
     margin-top: 10px !important;
+}
+
+.btn {
+    border: 3px solid #EA5455;
+    display: inline-block;
+    padding: 2px 5px;
+    position: relative;
+    text-align: center;
+    transition: background 600ms ease, color 600ms ease;
+    margin-bottom: 8px;
+  }
+  
+  input[type="radio"].toggle {
+    display: none;
+  }
+  input[type="radio"].toggle + label {
+    cursor: pointer;
+    min-width: 80px;
+  }
+  input[type="radio"].toggle + label:hover {
+    background: none;
+    color: #EA5455;
+  }
+  input[type="radio"].toggle + label:after {
+    background: #EA5455;
+    border: 1px solid #EA5455;
+    content: "";
+    height: 100%;
+    position: absolute;
+    top: 0;
+    transition: left 200ms cubic-bezier(0.77, 0, 0.175, 1);
+    width: 100%;
+    z-index: -1;
+  }
+  input[type="radio"].toggle.toggle-left + label {
+    border-right: 0;
+  }
+  input[type="radio"].toggle.toggle-left + label:after {
+    left: 100%;
+  }
+  input[type="radio"].toggle.toggle-right + label {
+    margin-left: -5px;
+  }
+  input[type="radio"].toggle.toggle-right + label:after {
+    left: -100%;
+  }
+  input[type="radio"].toggle:checked + label {
+    cursor: default;
+    color: #fff;
+    transition: color 200ms;
+  }
+  input[type="radio"].toggle:checked + label:after {
+    left: 0;
+  }
+  
+.left-gutter a {
+    margin: auto;
+    width: 200px;
+    display: block;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.left-gutter a img {
+    margin: auto;
+    max-width: 100%;
 }

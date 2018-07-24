@@ -17,6 +17,8 @@ class Game extends Phaser.Scene {
 
         this.config = config;
 
+        this.quadrantMode = config.quadrantMode;
+
         this.sizeData = config.sizeData;
 
         this.cursors = null;
@@ -47,8 +49,6 @@ class Game extends Phaser.Scene {
     }
 
     create(config) {
-
-        
 
         var self = this;
 
@@ -148,6 +148,55 @@ class Game extends Phaser.Scene {
                 this.cursors.right.isDown = false;
             }
         }, this);
+
+        this.swipeDirec = -1;
+
+        this.swipeData = {
+            startPosition: null,
+            timestamp: null
+        };
+        if (!this.quadrantMode) {
+            this.input.on("pointerup", this.endSwipe, this);
+            this.input.addMoveCallback(function(e) {
+                if (self.scene.isActive("Game")) {
+                    var x = e.touches[0].clientX;
+                    var y = e.touches[0].clientY;
+                    if (!self.swipeData.startPosition) {
+                        self.swipeData.startPosition = {
+                            x: x,
+                            y: y
+                        };
+                        self.swipeData.timestamp = Date.now();
+                    }
+                    else if (self.swipeData.timestamp + 500 > Date.now()) {
+
+                        var dx = x - self.swipeData.startPosition.x;
+                        var dy = y - self.swipeData.startPosition.y;
+                        var swipe = new Phaser.Geom.Point(dx, dy);
+                        var swipeMagnitude = Phaser.Geom.Point.GetMagnitude(swipe);
+                        var swipeNormal = new Phaser.Geom.Point(swipe.x / swipeMagnitude, swipe.y / swipeMagnitude);
+                        if(swipeMagnitude > 15 && (Math.abs(swipeNormal.y) > 0.6 || Math.abs(swipeNormal.x) > 0.6)) {
+                            if(swipeNormal.x > 0.6) {
+                                self.swipeDirec = 3
+                            }
+                            if(swipeNormal.x < -0.6) {
+                                self.swipeDirec = 1;
+                            }
+                            if(swipeNormal.y > 0.6) {
+                                self.swipeDirec = 2;
+                            }
+                            if(swipeNormal.y < -0.6) {
+                                self.swipeDirec = 0;
+                            }
+                            self.swipeData.startPosition = null;
+                        }
+                    }
+                    else {
+                        self.swipeData.startPosition = null;
+                    }
+                }
+            });
+        }
 
         this.anims.create({
             key: 'eat',
@@ -444,7 +493,7 @@ class Game extends Phaser.Scene {
             {
                 this.direc = 2;
             }
-            else if (this.input.activePointer.isDown) {
+            else if (this.quadrantMode && this.input.activePointer.isDown) {
                 var x = this.input.activePointer.x;
                 var y = this.input.activePointer.y;
                 var w = this.cameras.main.width;
@@ -469,6 +518,10 @@ class Game extends Phaser.Scene {
                     }
                 }
             }
+            else if (!this.quadrantMode && this.swipeDirec != -1) {
+                this.direc = this.swipeDirec;
+                this.swipeDirec = -1;
+            }
         
             if (this.direc != -1 && this.mapMaker.initialized) {
                 for (var i = 0 ; i < this.direcLog.length ; i++) {
@@ -478,7 +531,7 @@ class Game extends Phaser.Scene {
                     direc: this.direc,
                     time: 0
                 });
-                while (this.direcLog[this.direcLog.length - 1].time > 300) {
+                while (this.direcLog[this.direcLog.length - 1].time > 400) {
                     this.direcLog.pop();
                 }
                 var success = false;
@@ -650,5 +703,28 @@ class Game extends Phaser.Scene {
                 });
             }, readTime);
         });
+    }
+
+    endSwipe(e) {
+        this.swipeData.startPosition = null;
+
+        // var swipeTime = e.upTime - e.downTime;
+        // var swipe = new Phaser.Geom.Point(e.upX - e.downX, e.upY - e.downY);
+        // var swipeMagnitude = Phaser.Geom.Point.GetMagnitude(swipe);
+        // var swipeNormal = new Phaser.Geom.Point(swipe.x / swipeMagnitude, swipe.y / swipeMagnitude);
+        // if(swipeMagnitude > 20 && swipeTime < 1000 && (Math.abs(swipeNormal.y) > 0.6 || Math.abs(swipeNormal.x) > 0.6)) {
+        //     if(swipeNormal.x > 0.6) {
+        //         this.swipeDirec = 3
+        //     }
+        //     if(swipeNormal.x < -0.6) {
+        //         this.swipeDirec = 1;
+        //     }
+        //     if(swipeNormal.y > 0.6) {
+        //         this.swipeDirec = 2;
+        //     }
+        //     if(swipeNormal.y < -0.6) {
+        //         this.swipeDirec = 0;
+        //     }
+        // }
     }
 }
