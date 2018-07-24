@@ -297,7 +297,7 @@ setInterval(function() {
             }
         }
     });
-}, 25);
+}, 35);
 
 setInterval(function() {
     var arr = [];
@@ -321,7 +321,7 @@ setInterval(function() {
     var leaderboard = arr.slice(0, 10);
     io.emit('leaderboard', leaderboard);
     io.emit('powerup', powerupEnd - Date.now());
-}, 100);
+}, 200);
 
 var port = process.env.PORT || 3000;
 
