@@ -400,3 +400,14 @@ canvas {
     margin: auto;
     max-width: 100%;
 }
+
+.loader {
+    color: white;
+    text-align: center;
+    width: 80%;
+}
+
+.loader h3 {
+    font-family: Ubuntu;
+    font-weight: 400;
+}
