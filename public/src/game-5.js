@@ -366,16 +366,16 @@ class Game extends Phaser.Scene {
         return speed;
     }
 
-    update(timestep, dt) {
+    update() {
         if (/*Date.now() - this.timeCheck > 100*/true) {
             //dt = Date.now() - this.timeCheck;
             //this.timeCheck = Date.now();
 
             this.scaleChildren(1 / this.sizeData.scale);
 
-            // var now = Date.now();
-            // var dt = now - this.time;
-            // this.time = now;
+            var now = Date.now();
+            var dt = now - this.time;
+            this.time = now;
 
             var self = this;
             // Object.keys(this.players).forEach(function(key, index) {
