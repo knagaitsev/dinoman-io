@@ -402,6 +402,7 @@ class Game extends Phaser.Scene {
                     var speed = self.getPlayerSpeed(p.playerType, dt);
                     var motionVec = self.getMotionVector(p.direc, speed);
 
+                    var motionPath = p.motionPath;
                     if (motionPath.length > 0) {
                         motionPath.splice(0, 1);
                     }
