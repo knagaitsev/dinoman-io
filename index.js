@@ -127,9 +127,9 @@ function checkSpeed(initialX, initialY, finalX, finalY, uuid) {
             expectedSpeed = (dt / 3.5);
         }
 
-        var threshold = 75;
+        var threshold = 200;
         if (players[uuid].speedData.count == 0) {
-            threshold = 100;
+            threshold = 300;
         }
 
         //console.log(players[uuid].speedData.distance - expectedSpeed);
@@ -186,7 +186,8 @@ io.on('connection', function (socket) {
                     distance: 0,
                     count: 0
                 },
-                direc: 3
+                direc: 3,
+                active: false
             };
 
             sockets[uuid] = socket;
@@ -207,7 +208,9 @@ io.on('connection', function (socket) {
                 && typeof data.flipX == "boolean" && typeof data.direc == "number" && data.direc >= 0 && data.direc < 4 && data.direc == Math.floor(data.direc)
                 && checkSpeed(players[uuid].x, players[uuid].y, data.x, data.y, uuid)
                 && (Math.random() < .9 || maze.checkCollision(players[uuid].x, players[uuid].y, data.x, data.y, dt, players[uuid].nickname))) {
+                
                 players[uuid].timestamp = time;
+                players[uuid].active = true;
                 players[uuid].x = data.x;
                 players[uuid].y = data.y;
                 players[uuid].rotation = data.rotation;
@@ -279,7 +282,7 @@ setInterval(function() {
 
     Object.keys(players).forEach(function(uuid, index) {
         var player = players[uuid];
-        if (player && player.playerType == "man") {
+        if (player && player.playerType == "man" && player.active) {
             var collisionData = maze.collideFood(player.x, player.y);
             if (sockets[uuid] && sockets[uuid].connected && collisionData) {
                 var newFood = [];

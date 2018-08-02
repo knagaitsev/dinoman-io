@@ -262,6 +262,11 @@ class Game extends Phaser.Scene {
         this.socket.on('user connected', this.addPlayer.bind(this));
 
         this.socket.on('user position', function(user) {
+            self.players[user.uuid].motionPath.push({
+                x: user.x,
+                y: user.y,
+                direc: user.direc
+            });
             self.players[user.uuid].x = user.x;
             self.players[user.uuid].y = user.y;
             self.players[user.uuid].rotation = user.rotation;
@@ -396,6 +401,19 @@ class Game extends Phaser.Scene {
 
                     var speed = self.getPlayerSpeed(p.playerType, dt);
                     var motionVec = self.getMotionVector(p.direc, speed);
+
+                    // var motionPath = p.motionPath;
+                    // var res;
+                    // if (motionPath.length > 0) {
+
+                    //     while (motionPath.length > 0 && motionPath[0].x == p.sprite.x && motionPath[0].y == p.sprite.y) {
+                    //         motionPath.splice(0, 1);
+                    //     }
+                    // }
+                    // else {
+                    //     res = self.mapMaker.checkCollision(x, y, x + motionVec.x, y + motionVec.y, p.direc, newDirection, motionVec);
+                    // }
+
                     var regVec;
                     var forceTurn = false;
                     if (newDirection) {
@@ -419,7 +437,7 @@ class Game extends Phaser.Scene {
                     var y = p.sprite.y;
                     var res = self.mapMaker.checkCollision(x, y, x + motionVec.x, y + motionVec.y, p.direc, newDirection, regVec);
 
-                    var maxDifference = 10;
+                    var maxDifference = 25;
                     if (Math.abs(res.x - p.x) > maxDifference || Math.abs(res.y - p.y) > maxDifference) {
                         var fixX = 0;
                         var fixY = 0;
@@ -600,6 +618,12 @@ class Game extends Phaser.Scene {
 
     addPlayer(user) {
         this.players[user.uuid] = user;
+        this.players[user.uuid].motionPath = [];
+        this.players[user.uuid].motionPath.push({
+            x: user.x,
+            y: user.y,
+            direc: user.direc
+        });
         this.players[user.uuid].sprite = this.getPlayerSprite(user);
         this.players[user.uuid].text = this.getPlayerText(user);
         this.players[user.uuid].time = Date.now();
