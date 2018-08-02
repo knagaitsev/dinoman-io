@@ -402,6 +402,10 @@ class Game extends Phaser.Scene {
                     var speed = self.getPlayerSpeed(p.playerType, dt);
                     var motionVec = self.getMotionVector(p.direc, speed);
 
+                    if (motionPath.length > 0) {
+                        motionPath.splice(0, 1);
+                    }
+
                     // var motionPath = p.motionPath;
                     // var res;
                     // if (motionPath.length > 0) {
@@ -437,7 +441,10 @@ class Game extends Phaser.Scene {
                     var y = p.sprite.y;
                     var res = self.mapMaker.checkCollision(x, y, x + motionVec.x, y + motionVec.y, p.direc, newDirection, regVec);
 
-                    var maxDifference = 25;
+                    var maxDifference = 8;
+                    if (!newDirection) {
+                        maxDifference = 25;
+                    }
                     if (Math.abs(res.x - p.x) > maxDifference || Math.abs(res.y - p.y) > maxDifference) {
                         var fixX = 0;
                         var fixY = 0;
