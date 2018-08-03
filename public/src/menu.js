@@ -4,6 +4,8 @@ class Menu extends Phaser.Scene {
         super('Menu');
 
         this.sizeData = null;
+
+        this.adCount = 1;
     }
 
     closeAvgrund(){
@@ -46,6 +48,16 @@ class Menu extends Phaser.Scene {
                 $("#phaser-overlay-container #links").hide();
             }
             else {
+                if (this.adCount == 3) {
+                    aiptag.cmd.player.push(function() { adplayer.startPreRoll(); });
+                    this.adCount = 1;
+                }
+                else {
+                    this.adCount++;
+                }
+
+                aiptag.cmd.display.push(function() { aipDisplayTag.display('dinoman-io_300x250'); });
+
                 $("#phaser-overlay-container #radio").hide();
                 $("#radio .toggle-right").prop( "checked", true );
             }
