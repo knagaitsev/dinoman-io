@@ -2,7 +2,7 @@
 
 ![alt text](https://firebasestorage.googleapis.com/v0/b/loon-ride-webpage.appspot.com/o/media%2F-LS_efyX7On2bRi0o1pU?alt=media&token=a3455e0c-0fdf-4fb6-b793-c458d3335e8b "dinoman.io")
 
-This is the source code for the first attempt I made at a .io game. 
+This is the source code for the first attempt I made at a .io game. The game can be found at: http://dinoman.io
 
 Video - Coding Multiplayer IO Pac-Man in One Week: https://youtu.be/9JRRUqSuKHk
 
