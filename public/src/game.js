@@ -113,6 +113,7 @@ class Game extends Phaser.Scene {
                 isDown: false
             };
         });
+        
         this.input.keyboard.on('keydown', function(e) {
             if (e.key == "ArrowUp") {
                 this.cursors.up.isDown = true;
