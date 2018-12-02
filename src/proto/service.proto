@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package org.coinen.pacman;
+
+import "google/protobuf/empty.proto";
+import "rsocket/options.proto";
+import "player.proto";
+import "map.proto";
+
+option java_package = "org.coinen.pacman";
+option java_multiple_files = true;
+
+service MapService {
+    rpc setup(Map) returns (google.protobuf.Empty) {
+        option (io.rsocket.rpc.options) = {
+            fire_and_forget: true
+        };
+    }
+}
+
+service GameService {
+    rpc start (Nickname) returns (stream Player) {}
+}

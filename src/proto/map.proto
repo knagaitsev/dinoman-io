@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package org.coinen.pacman;
+
+import "tail.proto";
+import "size.proto";
+
+option java_package = "org.coinen.pacman";
+option java_multiple_files = true;
+
+message Map {
+    repeated Tail tails = 1;
+    Size size = 2;
+}

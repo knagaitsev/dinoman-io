@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package org.coinen.pacman;
+
+import "point.proto";
+
+option java_package = "org.coinen.pacman";
+option java_multiple_files = true;
+
+message Tail {
+    Point point = 1;
+    repeated bool walls = 2;
+    bool checked  = 3;
+}

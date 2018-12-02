@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package org.coinen.pacman;
+
+option java_package = "org.coinen.pacman";
+option java_multiple_files = true;
+
+message Speed {
+    int64 timestamp = 1;
+    int32 distance = 2;
+    int32 count = 3;
+}

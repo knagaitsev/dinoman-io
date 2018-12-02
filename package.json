@@ -4,18 +4,27 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "protoc": "protoc --proto_path=node_modules/rsocket-rpc-protobuf/proto --proto_path=src/proto --js_out=import_style=commonjs,binary:src --rsocket_rpc_out=src/common --plugin=protoc-gen-rsocket_rpc=node_modules/.bin/rsocket_rpc_js_protoc_plugin src/proto/*.proto",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.3",
+    "@types/express": "^4.16.0",
+    "express": "^4.16.4",
+    "phaser": "^3.15.1",
+    "rsocket-flowable": "^0.0.9",
+    "rsocket-rpc-core": "^0.0.4",
+    "rsocket-types": "^0.0.9",
+    "rsocket-websocket-client": "0.0.9",
+    "rsocket-websocket-server": "0.0.9",
     "simplex-noise": "^2.4.0",
-    "socket.io": "^2.1.1",
-    "uuid": "^3.2.1"
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "livereload": "^0.7.0"
+    "livereload": "^0.7.0",
+    "ts-loader": "^5.3.1",
+    "typescript": "^3.2.1"
   }
 }
