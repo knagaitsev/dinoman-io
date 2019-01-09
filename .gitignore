@@ -1,5 +1,8 @@
-node_modules/*
-!node_modules/@types
+node_modules
+.vscode
 
-node_modules/@types/*
-!node_modules/@types/phaser/
+dist/*
+!dist/index.html
+
+src/shared/*
+!src/shared/.gitkeep

@@ -8,13 +8,9 @@ option java_package = "org.coinen.pacman";
 option java_outer_classname = "Config";
 option java_multiple_files = true;
 
-// message Config {
-//     repeated Player players = 1;
-//     food: maze.food,
-//     uuid: uuid,
-//     playerType: playerType,
-//     x: pos.x,
-//     y: pos.y,
-//     score: score,
-//     nickname: nickname
-// }
+message Config {
+    repeated Player players = 1;
+    repeated int32 food = 2;
+    repeated int32 power = 3;
+    Player player = 4;
+}

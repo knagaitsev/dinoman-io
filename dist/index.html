@@ -1,158 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <meta charset="utf-8">
-    <title>dinoman.io - the Pac-Man IO game</title>
-    <meta name="description" content="dinoman.io is a Pac-Man inspired IO game in an enclosed maze! Ghosts aim to kill dinos, and dinos eat food to gain points.">
-    <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
-    <link rel="shortcut icon" href="/icon.ico">
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Hot Module Replacement</title>
+  <link rel="stylesheet" href="css/spinkit.css">
+  <link rel="stylesheet" href="css/main.css?v=4">
 
-    <link rel="stylesheet" href="css/spinkit.css">
-    <link rel="stylesheet" href="css/main.css?v=4">
-
-    <link rel="stylesheet" href="css/vendor/avgrund.css">
-
-    <!-- Compiled and minified CSS -->
-    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">-->
-
-    <!-- Compiled and minified JavaScript -->
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>-->
-
-    <script async src="//api.adinplay.com/libs/aiptag/pub/DNM/dinoman.io/tag.min.js"></script>
-
-    <script src="src/vendor/jquery-3.3.1.min.js"></script>
-
-    <script src="src/vendor/jquery.avgrund.min.js"></script>
-    <script src="src/vendor/fitToParent.min.js"></script>
-
-    <!--<script src="src/vendor/granim.min.js"></script>-->
-
-    <script src="src/vendor/phaser-3.11.0.min.js"></script>
-    <script src="src/vendor/socket.io.js"></script>
-    <script src="src/mapmaker.js?v=2"></script>
-    <script src="src/compass.js?v=2"></script>
-    <script src="src/game.js?v=3"></script>
-    <script src="src/gameLoader.js?v=2"></script>
-    <script src="src/menu.js?v=3"></script>
-    <script src="src/boot.js?v=2"></script>
+  <link rel="stylesheet" href="css/vendor/avgrund.css">
 </head>
 
 <body>
-    <div id="phaser-container">
-        
-        <!--<Deject>-->
-        <div id="preroll"></div>
-        <div class="main">
-            <div class="gutter left-gutter youtube">
-                <script src="https://apis.google.com/js/platform.js"></script>
+  <div id="phaser-overlay-container" width="1280" height="720">
+    <div id="phaser-overlay">
+      <div class="main login avgrund-popup">
+        <h3>DINOMAN.IO</h3>
+        <input class="main-inputs" type='text' placeholder='Nickname' id='nickname' maxlength='13' spellcheck='false'>
+        <input class="main-inputs" type='submit' value='Play'>
 
-                <div class="g-ytsubscribe" data-channelid="UCOMoPihYOcUZn9cs9OMFhEw" data-layout="full" data-count="default"></div>
-                <iframe width="280" height="157" src="https://www.youtube.com/embed/9JRRUqSuKHk?rel=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                <h5>Coding IO Pac-Man in One Week</h5>
-                <!--<div id="mini-cont">
-                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                    <ins class="adsbygoogle"
-                        style="display:inline-block;width:200px;height:200px"
-                        data-ad-client="ca-pub-1695965098238836"
-                        data-ad-slot="2955901218"></ins>
-                    <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
-                </div>-->
-                <a href="https://play.google.com/store/apps/details?id=com.loonride.dinomanio" target="_blank"><img src="/asset/google-play-btn.png"></a>
-            </div>
-            <div class="gutter right-gutter discord">
-                <iframe src="https://discordapp.com/widget?id=389261848370872323&theme=dark" width="300" height="200" allowtransparency="true" frameborder="0"></iframe>
-
-                <div id="rect-cont" class="changelog">
-                    <h5>Changelog</h5>
-                    <ul>
-                            <li>7/24/18 - Swipe controls added for mobile players</li>
-                        <li>7/18/18 - Game Released! Dinoman.io is a game in a maze where players spawn in as Dinos or Ghosts. Dinos must avoid Ghosts to survive, like in Pac-Man.</li>
-                    </ul>
-                    <!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                    <ins class="adsbygoogle"
-                        style="display:inline-block;width:300px;height:250px"
-                        data-ad-client="ca-pub-1695965098238836"
-                        data-ad-slot="2785027740"></ins>
-                    <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script> -->
-                </div>
-            </div>
+        <form id="radio">
+          <input id="toggle-on" class="toggle toggle-left" name="toggle" value="false" type="radio" checked>
+          <label for="toggle-on" class="btn">Swipe</label>
+          <input id="toggle-off" class="toggle toggle-right" name="toggle" value="true" type="radio">
+          <label for="toggle-off" class="btn">Quadrants</label>
+        </form>
+      </div>
+      <div class="login-error login avgrund-popup">
+        <h3></h3>
+        <p></p>
+      </div>
+      <div class="loader">
+        <div>
+          <h3>Ghosts have compasses that can track down dinos.</h3>
+          <h3>If a dino eats a powerup, dinos can eat ghosts!</h3>
         </div>
-        <!--</Deject>-->
-        <div id="phaser-overlay-container" width="1280" height="720">
-            <div id="phaser-overlay">
-                <div class="main login avgrund-popup">
-                    <h3>DINOMAN.IO</h3>
-                    <input class="main-inputs" type='text' placeholder='Nickname' id='nickname' maxlength='13' spellcheck='false'>
-                    <input class="main-inputs" type='submit' value='Play'>
-                    <p id="links"><a href='https://youtu.be/9JRRUqSuKHk' target='_blank'>Watch the Video</a> <a href='http://iogames.space' target='_blank'>More .io Games</a></p>
-                    
-                    <form id="radio">
-                            <input id="toggle-on" class="toggle toggle-left" name="toggle" value="false" type="radio" checked>
-                            <label for="toggle-on" class="btn">Swipe</label>
-                            <input id="toggle-off" class="toggle toggle-right" name="toggle" value="true" type="radio">
-                            <label for="toggle-off" class="btn">Quadrants</label>
-                    </form>
-                    <!--<Deject>-->
-                    <div class="ad-container">
-                        <div id="dinoman-io_300x250"></div>
-                        <!-- <script type='text/javascript'>
-                            aiptag.cmd.display.push(function() { aipDisplayTag.display('dinoman-io_300x250'); });
-                        </script> -->
-                        <!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                        <ins class="adsbygoogle"
-                                style="display:inline-block;width:336px;height:280px"
-                                data-ad-client="ca-pub-1695965098238836"
-                                data-ad-slot="7134267061"></ins>
-                        <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script> -->
-                    </div>
-                    <!--</Deject>-->
-                </div>
-                <div class="login-error login avgrund-popup">
-                    <h3></h3>
-                    <p></p>
-                </div>
-                <div class="loader">
-                        <div>
-                            <h3>Ghosts have compasses that can track down dinos.</h3>
-                            <h3>If a dino eats a powerup, dinos can eat ghosts!</h3>
-                        </div>
-                        <div class="sk-folding-cube">
-                            <div class="sk-cube1 sk-cube"></div>
-                            <div class="sk-cube2 sk-cube"></div>
-                            <div class="sk-cube4 sk-cube"></div>
-                            <div class="sk-cube3 sk-cube"></div>
-                        </div>
-                </div>
-                <div class="leaderboard">
-                    <h3>Leaderboard</h3>
-                    <ol>
-                        <li>Boss Tweedfjldkj</li>
-                        <li>Mister Bean</li>
-                        <li>Boss Tweedfjldkj</li>
-                        <li>Mister Bean</li>
-                    </ol>
-                </div>
-                <div class="score">
-                    <p>Score: 728</p>
-                </div>
-                <div class="notification-tray">
-                    <div><p>Use your tracker to hunt down enemies!</p></div>
-                    <div><p>Use your tracker to hunt down enemies!</p></div>
-                </div>
-            </div>
+        <div class="sk-folding-cube">
+          <div class="sk-cube1 sk-cube"></div>
+          <div class="sk-cube2 sk-cube"></div>
+          <div class="sk-cube4 sk-cube"></div>
+          <div class="sk-cube3 sk-cube"></div>
         </div>
-        <div id="canvas-container">
-
+      </div>
+      <div class="leaderboard">
+        <h3>Leaderboard</h3>
+        <ol>
+          <li>Boss Tweedfjldkj</li>
+          <li>Mister Bean</li>
+          <li>Boss Tweedfjldkj</li>
+          <li>Mister Bean</li>
+        </ol>
+      </div>
+      <div class="score">
+        <p>Score: 728</p>
+      </div>
+      <div class="notification-tray">
+        <div>
+          <p>Use your tracker to hunt down enemies!</p>
         </div>
+        <div>
+          <p>Use your tracker to hunt down enemies!</p>
+        </div>
+      </div>
     </div>
-</body>
+  </div>
+  <div id="canvas-container">
+
+  </div>
+<script type="text/javascript" src="/Users/olehdokuka/Documents/Workspace/Java/dinoman-io/src/public/bundle.js"></script></body>
+
 </html>

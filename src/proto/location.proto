@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package org.coinen.pacman;
+
+import "point.proto";
+
+option java_package = "org.coinen.pacman";
+option java_multiple_files = true;
+
+message Location {
+    Point position = 1;
+    float rotation = 2;
+    bool flip_x = 3;
+    int32 direc = 4;
+}

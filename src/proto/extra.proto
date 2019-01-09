@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package org.coinen.pacman;
+
+option java_package = "org.coinen.pacman";
+option java_multiple_files = true;
+
+message Extra {
+    int32 last = 1;
+    int32 current = 2;
+}

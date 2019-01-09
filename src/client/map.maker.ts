@@ -1,21 +1,48 @@
-MapMaker = function(game) {
-    this.game = game;
-    this.tiles = null;
-    this.tileSize = 100;
-    this.initialized = false;
+import Game from './game';
+import { Map as MapProto } from '../shared/map_pb';
+import { Tail } from '../shared/tail_pb';
+import * as  FastBitSet from 'fastbitset';
+import { Extra } from '../shared/extra_pb';
 
-    this.width = 0;
-    this.height = 0;
-    this.food = [];
-    this.foodSprites = [];
+interface Tile {
 
-    this.canvases = [];
-
-    this.canvasTileSize = 16;
 }
 
-MapMaker.prototype = {
-    tileDataMatches: function(oldData, newData) {
+export default class MapMaker {
+
+    private tiles : Tail.AsObject[];
+    private size : number;
+    initialized : boolean;
+    private number : number;
+    width: number;
+    height: number;
+    food: FastBitSet;
+    power: FastBitSet;
+    foodSprites: Map<number, any>;
+    canvases: any[];
+    canvassize: number;
+    
+    constructor(private readonly game: Game) {
+        this.tiles = null;
+        this.size = 100;
+        this.initialized = false;
+
+        this.width = 0;
+        this.height = 0;
+        this.food = new FastBitSet([]);
+        this.power = new FastBitSet([]);
+        this.foodSprites = new Map();
+
+        this.canvases = [];
+
+        this.canvassize = 16;
+    }
+
+    static ceilPow2(aSize: any) {
+        return Math.pow( 2, Math.ceil( Math.log( aSize ) / Math.log( 2 ) ) ); 
+    }
+
+    public tileDataMatches(oldData: any, newData: any) {
         if (oldData && newData && typeof oldData == "object" && typeof newData == "object"
          && typeof oldData.tiles == "object" && oldData.tiles instanceof Array
          && typeof newData.tiles == "object" && newData.tiles instanceof Array
@@ -55,16 +82,14 @@ MapMaker.prototype = {
         }
 
         return true;
-    },
-    ceilPow2: function( aSize ){
-        return Math.pow( 2, Math.ceil( Math.log( aSize ) / Math.log( 2 ) ) ); 
-    },
-    addTiles: function(data, oldData) {
+    }
 
-        this.width = data.width;
-        this.height = data.height;
+    public addTiles(data: MapProto.AsObject, oldData?:any) {
 
-        var tiles = data.tiles;
+        this.width = data.size.width;
+        this.height = data.size.height;
+
+        var tiles = data.tailsList;
         this.tiles = tiles;
         this.initialized = true;
 
@@ -73,7 +98,7 @@ MapMaker.prototype = {
             //     var c = this.canvases[i];
             //     this.game.add.image(c.x, c.y, c.name).setOrigin(0);
             // }
-            //this.game.add.image(-this.tileSize / 2, -this.tileSize / 2, 'map').setOrigin(0);
+            //this.game.add.image(-this.size / 2, -this.size / 2, 'map').setOrigin(0);
             return;
         }
         else if (this.canvases.length > 0) {
@@ -84,27 +109,27 @@ MapMaker.prototype = {
 
         this.canvases = [];
 
-        var interval = this.canvasTileSize;
+        var interval = this.canvassize;
 
         var count = 0;
 
 
-        for (var x = 0 ; x < data.width ; x += interval) {
-            for (var y = 0 ; y < data.height ; y += interval) {
+        for (var x = 0 ; x < data.size.width ; x += interval) {
+            for (var y = 0 ; y < data.size.height ; y += interval) {
 
-                var width = Math.min(interval, data.width - x);
-                var height = Math.min(interval, data.height - y);
+                var width = Math.min(interval, data.size.width - x);
+                var height = Math.min(interval, data.size.height - y);
                 var canvasName = 'map' + count;
-                var canvasTexture = this.game.textures.createCanvas(canvasName, width * this.tileSize, height * this.tileSize);
+                var canvasTexture = this.game.textures.createCanvas(canvasName, width * this.size, height * this.size);
                 var context = canvasTexture.context;
                 var texture = this.game.textures.get('tiles');
 
                 for (var i = x ; i < x + width ; i++) {
                     for (var j = y ; j < y + height ; j++) {
-                        var walls;
+                        var walls: boolean[];
                         for (var t = 0 ; t < tiles.length ; t++) {
-                            if (tiles[t].x == i && tiles[t].y == j) {
-                                walls = tiles[t].walls;
+                            if (tiles[t].point.x == i && tiles[t].point.y == j) {
+                                walls = tiles[t].wallsList;
                                 break;
                             }
                         }
@@ -175,12 +200,12 @@ MapMaker.prototype = {
                             var contextY = j - y;
                             
                             context.save();
-                            context.translate(contextX * this.tileSize + this.tileSize / 2, contextY * this.tileSize + this.tileSize / 2);
+                            context.translate(contextX * this.size + this.size / 2, contextY * this.size + this.size / 2);
                             context.rotate(Phaser.Math.DegToRad(rotation));
         
-                            var canvasData = texture.frames[frame].canvasData;
-                            context.drawImage(texture.getSourceImage(), canvasData.x, canvasData.y,
-                                canvasData.width, canvasData.height, -this.tileSize / 2, -this.tileSize / 2, this.tileSize, this.tileSize);
+                            var canvasData = (texture.frames as any)[frame].canvasData;
+                            context.drawImage(texture.getSourceImage() as HTMLCanvasElement, canvasData.x, canvasData.y,
+                                canvasData.width, canvasData.height, -this.size / 2, -this.size / 2, this.size, this.size);
                             context.restore();
 
                             //sheet.setFrame(frame);
@@ -191,8 +216,8 @@ MapMaker.prototype = {
 
                 canvasTexture.refresh();
         
-                var posX = -this.tileSize / 2 + x * this.tileSize;
-                var posY = -this.tileSize / 2 + y * this.tileSize;
+                var posX = -this.size / 2 + x * this.size;
+                var posY = -this.size / 2 + y * this.size;
                 //this.game.add.image(posX, posY, canvasName).setOrigin(0);
 
                 this.canvases.push({
@@ -206,7 +231,7 @@ MapMaker.prototype = {
             }
         }
 
-        // var canvasTexture = this.game.textures.createCanvas('map', this.ceilPow2(data.width * this.tileSize), this.ceilPow2(data.height * this.tileSize));
+        // var canvasTexture = this.game.textures.createCanvas('map', this.ceilPow2(data.width * this.size), this.ceilPow2(data.height * this.size));
         // var context = canvasTexture.context;
         // var texture = this.game.textures.get('tiles');
 
@@ -283,13 +308,13 @@ MapMaker.prototype = {
 
         //         if (frame != -1) {
         //             context.save();
-        //             context.translate(i * this.tileSize + this.tileSize / 2, j * this.tileSize + this.tileSize / 2);
+        //             context.translate(i * this.size + this.size / 2, j * this.size + this.size / 2);
         //             context.rotate(Phaser.Math.DegToRad(rotation));
 
         //             var canvasData = texture.frames[frame].canvasData;
         //             context.drawImage(texture.getSourceImage(), canvasData.sx, canvasData.sy,
-        //                 canvasData.sWidth, canvasData.sHeight, -this.tileSize / 2, -this.tileSize / 2, this.tileSize, this.tileSize);
-        //             //var sheet = this.game.physics.add.sprite(i * this.tileSize, j * this.tileSize, 'tiles').setScale(0.5);
+        //                 canvasData.sWidth, canvasData.sHeight, -this.size / 2, -this.size / 2, this.size, this.size);
+        //             //var sheet = this.game.physics.add.sprite(i * this.size, j * this.size, 'tiles').setScale(0.5);
         //             context.restore();
         //             //sheet.setFrame(frame);
         //             //sheet.setRotation(Phaser.Math.DegToRad(rotation));
@@ -298,19 +323,21 @@ MapMaker.prototype = {
         // }
 
         // canvasTexture.refresh();
-        // this.game.add.image(-this.tileSize / 2, -this.tileSize / 2, 'map').setOrigin(0);
+        // this.game.add.image(-this.size / 2, -this.size / 2, 'map').setOrigin(0);
 
-    },
-    getTile: function(x, y) {
+    }
+
+    public getTile(x:any, y:any) {
         for (var i = 0 ; i < this.tiles.length ; i++) {
-            if (this.tiles[i].x == x && this.tiles[i].y == y) {
+            if (this.tiles[i].point.x == x && this.tiles[i].point.y == y) {
                 return this.tiles[i];
             }
         }
 
         return false;
-    },
-    getNeighbor: function(tile, direction) {
+    }
+
+    getNeighbor(tile: any, direction: any) {
         var x = tile.x;
         var y = tile.y;
         if (direction == 0) {
@@ -327,13 +354,14 @@ MapMaker.prototype = {
         }
 
         return this.getTile(x, y);
-    },
-    updateTiles: function(x, y) {
-        var canvasWidth = this.canvasTileSize * this.tileSize;
+    }
+
+    updateTiles(x:any, y:any) {
+        var canvasWidth = this.canvassize * this.size;
         for (var i = 0 ; i < this.canvases.length ; i++) {
             var c = this.canvases[i];
-            var centerX = c.x + canvasWidth / 2 + this.tileSize / 2;
-            var centerY = c.y + canvasWidth / 2 + this.tileSize / 2;
+            var centerX = c.x + canvasWidth / 2 + this.size / 2;
+            var centerY = c.y + canvasWidth / 2 + this.size / 2;
             if (Math.abs(x - centerX) <= this.game.sizeData.width / 2 / this.game.sizeData.scale + 50 + canvasWidth / 2 && Math.abs(y - centerY) <= this.game.sizeData.height / 2 / this.game.sizeData.scale + 50 + canvasWidth / 2) {
                 if (!c.image) {
                     c.image = this.game.add.image(c.x, c.y, c.name).setOrigin(0).setScale(this.game.sizeData.scale);
@@ -346,44 +374,63 @@ MapMaker.prototype = {
                 c.image = null;
             }
         }
-    },
-    updateFood: function(x, y) {
-        var xRange = this.game.sizeData.width / 2 / this.game.sizeData.scale + 50;
-        var yRange = this.game.sizeData.height / 2 / this.game.sizeData.scale + 50;
+    }
+    setFood() {
+        // for (var f = this.foodSprites.length - 1 ; f >= 0 ; f--) {
+        //     var foodSprite = this.foodSprites[f];
+        //     var i = Math.round(foodSprite.x / this.size);
+        //     var j = Math.round(foodSprite.y / this.size);
+        //     if (Math.abs(foodSprite.x - x) > xRange || Math.abs(foodSprite.y - y) > yRange || (i < this.food.length && j < this.food[i].length && (this.food[i][j] == 0 || (this.food[i][j] != foodSprite.foodType)))) {
+        //         foodSprite.destroy();
+        //         this.foodSprites.splice(f, 1);
+        //     }
+        // }
 
-        for (var f = this.foodSprites.length - 1 ; f >= 0 ; f--) {
-            var foodSprite = this.foodSprites[f];
-            var i = Math.round(foodSprite.x / this.tileSize);
-            var j = Math.round(foodSprite.y / this.tileSize);
-            if (Math.abs(foodSprite.x - x) > xRange || Math.abs(foodSprite.y - y) > yRange || (i < this.food.length && j < this.food[i].length && (this.food[i][j] == 0 || (this.food[i][j] != foodSprite.foodType)))) {
-                foodSprite.destroy();
-                this.foodSprites.splice(f, 1);
-            }
+        // for (var i = 0 ; i < this.width ; i++) {
+            // for (var j = 0 ; j < this.height ; j++) {
+        this.food.forEach(next => this.insertFood(next));
+
+        this.power.forEach(next => this.insertPower(next));
+    }
+
+    retainExtra(last: number) {
+        if (this.food.has(last)) {
+            console.log('retained food : ' + last);
+            this.food.remove(last);
+        } else {
+            console.log('retained power : ' + last);
+            this.power.remove(last); 
         }
 
-        for (var i = 0 ; i < this.width ; i++) {
-            for (var j = 0 ; j < this.height ; j++) {
-                var foodX = i * this.tileSize;
-                var foodY = j * this.tileSize;
-                if (this.food[i][j] != 0 && Math.abs(foodX - x) <= xRange && Math.abs(foodY - y) <= yRange) {
-                    var spriteExists = false;
-                    for (var f = 0 ; f < this.foodSprites.length ; f++) {
-                        var foodSprite = this.foodSprites[f];
-                        if (foodSprite.x == foodX && foodSprite.y == foodY) {
-                            spriteExists = true;
-                            break;
-                        }
-                    }
-                    if (!spriteExists) {
-                        var foodSprite = this.game.physics.add.sprite(i * this.tileSize, j * this.tileSize, 'food' + this.food[i][j]).setScale(this.game.sizeData.scale);
-                        foodSprite.foodType = this.food[i][j];
-                        this.foodSprites.push(foodSprite);
-                    }
-                }
-            }
-        }
-    },
-    checkCollision: function(initialX, initialY, finalX, finalY, direction, newDirection, regVec, forceTurn) {
+        this.foodSprites.get(last).destroy();
+        this.foodSprites.delete(last);
+    }
+
+    insertFood(next: number) {
+        const i = next % this.width;
+        const j = Math.floor(next / this.width);
+        const foodSprite = this.game.physics.add.sprite(
+            i * this.size,
+            j * this.size, 
+            'food1'
+        ).setScale(this.game.sizeData.scale);
+        // (foodSprite as any).foodType = 1;
+        this.foodSprites.set(next, foodSprite);
+    }
+
+    insertPower(next: number) {
+        const i = next % this.width;
+        const j = Math.floor(next / this.width);
+        const foodSprite = this.game.physics.add.sprite(
+            i * this.size,
+            j * this.size, 
+            'food2'
+        ).setScale(this.game.sizeData.scale);
+        // (foodSprite as any).foodType = 1;
+        this.foodSprites.set(next, foodSprite);
+    }
+
+    checkCollision(initialX: number, initialY: number, finalX: number, finalY: number, direction: number, newDirection:any, regVec: { x: number; y: number; }, forceTurn?:any) {
 
         // return {
         //     x: finalX,
@@ -391,12 +438,12 @@ MapMaker.prototype = {
         //     success: true
         // };
 
-        var scaledX = finalX / this.tileSize;
-        var scaledY = finalY / this.tileSize;
-        var initialTileX = Math.round(initialX / this.tileSize);
-        var initialTileY = Math.round(initialY / this.tileSize);
-        var finalTileX = Math.round(finalX / this.tileSize);
-        var finalTileY = Math.round(finalY / this.tileSize);
+        var scaledX = finalX / this.size;
+        var scaledY = finalY / this.size;
+        var initialTileX = Math.round(initialX / this.size);
+        var initialTileY = Math.round(initialY / this.size);
+        var finalTileX = Math.round(finalX / this.size);
+        var finalTileY = Math.round(finalY / this.size);
         var tilePath = [];
         if (direction == 0 || direction == 2) {
             for (var i = 0 ; i <= Math.abs(initialTileY - finalTileY) ; i++) {
@@ -419,21 +466,21 @@ MapMaker.prototype = {
                 var tile = this.tiles[i];
                 var tileX = tilePath[t].x;
                 var tileY = tilePath[t].y;
-                if (tileX == tile.x && tileY == tile.y) {
-                    var wall = tile.walls[direction];
+                if (tileX == tile.point.x && tileY == tile.point.y) {
+                    var wall = tile.wallsList[direction];
                     if (wall) {
                         if (direction == 0 || direction == 2) {
                             return {
                                 x: initialX,
-                                y: tileY * this.tileSize,
-                                //y: (direction == 0 ? tileY - threshold : tileY + threshold) * this.tileSize,
+                                y: tileY * this.size,
+                                //y: (direction == 0 ? tileY - threshold : tileY + threshold) * this.size,
                                 success: false
                             };
                         }
                         else {
                             return {
-                                //x: (direction == 1 ? tileX - threshold : tileX + threshold) * this.tileSize,
-                                x: tileX * this.tileSize,
+                                //x: (direction == 1 ? tileX - threshold : tileX + threshold) * this.size,
+                                x: tileX * this.size,
                                 y: initialY,
                                 success: false
                             };
@@ -451,14 +498,14 @@ MapMaker.prototype = {
             var tile = this.tiles[i];
             var tileX = tilePath[tilePath.length - 1].x;
             var tileY = tilePath[tilePath.length - 1].y;
-            if (tileX == tile.x && tileY == tile.y) {
-                var wall = tile.walls[direction];
+            if (tileX == tile.point.x && tileY == tile.point.y) {
+                var wall = tile.wallsList[direction];
 
-                var initX = initialX / this.tileSize;
-                var initY = initialY / this.tileSize;
+                var initX = initialX / this.size;
+                var initY = initialY / this.size;
 
-                var hypX = (initialX + regVec.x) / this.tileSize;
-                var hypY = (initialY + regVec.y) / this.tileSize;
+                var hypX = (initialX + regVec.x) / this.size;
+                var hypY = (initialY + regVec.y) / this.size;
                 
                 var worked = false;
                 if (wall && direction == 0 && scaledY >= tileY - threshold) {
@@ -488,10 +535,10 @@ MapMaker.prototype = {
 
                 if (worked) {
                     if (direction == 0 || direction == 2) {
-                        return {x: tileX * this.tileSize, y: finalY, success: !wall || tilePath.length > 1};
+                        return {x: tileX * this.size, y: finalY, success: !wall || tilePath.length > 1};
                     }
                     else {
-                        return {x: finalX, y: tileY * this.tileSize, success: !wall || tilePath.length > 1};
+                        return {x: finalX, y: tileY * this.size, success: !wall || tilePath.length > 1};
                     }
                 }
                 else {
@@ -499,15 +546,15 @@ MapMaker.prototype = {
                     if (direction == 0 || direction == 2) {
                         return {
                             x: initialX,
-                            y: tileY * this.tileSize,
-                            //y: (direction == 0 ? tileY - threshold : tileY + threshold) * this.tileSize,
+                            y: tileY * this.size,
+                            //y: (direction == 0 ? tileY - threshold : tileY + threshold) * this.size,
                             success: success
                         };
                     }
                     else {
                         return {
-                            x: tileX * this.tileSize,
-                            //x: (direction == 1 ? tileX - threshold : tileX + threshold) * this.tileSize,
+                            x: tileX * this.size,
+                            //x: (direction == 1 ? tileX - threshold : tileX + threshold) * this.size,
                             y: initialY,
                             success: success
                         };
@@ -521,10 +568,12 @@ MapMaker.prototype = {
             y: initialY,
             success: false
         };
-    },
-    shutdown: function() {
-        this.food = [];
-        this.foodSprites = [];
+    }
+    
+    shutdown() {
+        this.food.clear();
+        this.power.clear();
+        this.foodSprites = new Map();
         for (var i = 0 ; i < this.canvases.length ; i++) {
             if (this.canvases[i].image) {
                 this.canvases[i].image = null;

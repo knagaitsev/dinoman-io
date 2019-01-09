@@ -5,7 +5,10 @@ package org.coinen.pacman;
 import "google/protobuf/empty.proto";
 import "rsocket/options.proto";
 import "player.proto";
+import "location.proto";
+import "extra.proto";
 import "map.proto";
+import "config.proto";
 
 option java_package = "org.coinen.pacman";
 option java_multiple_files = true;
@@ -19,5 +22,20 @@ service MapService {
 }
 
 service GameService {
-    rpc start (Nickname) returns (stream Player) {}
+    rpc start (Nickname) returns (Config) {}
+}
+
+service PlayerService {
+    rpc locate(Location) returns (google.protobuf.Empty) {
+        option (io.rsocket.rpc.options) = {
+            fire_and_forget: true
+        };
+    }
+
+    rpc players(google.protobuf.Empty) returns (stream Player) {}
+}
+
+service ExtraService {
+    rpc food(google.protobuf.Empty) returns (stream Extra) {}
+    rpc power(google.protobuf.Empty) returns (stream Extra) {}
 }

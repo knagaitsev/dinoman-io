@@ -1,31 +1,43 @@
-var SimplexNoise = require("simplex-noise");
+import * as SimplexNoise from 'simplex-noise'
+import { RoaringBitmap32 } from 'roaring';
 
-module.exports = function() {
+export default class Maze {
+    simplex: SimplexNoise;
+    data: any; //FIXME:  asd
+    tiles: any[];
+    tileSize: number;
+    width: number;
+    height: number;
+    mainBounds: number;
+    foodBorder: number;
+    food: RoaringBitmap32;
+    power: RoaringBitmap32;
+    foodChance: number;
+    size: any;
 
-    this.simplex = new SimplexNoise("seed");
+    constructor() {
+        this.simplex = new SimplexNoise("seed");
 
-    this.data = null;
+        this.data = null;
 
-    this.tiles = [];
+        this.tiles = [];
 
-    this.tileSize = 100;
-    
-    this.width = 60;
-    this.height = 60;
-    this.mainBounds = 10;
-    this.foodBorder = 11;
+        this.tileSize = 100;
+        
+        this.width = 60;
+        this.height = 60;
+        this.mainBounds = 10;
+        this.foodBorder = 11;
 
-    this.food = [];
+        this.foodChance = 0.3;
 
-    this.foodChance = 0.3;
-
-    for (var i = 0 ; i < this.width ; i++) {
-        this.food[i] = new Array(this.height).fill(0);
+        // for (var i = 0 ; i < this.width ; i++) {
+            this.food = new RoaringBitmap32();
+            this.power = new RoaringBitmap32();
+        // }
     }
-}
 
-module.exports.prototype = {
-    generate: function() {
+    generate() {
         var arr = [];
 
         var size = this.size;
@@ -148,8 +160,9 @@ module.exports.prototype = {
             console.log(str);
         }
         */
-    },
-    generateTiles: function() {
+    }
+
+    generateTiles() {
         var data = this.data;
         for (var i = 0 ; i < data.length - 1 ; i++) {
             for (var j = 0 ; j < data[i].length - 1; j++) {
@@ -178,17 +191,17 @@ module.exports.prototype = {
         this.checkTiles();
 
         return this.tiles;
-    },
-    getTile: function(x, y) {
+    }
+
+    getTile(x: number, y: number) : any {
         for (var i = 0 ; i < this.tiles.length ; i++) {
             if (this.tiles[i].x == x && this.tiles[i].y == y) {
                 return this.tiles[i];
             }
         }
+    }
 
-        return false;
-    },
-    getTileIndices: function() {
+    getTileIndices() {
         var minX = this.mainBounds;
         var maxX = this.width - this.mainBounds - 1;
         var minY = this.mainBounds;
@@ -205,8 +218,9 @@ module.exports.prototype = {
         }
 
         return arr;
-    },
-    getTilePositions: function() {
+    }
+
+    getTilePositions() {
         var minX = this.mainBounds;
         var maxX = this.width - this.mainBounds - 1;
         var minY = this.mainBounds;
@@ -225,8 +239,9 @@ module.exports.prototype = {
         }
 
         return arr;
-    },
-    checkTiles: function() {
+    }
+
+    checkTiles() {
         var minX = this.mainBounds;
         var maxX = this.width - this.mainBounds - 1;
         var minY = this.mainBounds;
@@ -255,8 +270,9 @@ module.exports.prototype = {
             } while (!neighbor.checked || neighbor.x < minX || neighbor.x > maxX || neighbor.y < minY || neighbor.y > maxY);
             this.removeWall(badTiles[randomTile], randDirec);
         }
-    },
-    getBadTiles(bounds) {
+    }
+
+    getBadTiles(bounds: any) {
         var badTiles = [];
         for (var i = bounds.minX ; i <= bounds.maxX ; i++) {
             for (var j = bounds.minY ; j <= bounds.maxY ; j++) {
@@ -268,16 +284,18 @@ module.exports.prototype = {
         }
 
         return badTiles;
-    },
-    resetTileCheck(bounds) {
+    }
+    
+    resetTileCheck(bounds: any) {
         for (var i = bounds.minX ; i <= bounds.maxX ; i++) {
             for (var j = bounds.minY ; j <= bounds.maxY ; j++) {
                 var tile = this.getTile(i, j);
                 tile.checked = false;
             }
         }
-    },
-    checkTileRecursive(x, y, bounds) {
+    }
+
+    checkTileRecursive(x: number, y: number, bounds: any) {
         var tile = this.getTile(x, y);
         tile.checked = true;
         if (x != bounds.minX && !tile.walls[1] && !this.getTile(x - 1, y).checked) {
@@ -292,8 +310,9 @@ module.exports.prototype = {
         if (y != bounds.maxY && !tile.walls[2] && !this.getTile(x, y + 1).checked) {
             this.checkTileRecursive(x, y + 1, bounds);
         }
-    },
-    tileBoxedIn: function(tile) {
+    }
+
+    tileBoxedIn(tile: any) {
         for (var i = 0 ; i < tile.walls.length ; i++) {
             if (!tile.walls[i]) {
                 return false;
@@ -301,8 +320,9 @@ module.exports.prototype = {
         }
 
         return true;
-    },
-    getNeighbor: function(tile, direction) {
+    }
+
+    getNeighbor(tile: any, direction: number) {
         var x = tile.x;
         var y = tile.y;
         if (direction == 0) {
@@ -319,95 +339,81 @@ module.exports.prototype = {
         }
 
         return this.getTile(x, y);
-    },
-    removeWall: function(tile, direction) {
+    }
+
+    removeWall(tile: any, direction: any) {
         tile.walls[direction] = false;
         this.getNeighbor(tile, direction).walls[(direction + 2) % 4] = false;
-    },
-    getFoodData: function() {
-        var totalSpace = 0;
-        var totalFood1 = 0;
-        var totalFood2 = 0;
-        for (var i = 0 ; i < this.food.length ; i++) {
-            for (var j = 0 ; j < this.food[i].length ; j++) {
-                if (this.food[i][j] == 1) {
-                    totalFood1++;
-                }
-                else if (this.food[i][j] == 2) {
-                    totalFood2++;
-                }
+    }
 
-                totalSpace++;
-            }
+    setFood() {
+        const iterations = (this.width - 2 * this.foodBorder) * (this.height - 2 * this.foodBorder) * (0.3 + Math.random() * 0.3) ; 
+        for (let i = 0; i < iterations; i++) {
+            this.food.add(this.randomPosition());
         }
+    }
 
-        return {
-            percentage: totalFood1 / totalSpace,
-            totalFood1: totalFood1,
-            totalFood2: totalFood2,
-            totalSpace: totalSpace
-        };
-    },
-    setFood: function() {
-        var powerupUsed = false;
-        for (var i = this.foodBorder ; i < this.width - this.foodBorder ; i++) {
-            for (var j = this.foodBorder ; j < this.height - this.foodBorder ; j++) {
-                if (Math.random() <= this.foodChance) {
-                    this.food[i][j] = 1;
-                }
-            }
-        }
-    },
-    addFood: function(playerCount) {
-        var i = 0;
-        var j = 0;
+    randomPosition() {
+        return Math.floor(Math.random() * (this.width - 2 * this.foodBorder + 1) + this.foodBorder) +  Math.floor(Math.random() * (this.height - 2 * this.foodBorder + 1) + this.foodBorder) * this.height;
+    }
+
+    addFood(playerCount: number) {
+        let nextPosition;
         do {
-            i = this.getRandomIntInclusive(this.foodBorder, this.width - this.foodBorder - 1);
-            j = this.getRandomIntInclusive(this.foodBorder, this.height - this.foodBorder - 1);
-        } while(this.food[i][j] != 0);
+            nextPosition = this.randomPosition();
+        } while(this.food.has(nextPosition) || this.power.has(nextPosition));
+
 
         var powerupAllowed = false;
-        var foodData = this.getFoodData();
+        const totalSpace = (this.width - 2 * this.foodBorder + 1) * (this.height - 2 * this.foodBorder + 1);
         if (playerCount <= 2) {
-            powerupAllowed = foodData.totalFood2 < Math.ceil(foodData.totalSpace / 360);
+            powerupAllowed = this.power.statistics().size < Math.ceil(totalSpace / 360);
         }
         else if (playerCount <= 4) {
-            powerupAllowed = foodData.totalFood2 < Math.ceil(foodData.totalSpace / 900);
+            powerupAllowed = this.power.statistics().size < Math.ceil(totalSpace / 900);
         }
         else {
-            powerupAllowed = foodData.totalFood2 == 0 && Math.random() < 0.02;
+            powerupAllowed = this.power.statistics().size == 0 && Math.random() < 0.02;
         }
 
         if (powerupAllowed) {
-            this.food[i][j] = 2;
+            this.power.add(nextPosition);
+            return {
+                flattenPosition: nextPosition,
+                type : 2
+            }
         }
         else {
-            this.food[i][j] = 1;
+            this.food.add(nextPosition);
+            return {
+                flattenPosition: nextPosition,
+                type : 1
+            }
         }
+    }
 
-        return {
-            type: this.food[i][j],
-            x: i,
-            y: j
-        };
-    },
-    collideFood: function(x, y) {
-        var range = 20;
+    collideFood(x: number, y: number) {
         var i = Math.round(x / this.tileSize);
         var j = Math.round(y / this.tileSize);
-        var foodX = i * this.tileSize;
-        var foodY = j * this.tileSize;
-        var foodType = this.food[i][j];
-        if (foodType != 0 && Math.abs(x - foodX) <= range && Math.abs(y - foodY) <= range) {
+
+        const flattenPosition = i + j * this.width;
+
+        if (this.food.delete(flattenPosition)) {
             return {
-                type: foodType,
-                x: i,
-                y: j
-            };
+                flattenPosition,
+                type: 1
+            }
+        } else if(this.power.delete(flattenPosition)) {
+            return {
+                flattenPosition,
+                type: 2
+            }
         }
+        
         return false;
-    },
-    checkCollision: function(initialX, initialY, finalX, finalY, dt, nickname) {
+    }
+
+    checkCollision(initialX: number, initialY: number, finalX: number, finalY: number, dt: number, nickname: string) {
 
         // if (Math.abs(difX) > Math.abs(difY)) {
         //     if (difX > 0) {
@@ -505,13 +511,15 @@ module.exports.prototype = {
         }
 
         return false;
-    },
-    getRandomIntInclusive: function(min, max) {
+    }
+
+    getRandomIntInclusive(min: number, max: number) {
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
-    },
-    distance2(p1, p2) {
+    }
+
+    distance2(p1: any, p2: any) {
         var d1 = p1.x - p2.x;
         var d2 = p1.y - p2.y;
         return d1 * d1 + d2 * d2;

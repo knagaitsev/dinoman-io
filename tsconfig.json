@@ -1,9 +1,25 @@
 {
-    "compilerOptions": {
-      "outDir": "./dist/",
-      "noImplicitAny": true,
-      "module": "esnext",
-      "target": "es5",
-      "allowJs": true,
-    }
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "target": "es5",
+    "allowJs": true,
+    "typeRoots": [
+      "node_modules/@types",
+      "src/@types/"
+    ],
+    "lib": [
+      "es6",
+      "scripthost",
+      "dom"
+    ]
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "./src/@types/**/*",
+    "./node_modules/**/*"
+  ]
 }
