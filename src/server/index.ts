@@ -2,34 +2,33 @@ import * as uuidv1 from 'uuid/v1';
 import * as express from 'express';
 
 import { RSocketServer, BufferEncoders } from 'rsocket-core'
-import { Single } from 'rsocket-flowable';
 import RSocketWebSocketServer from 'rsocket-websocket-server'
 import { RequestHandlingRSocket } from 'rsocket-rpc-core'
+import { Server } from 'http';
+
 import { MapServiceClient } from '../shared/service_rsocket_pb'
-import { GameServiceServer, PlayerServiceServer, ExtraServiceServer } from '../shared/service_rsocket_pb'
 import { Tail } from '../shared/tail_pb'
 import { Size } from '../shared/size_pb'
 import { Map } from '../shared/map_pb'
 import { Point } from '../shared/point_pb';
-import { Config } from '../shared/config_pb';
 import { Player } from '../shared/player_pb';
-import { Extra } from '../shared/extra_pb';
 import Maze from './maze';
-import { Server } from 'http';
-import { Nickname } from '../shared/player_pb';
-import { Location } from '../shared/location_pb';
-import { CONNECTION_STATUS } from 'rsocket-types';
+import { extraService, gameService, playerService } from './lib/services/';
+import { playersProcessor } from './lib/processors';
+import store from './store';
 
-const { DirectProcessor } = require('reactor-core-js/flux');
-
-var maze = new Maze();
 const app = express();
+
+
+() => {
+let maze = new Maze();
 const mazeData = maze.generate();
 const map = new Map();
-
+store.setMaze(maze);
+};
 
 const players: { [e: string]: Player } = {};
-var sockets: any = {};
+let sockets: any = {};
 mazeData.tiles.forEach((t:any) => {
     const tail = new Tail();
     const point = new Point();
@@ -45,9 +44,6 @@ size.setHeight(mazeData.height);
 map.setSize(size);
 
 const server = new Server(app);
-const foodProcessor = new DirectProcessor();
-const powerProcessor = new DirectProcessor();
-const playersProcessor = new DirectProcessor();
 
 const rSocketServer = new RSocketServer({
     getRequestHandler: socket => {
@@ -66,107 +62,11 @@ const rSocketServer = new RSocketServer({
         
         new MapServiceClient(socket).setup(map);
         const handler = new RequestHandlingRSocket();
-        handler.addService('org.coinen.pacman.GameService', new GameServiceServer({
-            start(nickname: Nickname) {
-                if (nickname.getValue().length <= 13 && !players[uuid]) {
-                    let name = nickname.getValue().replace(/[^a-zA-Z0-9. ]/g, '');
-                    if (name == "") {
-                        name = "Unnamed";
-                    }
-                    const score = 10;
-                    const playerType = getNewPlayerType();
-                    const pos = findBestStartingPosition(playerType);
-                    const config = new Config();
-                    const player = new Player();
-                    const playerPosition = new Point();
-                    const location = new Location();
+        handler.addService('org.coinen.pacman.GameService', gameService);
 
-                    
-                    playerPosition.setX(pos.x);
-                    playerPosition.setY(pos.y);
+        handler.addService('org.coinen.pacman.PlayerService', playerService);
 
-                    location.setDirec(3);
-                    location.setPosition(playerPosition);
-
-                    player.setLocation(location);
-                    player.setNickname(name);
-                    player.setState(Player.State.CONNECTED);
-                    player.setScore(score);
-                    player.setType(playerType);
-                    player.setUuid(uuid);
-
-                    
-                    config.setPlayersList(Object.keys(players).map(k => players[k]))
-                    config.setPlayer(player);
-                    config.setFoodList(maze.food.toArray());
-                    config.setPowerList(maze.power.toArray());
-                    
-                    playersProcessor.onNext(player);
-                    
-                    players[uuid] = player;
-                    
-                    return Single.of(config);
-                }
-
-                return Single.error(new Error("wrong name"));
-            }
-        }));
-
-        handler.addService('org.coinen.pacman.PlayerService', new PlayerServiceServer({
-            locate(location: Location) {
-                const time = Date.now();
-                const player = players[uuid];
-                var dt = time - player.getTimestamp();
-
-                player.setTimestamp(time);
-                player.setState(Player.State.ACTIVE);
-                player.setLocation(location);
-
-                var collisionData = maze.collideFood(location.getPosition().getX(), location.getPosition().getY());
-                if (collisionData) {
-                    if (collisionData.type == 1) {
-                        player.setScore(player.getScore() + 1);
-                        // sockets[uuid].emit("score", players[uuid].score);
-
-
-                    } else if (collisionData.type == 2) {
-                        var sec = 10;
-                        powerupEnd = Date.now() + sec * 1000;
-                    }
-                    var addedFood = maze.addFood(Object.keys(players).length);
-                    
-                    const extra = new Extra();
-
-                    extra.setLast(collisionData.flattenPosition);
-                    extra.setCurrent(addedFood.flattenPosition);
-
-                    if (addedFood.type == 1) {
-                        console.log("sent food");
-                        foodProcessor.onNext(extra);
-                    } else {
-                        console.log("sent power");
-                        powerProcessor.onNext(extra);
-                    }
-                    // sockets[uuid].emit("food", {newFood});
-                    // sockets[uuid].broadcast.emit("food", newFood);
-                }
-                playersProcessor.onNext(player);
-            },
-
-            players() {
-                return playersProcessor;
-            }
-        }))
-
-        handler.addService('org.coinen.pacman.ExtraService', new ExtraServiceServer({
-            food() {
-                return foodProcessor;
-            },
-
-            power() {
-                return powerProcessor;
-            }
-        }))
+        handler.addService('org.coinen.pacman.ExtraService', extraService);
 
         return handler;
     },
@@ -178,11 +78,11 @@ const rSocketServer = new RSocketServer({
     ),
 });
 rSocketServer.start();
-// var io = require('socket.io')(server);
+// let io = require('socket.io')(server);
 
 app.get('/ip.json', function (req, res) {
-    var ip = process.env.IP || 'http://localhost:3000';
-    var obj = {
+    let ip = process.env.IP || 'http://localhost:3000';
+    let obj = {
         ip: ip
     };
     res.status(200).send(JSON.stringify(obj));
@@ -205,93 +105,42 @@ if (process.env.Heroku) {
     reloadServer.watch([__dirname + "/public"]);
 }
 
-function getNewPlayerType() {
-    var manCount = 0;
-    var ghostCount = 0;
-    Object.keys(players).forEach(function (key:any, index:number) {
-        if (players[key].getType() == Player.Type.PACMAN) {
-            manCount++;
-        } else if (players[key].getType() == Player.Type.GHOST) {
-            ghostCount++;
-        }
-    });
 
-    if (ghostCount < manCount) {
-        return Player.Type.GHOST;
-    } else {
-        return Player.Type.PACMAN;
-    }
-}
 
 function collides(player1:any, player2:any) {
-    var maxDist = 30;
+    let maxDist = 30;
     if (Math.abs(player1.x - player2.x) <= maxDist && Math.abs(player1.y - player2.y) <= maxDist) {
         return true;
     }
     return false;
 }
 
-function distance2(p1:any, p2:any) {
-    var d1 = p1.x - p2.x;
-    var d2 = p1.y - p2.y;
-    return d1 * d1 + d2 * d2;
-}
-
-function findBestStartingPosition(playerType: any) {
-    var furthestDist = -1;
-    var bestStart = null;
-    var starts = maze.getTilePositions();
-    for (var i = 0; i < starts.length; i++) {
-        var start = starts[i];
-        var closestPlayerDist = -1;
-        Object.keys(players).forEach(function (uuid:string, index) {
-            var player = players[uuid];
-            if (playerType != player.getType()) {
-                var dist = distance2(player, start);
-                if (closestPlayerDist == -1 || dist < closestPlayerDist) {
-                    closestPlayerDist = dist;
-                }
-            }
-        });
-
-        if (closestPlayerDist > furthestDist) {
-            furthestDist = closestPlayerDist;
-            bestStart = start;
-        }
-    }
-
-    if (bestStart === null) {
-        bestStart = starts[maze.getRandomIntInclusive(0, starts.length - 1)];
-    }
-
-    return bestStart;
-}
 
 // function checkSpeed(initialX: number, initialY: number, finalX: number, finalY: number, uuid: string | number) {
-//     var maxSpeed = 11;
+//     let maxSpeed = 11;
 
-//     var difX = finalX - initialX;
-//     var difY = finalY - initialY;
+//     let difX = finalX - initialX;
+//     let difY = finalY - initialY;
 
-//     var change = Math.max(Math.abs(difX), Math.abs(difY));
+//     let change = Math.max(Math.abs(difX), Math.abs(difY));
 //     if (change > 60) {
 //         return false;
 //     }
 //     players[uuid].speedData.distance += change;
 
-//     var now = Date.now();
-//     var dt = now - players[uuid].speedData.timestamp;
+//     let now = Date.now();
+//     let dt = now - players[uuid].speedData.timestamp;
 
 //     if (dt > maze.getRandomIntInclusive(5000, 6000)) {
-//         var playerType = players[uuid].playerType;
-//         var expectedSpeed;
+//         let playerType = players[uuid].playerType;
+//         let expectedSpeed;
 //         if (playerType == "man") {
 //             expectedSpeed = (dt / 4);
 //         } else if (playerType == "ghost") {
 //             expectedSpeed = (dt / 3.5);
 //         }
 
-//         var threshold = 200;
+//         let threshold = 200;
 //         if (players[uuid].speedData.count == 0) {
 //             threshold = 300;
 //         }
@@ -311,7 +160,7 @@ function findBestStartingPosition(playerType: any) {
 
 /*io.on('connection', function (socket) {
 
-    var uuid = uuidv1();
+    let uuid = uuidv1();
 
     socket.emit('maze', mazeData);
 
@@ -321,9 +170,9 @@ function findBestStartingPosition(playerType: any) {
             if (nickname == "") {
                 nickname = "Unnamed";
             }
-            var score = 10;
-            var playerType = getNewPlayerType();
-            var pos = findBestStartingPosition(playerType);
+            let score = 10;
+            let playerType = getNewPlayerType();
+            let pos = findBestStartingPosition(playerType);
             socket.emit('config', {
                 players: players,
                 food: maze.food,
@@ -364,8 +213,8 @@ function findBestStartingPosition(playerType: any) {
 
     socket.on('position', function (data) {
         if (players[uuid] && players[uuid].nickname !== undefined && typeof players[uuid].nickname == "string") {
-            var time = Date.now();
-            var dt = time - players[uuid].timestamp;
+            let time = Date.now();
+            let dt = time - players[uuid].timestamp;
             if (data && typeof data == "object" &&
                 typeof data.x == "number" && typeof data.y == "number" && typeof data.rotation == "number" &&
                 typeof data.flipX == "boolean" && typeof data.direc == "number" && data.direc >= 0 && data.direc < 4 && data.direc == Math.floor(data.direc) &&
@@ -397,16 +246,16 @@ function findBestStartingPosition(playerType: any) {
     });
 });*/
 
-var powerupEnd = Date.now();
+let powerupEnd = Date.now();
 
 // setInterval(function () {
 
 //     if (powerupEnd <= Date.now()) {
 //         Object.keys(players).forEach(function (uuid1, index) {
-//             var player1 = players[uuid1];
+//             let player1 = players[uuid1];
 //             if (player1 && player1.playerType == "man") {
 //                 Object.keys(players).forEach(function (uuid2, index) {
-//                     var player2 = players[uuid2];
+//                     let player2 = players[uuid2];
 //                     if (player2 && player2.playerType == "ghost" && collides(player1, player2)) {
 //                         players[uuid2].score += 100;
 //                         if (sockets[uuid2] && sockets[uuid2].connected) {
@@ -422,10 +271,10 @@ var powerupEnd = Date.now();
 //         });
 //     } else {
 //         Object.keys(players).forEach(function (uuid1, index) {
-//             var player1 = players[uuid1];
+//             let player1 = players[uuid1];
 //             if (player1 && player1.playerType == "ghost") {
 //                 Object.keys(players).forEach(function (uuid2, index) {
-//                     var player2 = players[uuid2];
+//                     let player2 = players[uuid2];
 //                     if (player2 && player2.playerType == "man" && collides(player1, player2)) {
 //                         players[uuid2].score += 50;
 //                         if (sockets[uuid2] && sockets[uuid2].connected) {
@@ -442,19 +291,19 @@ var powerupEnd = Date.now();
 //     }
 
 //     Object.keys(players).forEach(function (uuid, index) {
-//         var player = players[uuid];
+//         let player = players[uuid];
 //         if (player && player.playerType == "man" && player.active) {
-//             var collisionData = maze.collideFood(player.x, player.y);
+//             let collisionData = maze.collideFood(player.x, player.y);
 //             if (sockets[uuid] && sockets[uuid].connected && collisionData) {
-//                 var newFood = [];
+//                 let newFood = [];
 //                 if (collisionData.type == 1) {
 //                     players[uuid].score += 1;
 //                     sockets[uuid].emit("score", players[uuid].score);
 //                 } else if (collisionData.type == 2) {
-//                     var sec = 10;
+//                     let sec = 10;
 //                     powerupEnd = Date.now() + sec * 1000;
 //                 }
-//                 var addedFood = maze.addFood(Object.keys(players).length);
+//                 let addedFood = maze.addFood(Object.keys(players).length);
 //                 newFood.push(addedFood);
 
 //                 // maze.food[collisionData.x][collisionData.y] = 0;
@@ -468,10 +317,10 @@ var powerupEnd = Date.now();
 // }, 35);
 
 // setInterval(function () {
-//     var arr = [];
+//     let arr = [];
 //     Object.keys(players).forEach(function (uuid, index) {
-//         var player = players[uuid];
-//         var obj = {
+//         let player = players[uuid];
+//         let obj = {
 //             name: player.nickname,
 //             score: player.score,
 //             uuid: player.uuid
@@ -486,12 +335,12 @@ var powerupEnd = Date.now();
 //         return 1;
 //     });
 
-//     var leaderboard = arr.slice(0, 10);
+//     let leaderboard = arr.slice(0, 10);
 //     io.emit('leaderboard', leaderboard);
 //     io.emit('powerup', powerupEnd - Date.now());
 // }, 200);
 
-var port = process.env.PORT || 3000;
+let port = process.env.PORT || 3000;
 
 server.listen(port, function () {
     console.log("Listening on " + port);

@@ -31,27 +31,27 @@ export default class Maze {
 
         this.foodChance = 0.3;
 
-        // for (var i = 0 ; i < this.width ; i++) {
+        // for (let i = 0 ; i < this.width ; i++) {
             this.food = new RoaringBitmap32();
             this.power = new RoaringBitmap32();
         // }
     }
 
     generate() {
-        var arr = [];
+        let arr = [];
 
-        var size = this.size;
+        let size = this.size;
 
-        for (var i = 0 ; i < this.width ; i++) {
+        for (let i = 0 ; i < this.width ; i++) {
             arr[i] = new Array(this.height).fill(-1);
         }
 
-        var tileIndices = this.getTileIndices();
-        var center = {
+        let tileIndices = this.getTileIndices();
+        let center = {
             x: Math.round(this.width / 2),
             y: Math.round(this.height / 2)
         };
-        var self = this;
+        let self = this;
         tileIndices.sort(function(p1, p2) {
             if (self.distance2(p1, center) <= self.distance2(p2, center)) {
                 return -1;
@@ -59,38 +59,38 @@ export default class Maze {
             return 1;
         });
 
-        var count = 0;
-        var bounds = this.mainBounds;
-        for (var p = 0 ; p < tileIndices.length ; p++) {
-            var i = tileIndices[p].x;
-            var j = tileIndices[p].y;
+        let count = 0;
+        let bounds = this.mainBounds;
+        for (let p = 0 ; p < tileIndices.length ; p++) {
+            let i = tileIndices[p].x;
+            let j = tileIndices[p].y;
 
             if (arr[i] === undefined) {
                 arr[i] = [];
             }
 
             if (arr[i][j] === undefined || arr[i][j] == -1) {
-                var shapeNum = count;
+                let shapeNum = count;
                 arr[i][j] = shapeNum;
-                var shapeCount = 0;
-                var offsetX = 0;
-                var offsetY = 0;
-                var pastOffsets = [];
-                var max = this.getRandomIntInclusive(4,8);
+                let shapeCount = 0;
+                let offsetX = 0;
+                let offsetY = 0;
+                let pastOffsets = [];
+                let max = this.getRandomIntInclusive(4,8);
                 while (shapeCount < max) {
 
                     // if (pastOffsets.length > 0) {
-                    //     var offsetObj = pastOffsets[this.getRandomIntInclusive(0, pastOffsets.length - 1)];
+                    //     let offsetObj = pastOffsets[this.getRandomIntInclusive(0, pastOffsets.length - 1)];
                     //     offsetX = offsetObj.x;
                     //     offsetY = offsetObj.y;
                     // }
                     
-                    //var direcChoice = this.simplex.noise2D(i + offsetX, j + offsetY);
-                    //var direc = Math.floor((direcChoice + 1) * 2);
-                    var direc = this.getRandomIntInclusive(0, 3);
-                    var changeX = 0;
-                    var changeY = 0;
-                    var direcCount = 0;
+                    //let direcChoice = this.simplex.noise2D(i + offsetX, j + offsetY);
+                    //let direc = Math.floor((direcChoice + 1) * 2);
+                    let direc = this.getRandomIntInclusive(0, 3);
+                    let changeX = 0;
+                    let changeY = 0;
+                    let direcCount = 0;
                     do {
                         if (direc == 0) {
                             changeX = 1;
@@ -105,7 +105,7 @@ export default class Maze {
                             changeY = -1;
                         }
                         
-                        var elem = arr[i + offsetX + changeX][j + offsetY + changeY];
+                        let elem = arr[i + offsetX + changeX][j + offsetY + changeY];
                         if (elem === undefined || elem == -1) {
                             offsetX += changeX;
                             offsetY += changeY;
@@ -145,13 +145,13 @@ export default class Maze {
         };
 
         /*
-        for (var i = -13 ; i <= 13 ; i++) {
-            var str = "";
-            for (var j = -13 ; j <= 13 ; j++) {
+        for (let i = -13 ; i <= 13 ; i++) {
+            let str = "";
+            for (let j = -13 ; j <= 13 ; j++) {
                 if (arr[i][j] === undefined) {
                     arr[i][j] = -1;
                 }
-                var addStr = arr[i][j] + "";
+                let addStr = arr[i][j] + "";
                 while (addStr.length < 3) {
                     addStr += " ";
                 }
@@ -163,10 +163,10 @@ export default class Maze {
     }
 
     generateTiles() {
-        var data = this.data;
-        for (var i = 0 ; i < data.length - 1 ; i++) {
-            for (var j = 0 ; j < data[i].length - 1; j++) {
-                var walls = [false, false, false, false];
+        let data = this.data;
+        for (let i = 0 ; i < data.length - 1 ; i++) {
+            for (let j = 0 ; j < data[i].length - 1; j++) {
+                let walls = [false, false, false, false];
                 if (data[i][j] == data[i+1][j] && data[i][j] !== null && data[i+1][j] !== null) {
                     walls[0] = true;
                 }
@@ -194,7 +194,7 @@ export default class Maze {
     }
 
     getTile(x: number, y: number) : any {
-        for (var i = 0 ; i < this.tiles.length ; i++) {
+        for (let i = 0 ; i < this.tiles.length ; i++) {
             if (this.tiles[i].x == x && this.tiles[i].y == y) {
                 return this.tiles[i];
             }
@@ -202,14 +202,14 @@ export default class Maze {
     }
 
     getTileIndices() {
-        var minX = this.mainBounds;
-        var maxX = this.width - this.mainBounds - 1;
-        var minY = this.mainBounds;
-        var maxY = this.height - this.mainBounds - 1;
+        let minX = this.mainBounds;
+        let maxX = this.width - this.mainBounds - 1;
+        let minY = this.mainBounds;
+        let maxY = this.height - this.mainBounds - 1;
 
-        var arr = [];
-        for (var i = minX ; i <= maxX ; i++) {
-            for (var j = minY ; j <= maxY ; j++) {
+        let arr = [];
+        for (let i = minX ; i <= maxX ; i++) {
+            for (let j = minY ; j <= maxY ; j++) {
                 arr.push({
                     x: i,
                     y: j
@@ -221,14 +221,14 @@ export default class Maze {
     }
 
     getTilePositions() {
-        var minX = this.mainBounds;
-        var maxX = this.width - this.mainBounds - 1;
-        var minY = this.mainBounds;
-        var maxY = this.height - this.mainBounds - 1;
+        let minX = this.mainBounds;
+        let maxX = this.width - this.mainBounds - 1;
+        let minY = this.mainBounds;
+        let maxY = this.height - this.mainBounds - 1;
 
-        var arr = [];
-        for (var i = minX ; i <= maxX ; i++) {
-            for (var j = minY ; j <= maxY ; j++) {
+        let arr = [];
+        for (let i = minX ; i <= maxX ; i++) {
+            for (let j = minY ; j <= maxY ; j++) {
                 if (this.getTile(i, j)) {
                     arr.push({
                         x: i * this.tileSize,
@@ -242,17 +242,17 @@ export default class Maze {
     }
 
     checkTiles() {
-        var minX = this.mainBounds;
-        var maxX = this.width - this.mainBounds - 1;
-        var minY = this.mainBounds;
-        var maxY = this.height - this.mainBounds - 1;
-        var bounds = {
+        let minX = this.mainBounds;
+        let maxX = this.width - this.mainBounds - 1;
+        let minY = this.mainBounds;
+        let maxY = this.height - this.mainBounds - 1;
+        let bounds = {
             minX: minX,
             maxX: maxX,
             minY: minY,
             maxY: maxY
         };
-        var badTiles = [];
+        let badTiles = [];
         while(true) {
             this.resetTileCheck(bounds);
             this.checkTileRecursive(minX, minY, bounds);
@@ -260,12 +260,12 @@ export default class Maze {
             if (badTiles.length == 0) {
                 break;
             }
-            var randomTile = 0;
-            var randDirec = 0;
-            var neighbor = null;
+            let randomTile = 0;
+            let randDirec = 0;
+            let neighbor = null;
             do {
                 randomTile = this.getRandomIntInclusive(0, badTiles.length - 1);
-                var randDirec = this.getRandomIntInclusive(0, 3);
+                let randDirec = this.getRandomIntInclusive(0, 3);
                 neighbor = this.getNeighbor(badTiles[randomTile], randDirec);
             } while (!neighbor.checked || neighbor.x < minX || neighbor.x > maxX || neighbor.y < minY || neighbor.y > maxY);
             this.removeWall(badTiles[randomTile], randDirec);
@@ -273,10 +273,10 @@ export default class Maze {
     }
 
     getBadTiles(bounds: any) {
-        var badTiles = [];
-        for (var i = bounds.minX ; i <= bounds.maxX ; i++) {
-            for (var j = bounds.minY ; j <= bounds.maxY ; j++) {
-                var tile = this.getTile(i, j);
+        let badTiles = [];
+        for (let i = bounds.minX ; i <= bounds.maxX ; i++) {
+            for (let j = bounds.minY ; j <= bounds.maxY ; j++) {
+                let tile = this.getTile(i, j);
                 if (!tile.checked) {
                     badTiles.push(tile);
                 }
@@ -287,16 +287,16 @@ export default class Maze {
     }
     
     resetTileCheck(bounds: any) {
-        for (var i = bounds.minX ; i <= bounds.maxX ; i++) {
-            for (var j = bounds.minY ; j <= bounds.maxY ; j++) {
-                var tile = this.getTile(i, j);
+        for (let i = bounds.minX ; i <= bounds.maxX ; i++) {
+            for (let j = bounds.minY ; j <= bounds.maxY ; j++) {
+                let tile = this.getTile(i, j);
                 tile.checked = false;
             }
         }
     }
 
     checkTileRecursive(x: number, y: number, bounds: any) {
-        var tile = this.getTile(x, y);
+        let tile = this.getTile(x, y);
         tile.checked = true;
         if (x != bounds.minX && !tile.walls[1] && !this.getTile(x - 1, y).checked) {
             this.checkTileRecursive(x - 1, y, bounds);
@@ -313,7 +313,7 @@ export default class Maze {
     }
 
     tileBoxedIn(tile: any) {
-        for (var i = 0 ; i < tile.walls.length ; i++) {
+        for (let i = 0 ; i < tile.walls.length ; i++) {
             if (!tile.walls[i]) {
                 return false;
             }
@@ -323,8 +323,8 @@ export default class Maze {
     }
 
     getNeighbor(tile: any, direction: number) {
-        var x = tile.x;
-        var y = tile.y;
+        let x = tile.x;
+        let y = tile.y;
         if (direction == 0) {
             y -= 1;
         }
@@ -364,7 +364,7 @@ export default class Maze {
         } while(this.food.has(nextPosition) || this.power.has(nextPosition));
 
 
-        var powerupAllowed = false;
+        let powerupAllowed = false;
         const totalSpace = (this.width - 2 * this.foodBorder + 1) * (this.height - 2 * this.foodBorder + 1);
         if (playerCount <= 2) {
             powerupAllowed = this.power.statistics().size < Math.ceil(totalSpace / 360);
@@ -393,8 +393,8 @@ export default class Maze {
     }
 
     collideFood(x: number, y: number) {
-        var i = Math.round(x / this.tileSize);
-        var j = Math.round(y / this.tileSize);
+        let i = Math.round(x / this.tileSize);
+        let j = Math.round(y / this.tileSize);
 
         const flattenPosition = i + j * this.width;
 
@@ -438,35 +438,35 @@ export default class Maze {
         //     return false;
         // }
 
-        var scaledX = finalX / this.tileSize;
-        var scaledY = finalY / this.tileSize;
-        var initialTileX = Math.round(initialX / this.tileSize);
-        var initialTileY = Math.round(initialY / this.tileSize);
-        var finalTileX = Math.round(finalX / this.tileSize);
-        var finalTileY = Math.round(finalY / this.tileSize);
-        // var tilePath = [];
+        let scaledX = finalX / this.tileSize;
+        let scaledY = finalY / this.tileSize;
+        let initialTileX = Math.round(initialX / this.tileSize);
+        let initialTileY = Math.round(initialY / this.tileSize);
+        let finalTileX = Math.round(finalX / this.tileSize);
+        let finalTileY = Math.round(finalY / this.tileSize);
+        // let tilePath = [];
         // if (direction == 0 || direction == 2) {
-        //     for (var i = 0 ; i <= Math.abs(initialTileY - finalTileY) ; i++) {
-        //         var change = (direction == 0 ? -1 : 1) * i;
+        //     for (let i = 0 ; i <= Math.abs(initialTileY - finalTileY) ; i++) {
+        //         let change = (direction == 0 ? -1 : 1) * i;
         //         tilePath.push({x: initialTileX, y: initialTileY + change});
         //     }
         // }
         // else {
-        //     for (var i = 0 ; i <= Math.abs(initialTileX - finalTileX) ; i++) {
-        //         var change = (direction == 1 ? -1 : 1) * i;
+        //     for (let i = 0 ; i <= Math.abs(initialTileX - finalTileX) ; i++) {
+        //         let change = (direction == 1 ? -1 : 1) * i;
         //         tilePath.push({x: initialTileX + change, y: initialTileY});
         //     }
         // }
 
-        var threshold = 0;
+        let threshold = 0;
 
-        // for (var t = 0 ; t < tilePath.length - 1 ; t++) {
-        //     for (var i = 0 ; i < this.tiles.length ; i++) {
-        //         var tile = this.tiles[i];
-        //         var tileX = tilePath[t].x;
-        //         var tileY = tilePath[t].y;
+        // for (let t = 0 ; t < tilePath.length - 1 ; t++) {
+        //     for (let i = 0 ; i < this.tiles.length ; i++) {
+        //         let tile = this.tiles[i];
+        //         let tileX = tilePath[t].x;
+        //         let tileY = tilePath[t].y;
         //         if (tileX == tile.x && tileY == tile.y) {
-        //             var wall = tile.walls[direction];
+        //             let wall = tile.walls[direction];
         //             if (wall) {
         //                 return false;
         //             }
@@ -474,10 +474,10 @@ export default class Maze {
         //     }
         // }
 
-        for (var i = 0 ; i < this.tiles.length ; i++) {
-            var tile = this.tiles[i];
-            var tileX = finalTileX;
-            var tileY = finalTileY;
+        for (let i = 0 ; i < this.tiles.length ; i++) {
+            let tile = this.tiles[i];
+            let tileX = finalTileX;
+            let tileY = finalTileY;
             if (tileX == tile.x && tileY == tile.y) {
 
                 if (scaledX == tileX || scaledY == tileY) {
@@ -487,7 +487,7 @@ export default class Maze {
                     return false;
                 }
                 
-                var worked = false;
+                let worked = false;
                 if (tile.walls[0] && scaledY < tileY - threshold) {
                     console.log(nickname + " kicked for clipping wall 0");
                     return false;
@@ -520,8 +520,8 @@ export default class Maze {
     }
 
     distance2(p1: any, p2: any) {
-        var d1 = p1.x - p2.x;
-        var d2 = p1.y - p2.y;
+        let d1 = p1.x - p2.x;
+        let d2 = p1.y - p2.y;
         return d1 * d1 + d2 * d2;
     }
 };

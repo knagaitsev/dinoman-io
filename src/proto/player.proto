@@ -21,7 +21,8 @@ message Player {
     Location location = 6;
     Speed speed = 7;
     State state = 8;
-
+    int32 x = 9;
+    int32 y = 10;
     enum Type {
         PACMAN = 0;
         GHOST = 1;
